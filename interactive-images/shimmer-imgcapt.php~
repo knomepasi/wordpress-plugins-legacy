@@ -1,0 +1,359 @@
+<?php
+/*
+Plugin Name: ImgCapt
+Description: Create interactive images by adding notes to them.
+Author: Pasi Lallinaho
+Version: 0.1
+Author URI: http://knome.fi/
+Plugin URI: http://knome.fi/
+*/
+
+/*  Create database on plugin activation if needed
+ *
+ */
+
+register_activation_hook( __FILE__, 'ImgCaptCreateDB' );
+
+function ImgCaptCreateDB( ) {
+	global $wpdb;
+	$wpdb->imgcapt_images = $wpdb->prefix . "imgcapt_images";
+	$wpdb->imgcapt_captions = $wpdb->prefix . "imgcapt_captions";
+
+	if( !empty( $wpdb->charset ) ) { $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset"; }
+	if( !empty( $wpdb->collate ) ) { $charset_collate .= " COLLATE $wpdb->collate"; }
+
+	if( $wpdb->query( "SHOW tables LIKE '" . $wpdb->imgcapt_images . "'" ) == 0 ) {
+		// Table 'project_group' does not exist, create it
+		$wp_query = "CREATE TABLE " . $wpdb->imgcapt_images . " (
+				`image_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				`image_url` TEXT NOT NULL,
+				`image_title` TEXT NOT NULL,
+				`image_slug` TEXT NOT NULL,
+				`image_box_width` INT NOT NULL,
+			)" . $charset_collate;
+
+		$wpdb->query( $wp_query );
+	}
+
+	if( $wpdb->query( "SHOW tables LIKE '" . $wpdb->imgcapt_captions . "'" ) == 0 ) {
+		// Table 'project_group' does not exist, create it
+		$wp_query = "CREATE TABLE " . $wpdb->imgcapt_captions . " (
+				`caption_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				`caption_parent` INT NOT NULL,
+				`caption_x` INT NOT NULL,
+				`caption_y` INT NOT NULL,
+				`caption_text` TEXT NOT NULL
+			)" . $charset_collate;
+
+		$wpdb->query( $wp_query );
+	}
+}
+
+/*  Include default CSS
+ *
+ */
+
+add_action( 'wp_head', 'ImgCaptHead' );
+add_action( 'admin_head', 'ImgCaptHead' );
+
+function ImgCaptHead( ) {
+	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
+	print "<link rel=\"stylesheet\" href=\"{$x}imgcapt.css\" />\n";
+}
+
+/*  Include scripts
+ *
+ */
+
+add_action( 'wp_enqueue_scripts', 'ImgCaptScripts' );
+add_action( 'admin_enqueue_scripts', 'ImgCaptAdminScripts' );
+
+function ImgCaptScripts( ) {
+	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
+	wp_enqueue_script( 'jquery', $x . "jquery-1.5.2.min.js", false, "1.5.2.min" );
+	wp_enqueue_script( 'imgcapt', $x . "imgcapt.js", array( "jquery" ), "0.1" );
+}
+
+function ImgCaptAdminScripts( ) {
+	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
+	wp_enqueue_script( 'jquery', $x . "jquery-1.5.2.min.js", false, "1.5.2.min" );
+	wp_enqueue_script( 'imgcapt', $x . "imgcapt.js", array( "jquery" ), "0.1" );
+	wp_enqueue_script( 'imgcapt_admin', $x . "imgcapt_admin.js", array( "jquery" ), "0.1" );
+}
+
+/*  Add shortcode
+ *
+ */
+
+add_shortcode( 'imgcapt', 'ImgCaptShortCode' );
+
+function ImgCaptShortCode( $atts, $content, $code ) {
+	extract( shortcode_atts( array(
+		'slug' => ''
+	), $atts ) );
+
+	global $wpdb;
+	$image = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}imgcapt_images WHERE image_slug = %s", $slug ), OBJECT );
+
+	if( is_object( $image ) ) {
+		$out .= ImgCaptFooter( $image );
+		$out .= '<div id="' . $image->image_slug .'">';
+		$out .= '<img src="' . $image->image_url . '" alt="" />';
+		$out .= '</div>';
+
+		return $out;
+	} else {
+		$out = '[imgcapt slug=' . $slug . ']';
+		return $out;
+	}
+}
+
+/*  Add a helper function
+ *
+ */
+
+function ImgCaptFooter( $image ) {
+	global $wpdb;
+
+	$out = '<script type="text/javascript">';
+	$out .= 'jQuery( window ).load( function( ) {';
+
+	/* captions */
+	$out .= 'var cap_' . $image->image_slug . ' = [' . "\n";
+	$captions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}imgcapt_captions WHERE caption_parent = %d", $image->image_id ), ARRAY_A );
+	foreach( $captions as $caption ) {
+		$out .= '{ "parent": "' . $image->image_slug . '", "pos_x": ' . $caption['caption_x'] . ', "pos_y": ' . $caption['caption_y'] . ', "text": "' . $caption['caption_text'] . '", "id": ' . $caption['caption_id'] . ' },' . "\n";
+	}
+	$out .= ']; ';
+
+	/* image options */
+	$option = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}imgcapt_images WHERE image_id = %d", $image->image_id ), ARRAY_A );
+	$out .= 'var opts_' . $image->image_slug . ' = { "box_width": ' . $option['image_box_width'] . ' };';
+
+	$out .= 'findCaptions( cap_' . $image->image_slug . ', opts_' . $image->image_slug . ' ); } );';
+	$out .= '</script>';
+
+	return $out;
+}
+
+/*  Create admin menu
+ *
+ */
+
+add_action( 'admin_menu', 'ImgCaptMenus' );
+
+function ImgCaptMenus( ) {
+	add_menu_page( 'ImgCapt Preferences', 'ImgCapt', 'upload_files', 'imgcapt_images', 'ImgCaptMenuImages', null, 50 );
+	add_submenu_page( 'imgcapt_images', 'ImgCapt Images', 'Images', 'upload_files', 'imgcapt_images', 'ImgCaptMenuImages' );
+	add_submenu_page( 'imgcapt_images', 'Add/Edit ImgCapt Image', 'Add/Edit', 'upload_files', 'imgcapt_form', 'ImgCaptMenuForm' );
+}
+
+function ImgCaptMenuImages( ) {
+	global $wpdb;
+
+	print '<div class="wrap">';
+
+	if( $_GET['mode'] == "del" ) {
+		// user is deleting an image
+		$db = $wpdb->query( $wpdb->prepare( "DELETE FROM " . $wpdb->prefix . "imgcapt_images WHERE image_id = %s", $_GET['icid'] ) );
+		if( $db === false ) {
+			print '<div id="message" class="error"><p><strong>Error deleting image:</strong> ' . $wpdb->last_error . '</p></div>';
+		} else {
+			print '<div id="message" class="updated"><p><strong>Image deleted.</strong></p></div>';
+		}
+	}
+
+	print '<h2>' . __( 'ImgCapt Images', 'shimmer-imgcapt' ) . ' <a href="admin.php?page=imgcapt_form&mode=new" class="button add-new-h2">Add New</a> </h2>';
+
+	print '<table class="widefat">';
+	print '<thead>';
+	print '<tr><th style="width: 120px;"></th><th>Image</th></tr>';
+	print '</thead>';
+
+	$images = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}imgcapt_images" ), ARRAY_A );
+	foreach( $images as $image ) {
+		print '<tr>';
+		print '<td><img src="' . $image['image_url'] . '" alt="" width="120" /></td>';
+		print '<td><strong>' . $image['image_title'] . '</strong><br />';
+		$captions = $wpdb->get_row( $wpdb->prepare( "SELECT COUNT(*) AS count FROM {$wpdb->prefix}imgcapt_captions WHERE caption_parent = %s", $image['image_id'] ), ARRAY_A );
+		print ( $captions['count'] == 1 ? __( '1 caption', 'shimmer-imgcapt' ) : ( $captions['count'] == 0 ? __( 'No captions', 'shimmer-imgcapt' ) : sprintf( __( "%d captions" ), $captions['count'] ) ) );
+			print '<div class="row-actions">';
+			print '<a href="admin.php?page=imgcapt_form&mode=edit&icid=' . $image['image_id'] . '" title="Edit options and notes">Edit</a> | ';
+			print '<span class="delete"><a onclick="return delImgCapt( \'' . $image['image_title'] . '\' );" href="admin.php?page=imgcapt_images&mode=del&icid=' . $image['image_id'] . '" title="Delete permanently">Delete permanently</a></span>';
+			print '</div>';
+		print '</td>';
+		print '</tr>';
+	}
+	
+	print '</table>';
+
+	print '</div>';
+}
+
+function ImgCaptMenuForm( ) {
+	print '<div class="wrap">';
+
+	/* is the user uploading an image? */
+	if( $_FILES['imgcapt_upload']['size'] > 0 && !$_POST['icid'] ) {
+		// insert new image data into database *here*
+		$uppath = wp_upload_dir( );
+		move_uploaded_file( $_FILES['imgcapt_upload']['tmp_name'], $uppath['path'] . "/" . $_FILES['imgcapt_upload']['name'] );
+
+		$file_url = $uppath['url'] . "/" . $_FILES['imgcapt_upload']['name'];
+
+		global $wpdb;
+		$wpdb->insert( $wpdb->prefix . "imgcapt_images", array( "image_url" => $file_url ), array( '%s' ) );
+		$icid = $wpdb->insert_id;
+		$wpdb->update( $wpdb->prefix . "imgcapt_images", array( "image_title" => "ImgCapt #" . $icid, "image_slug" => "imgcapt_" . $icid ), array( "image_id" => $icid ), array( '%s', '%s' ), '%d' );
+	} else {
+		$icid = $_GET['icid'];
+	}
+
+	/* is the user saving? */
+	if( $_POST['imgcapt_save'] ) {
+		global $wpdb;
+		unset( $error );
+
+		/* save options */
+		if( strlen( $_POST['opts']['image_title'] ) < 1 ) { $_POST['opts']['image_title'] = "ImgCapt #" . $_POST['icid']; }
+		if( strlen( $_POST['opts']['image_slug'] ) < 1 ) { $_POST['opts']['image_slug'] = "imgcapt_" . $_POST['icid']; }
+		if( $_POST['opts']['image_box_width'] < 1 ) { $_POST['opts']['image_box_width'] = 145; }
+		$db = $wpdb->update( $wpdb->prefix . "imgcapt_images", $_POST['opts'], array( "image_id" => $_POST['icid'] ), array( '%s', '%d', '%s' ), '%d' );
+		if( $db === false ) { $error .= 'Error updating options: ' . $wpdb->last_error . '<br />'; }
+
+		/* update old captions */
+		if( is_array( $_POST['caption'] ) ) {
+			foreach( $_POST['caption'] as $id => $data ) {
+				$data['caption_text'] = stripslashes( $data['caption_text'] );
+				$db = $wpdb->update( $wpdb->prefix . "imgcapt_captions", $data, array( 'caption_id' => $id ), array( '%d', '%d', '%s' ), '%d' );
+				if( $db === false ) { $error .= 'Error updating captions: ' . $wpdb->last_error . '<br />'; }
+				$saved[] = $id;
+			}
+		}
+
+		/* save new captions */
+		if( is_array( $_POST['caption_new'] ) ) {
+			foreach( $_POST['caption_new'] as $id => $data ) {
+				$data['caption_parent'] = $icid;
+				$data['caption_text'] = stripslashes( $data['caption_text'] );
+				$db = $wpdb->insert( $wpdb->prefix . "imgcapt_captions", $data, array( '%d', '%d', '%s' ) );
+				if( $db === false ) { $error .= 'Error inserting new captions: ' . $wpdb->last_error . '<br />'; }
+				$saved[] = $wpdb->insert_id;
+			}
+		}
+
+		/* delete all captions that were not there any more */
+		if( is_array( $saved ) ) {
+			foreach( $saved as $id ) { $where .= "AND caption_id != " . $wpdb->escape( $id ) . " "; }
+			$db = $wpdb->query( $wpdb->prepare( "DELETE FROM " . $wpdb->prefix . "imgcapt_captions WHERE caption_parent = %d " . $where, $_POST['icid'] ) );
+			if( $db === false ) { $error .= 'Error cleaning up captions: ' . $wpdb->last_error . '<br />'; }
+
+			if( $error ) {
+				print '<div id="message" class="error"><p><strong>Error:</strong>' . $error . '</p></div>';
+			} else {
+				print '<div id="message" class="updated"><p><strong>ImgCapt Image saved.</strong></p></div>';
+			}
+		}
+	}
+
+	if( $icid ) {
+		// load values from database
+		global $wpdb;
+		$image = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}imgcapt_images WHERE image_id = %d", $icid ), OBJECT );
+		$captions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}imgcapt_captions WHERE caption_parent = %d ORDER BY caption_id ASC", $icid ), ARRAY_A );
+	}
+
+	if( strlen( $image->image_url ) > 0 ) {
+		/* There is a picture! */
+		print '<h2>' . __( 'Edit ImgCapt Image', 'shimmer-imgcapt' ) . '</h2>';
+
+		print '<div id="poststuff" class="metabox-holder has-right-sidebar">';
+		print '<form action="admin.php?page=imgcapt_form&mode=edit&icid=' . $icid . '" method="post">';
+		print '<input type="hidden" name="icid" value="' . $icid . '" />';
+
+		print '<div id="side-info-column" class="inner-sidebar">';
+			print '<div class="postbox">';
+				print '<div class="handlediv"><br /></div><h3 class="hndle"><span>Publish</span></h3>';
+				print '<div class="inside" style="padding: 1px;">';
+					print '<p><input type="submit" name="imgcapt_save" value="' . __( 'Save and publish', 'imgcapt-shimmer' ) . '" class="button"></p>';
+				print '</div>';
+			print '</div>';
+			/* Image Options */
+			print '<div class="postbox">';
+				print '<div class="handlediv"><br /></div><h3 class="hndle"><span>Image Options</span></h3>';
+				print '<div class="inside" style="padding: 1px;">';
+					print '<p><strong>Slug</strong><br />The slug must be unique. Used as the wrapping div ID in the markup.</p>';
+					if( strlen( $image->image_slug ) < 1 ) { $image->image_slug = "imgcapt_" . $icid; }
+					print '<p><input type="text" name="opts[image_slug]" size="28" value="' . $image->image_slug . '" /></p>';
+					print '<p><strong>Box width</strong><br />Box width for the notes in the image. Insert in pixels.</p>';
+					if( $image->image_box_width < 1 ) { $image->image_box_width = 145; }
+					print '<p><input type="text" id="image_box_width" name="opts[image_box_width]" size="28" value="' . $image->image_box_width . '" /></p>';
+					print '</select></p>';
+#					print '<p><strong>Upload New Image</strong> (not yet implemented)<br />To upload new image, <a href="?">click here</a>.</p>';
+				print '</div>';
+			print '</div>';
+		print '</div>';
+
+		print '<div id="post-body-content">';
+			if( strlen( $image->image_title ) < 1 ) { $image->image_title = "ImgCapt #" . $icid; }
+			print '<div id="titlediv"><input type="text" name="opts[image_title]" size="30" tabindex="1" value="' . $image->image_title . '" id="title" autocomplete="off" placeholder="Enter title here" /></div>';
+
+			print '<div class="group">';
+			print '<p style="text-align: right; float: right; margin-top: 5px;"><a href="#" class="button" id="imgcapt_new_caption">' . __( 'Add New Caption', 'imgcapt-shimmer' ) . '</a></p>';
+			print '<p>Select a radiobutton and click the preview image to update the position fields.</p>';
+			print '</div>';
+
+			print '<table class="widefat" id="imgcapt_captions_table" style="clear: none;">';
+				print '<thead><tr>';
+					print '<th style="width: 15px; text-align: center;"><span title="Auto-set position">?</span></th>';
+					print '<th style="width: 70px;">Position X</th>';
+					print '<th style="width: 70px;">Position Y</th>';
+					print '<th>Description</th>';
+					print '<th style="width: 50px;">Actions</th>';
+				print '</tr></thead>';
+				print '<tbody>';
+				foreach( $captions as $caption ) {
+					print '<tr>';
+					print '<td class="imgcapt_id" style="vertical-align: middle;"><input type="radio" class="captions_radio" name="captions" value="' . $caption['caption_id'] . '" /></td>';
+					print '<td class="imgcapt_x"><input type="text" id="capt_' . $caption['caption_id'] . '_x" name="caption[' . $caption['caption_id'] . '][caption_x]" value="' . $caption['caption_x'] . '" style="width: 70px;" /></td>';
+					print '<td class="imgcapt_y"><input type="text" id="capt_' . $caption['caption_id'] . '_y" name="caption[' . $caption['caption_id'] . '][caption_y]" value="' . $caption['caption_y'] . '" style="width: 70px;" /></td>';
+					print '<td class="imgcapt_text"><input type="text" id="capt_' . $caption['caption_id'] . '_text" name="caption[' . $caption['caption_id'] . '][caption_text]" value="' . $caption['caption_text'] . '" style="width: 100%;" /></td>';
+					print '<td><span class="delete delete-imgcapt"><a href="#">Delete</a></span></td>';
+					print '</tr>';
+				}
+				print '</tbody>';
+			print '</table>';
+
+			print '<h2>' . __( 'Preview', 'shimmer-imgcapt' ) . '</h2>';
+
+			print ImgCaptFooter( $image );
+			print '<div id="imgcapt_preview">';
+			print '<div id="' . $image->image_slug .'">';
+			print '<img src="' . $image->image_url . '" alt="" />';
+			print '</div>';
+			print '</div>';
+		print '</div>';
+
+		print '</form>';
+		print '</div>';
+	} else {
+		/* There is no picture yet. */
+		print '<h2>' . __( 'New ImgCapt Image', 'shimmer-imgcapt' ) . '</h2>';
+
+		$uppath = wp_upload_dir( );
+		if( is_writeable( $uppath['basedir'] ) ) {
+			print "<p>Great to see you here! Let's start with uploading an image.</p>";
+			print "<p>Please note that you can't upload a new image for the ImgCapt, but you must create a new ImgCapt image.</p>";
+			print '<form method="post" action="admin.php?page=imgcapt_form&mode=new" enctype="multipart/form-data">';
+			print '<p><input type="file" name="imgcapt_upload" id="imgcapt_upload" /></p>';
+			print '<p><input type="submit" value="Upload image" class="button" /></p>';
+			print '</form>';
+		} else {
+			print "<p>We have a slight problem...</p>";
+		}
+	}
+
+	print '</div>'; // </.wrap>
+}
+
+?>
