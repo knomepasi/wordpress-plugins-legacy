@@ -9,6 +9,21 @@
  *
  */
 
+/*  Init plugin
+ *
+ */
+
+add_action( 'init', 'OneYearEarlierInit' );
+
+function OneYearEarlierInit( ) {
+	/* Load text domain for i18n */
+	load_plugin_textdomain( 'one-year-earlier' );
+}
+
+/*  Widget
+ *
+ */
+
 add_action( 'widgets_init', create_function( '', 'return register_widget("YearEarlierWidget");' ) );
 
 class OneYearEarlierWidget extends WP_Widget {
@@ -69,6 +84,10 @@ class OneYearEarlierWidget extends WP_Widget {
 		<?php 
 	}
 }
+
+/*  Filter
+ *
+ */
 
 function OneYearEarlierFilterWhere( $where = '' ) {
 	$datelimit = date( "Y" ) - 1 . date( "m" ) . date( "d" ) + 1;
