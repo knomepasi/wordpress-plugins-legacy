@@ -1,12 +1,13 @@
 <?php
 /*
-Plugin Name: Interactive Images
-Description: Create interactive images by adding notes on top of images.
-Author: Pasi Lallinaho
-Version: 0.2β, 1st public
-Author URI: http://knome.fi/
-Plugin URI: https://github.com/knomepasi/WordPress-plugins
-*/
+ *  Plugin Name: Interactive Images
+ *  Description: Create interactive images by adding notes on top of images.
+ *  Author: Pasi Lallinaho
+ *  Version: 0.3
+ *  Author URI: http://open.knome.fi/
+ *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
+ *
+ */
 
 /*  On plugin activation, create databases and options for default values if needed
  *
