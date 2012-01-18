@@ -1,6 +1,7 @@
 This is a repository to help maintain all WordPress plugins written by me. If not otherwise mentioned, the license for the plugins is GPLv3 (or later).
 
 The repository currently contains the following plugins:
- * Interactive Images (former ImgCapt)
- * One Year Earlier (former LastYear)
- * Simple Planet (former myPlanet)
+ * Compact & Chronological (former "Yearly Archives")
+ * Interactive Images (former "ImgCapt")
+ * One Year Earlier (former "Last Year")
+ * Simple Planet (former "myPlanet")

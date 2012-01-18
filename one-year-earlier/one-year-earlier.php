@@ -24,11 +24,11 @@ function OneYearEarlierInit( ) {
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("YearEarlierWidget");' ) );
+add_action( 'widgets_init', create_function( '', 'return register_widget("OneYearEarlierWidget");' ) );
 
 class OneYearEarlierWidget extends WP_Widget {
 	/** constructor */
-	function YearEarlierWidget() {
+	function OneYearEarlierWidget() {
 		$ops = array( "description" => __( 'Show one article from one year earlier.', 'one-year-earlier' ) );
 		parent::WP_Widget( false, $name = __( 'One Year Earlier', 'one-year-earlier' ), $ops );
 	}

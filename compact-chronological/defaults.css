@@ -1,0 +1,48 @@
+.compact_chrono ul {
+	width: 100%;
+	margin-bottom: 0.5em;
+}
+
+.compact_chrono li {
+	display: inline-block;
+	list-style-type: none;
+	width: 1.7em;
+}
+
+.compact_chrono li.year {
+	font-weight: bold;
+}
+
+
+/* when split to two rows */
+
+.compact_chrono .split {
+	width: 100%; 
+}
+
+.compact_chrono .split .year {
+	display: block;
+}
+
+.compact_chrono .split .month {
+	display: block;
+	float: left;
+	width: 16%;
+}
+
+.compact_chrono .split .month a {
+	display: block;
+	width: 100%;
+}
+
+
+/* self-clearing float */
+
+.compact_chrono:after,
+.compact_chrono ul:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
