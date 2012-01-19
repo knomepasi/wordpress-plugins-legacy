@@ -1,0 +1,168 @@
+/*  Showtype: Thumbs
+ *
+ */
+
+.showtype-thumbs ul {
+	margin-top: 0.3em;
+}
+
+.showtype-thumbs strong,
+.showtype-thumbs img {
+	float: left;
+	display: block;
+}
+
+.showtype-thumbs img {
+	margin-right: 0.9em;
+	margin-bottom: 0;
+}
+
+.showtype-thumbs li {
+	margin-bottom: 0.6em;
+}
+
+.showtype-thumbs strong {
+	font-size: 120%;
+	font-weight: normal;
+	margin-top: 0.2em;
+}
+
+.showtype-thumbs a {
+	display: block;
+	height: 50px;
+}
+
+
+/* make sure there is not dots in any image-based showtype */
+
+.showtype-image ul {
+	list-style-type: none !important;
+}
+
+.showtype-image li {
+/*	background-image: none !important; */
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+}
+
+.showtype-image li:before {
+	content: "" !important;
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+}
+
+/*  Showtype: Small mosaic
+ *
+ */
+
+.showtype-mosaic .project-shot-wrap {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.showtype-mosaic .project-shot-link,
+.showtype-mosaic .project-shot-wrap {
+	width: 120px;
+}
+
+.showtype-mosaic .project-shot-wrap {
+	height: 75px;
+}
+
+.showtype-mosaic .project-shot-link {
+	padding-top: 53px;
+	height: 22px;
+	font-size: 55%;
+}
+
+.showtype-mosaic .project-shot-name {
+	height: 22px;
+}
+
+.showtype-mosaic .project-shot-name span {
+	height: 22px;
+	padding: 2px 5px;
+}
+
+.showtype-mosaic .project-shot-link:hover .project-shot-name {
+	border-bottom: none;
+}
+
+/*  Showtype: Screenshot with project name and description
+ *
+ */
+
+.projects-show-shots h2 {
+	margin-top: 0.5em;
+}
+
+.project-shot-wrap {
+	width: 320px;
+	height: 200px;
+
+	margin-right: 20px;
+	margin-bottom: 20px;
+
+	float: left;
+
+	background-color: #f1f1f1;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+a.project-shot-link {
+	display: block;
+	width: 320px;
+	padding-top: 145px;
+	height: 50px;
+
+	color: #222;
+}
+
+.project-shot-name {
+	display: block;
+	height: 50px;
+
+	background-color: #fff;
+	background-color: rgba( 255, 255, 255, .95 );
+}
+
+.project-shot-name span
+{
+	display: table-cell;
+	height: 50px;
+	padding: 5px 10px;
+	vertical-align: middle;
+
+	font-size: 200%;
+}
+
+.project-shot-description {
+	display: none;
+	height: 135px;
+	padding: 5px 10px;
+	background-color: #fff;
+	background-color: rgba( 255, 255, 255, .95 );
+	position: relative;
+	top: -200px;
+}
+
+.project-shot-description span {
+	display: table-cell;
+	height: 150px;
+	padding: 5px 10px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.project-shot-link:hover .project-shot-description { display: block; }
+
+.project-shot-link:hover .project-shot-name {
+	background-color: #185795;
+	background-color: rgba( 24, 87, 149, .9 );
+	color: #fff;
+
+	border-bottom: 5px solid #fff;
+	border-bottom: 5px solid rgba( 255, 255, 255, .95 );
+}
+
