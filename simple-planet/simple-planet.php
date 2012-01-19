@@ -1,7 +1,7 @@
 <?php
 /*
  *  Plugin Name: Simple Planet
- *  Description: Show aggregated posts from multiple feeds sorted by date via a widget.
+ *  Description: Show posts from multiple feeds sorted by date via a widget.
  *  Author: Pasi Lallinaho
  *  Version: 1.0
  *  Author URI: http://open.knome.fi/

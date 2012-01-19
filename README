@@ -6,4 +6,5 @@ The repository currently contains the following plugins:
  * One Year Earlier:  Show one article from one year earlier.
  * Photoslider:  Show a slideshow of user uploaded photos.
  * Projects Catalog:  Organize and show your projects.
- * Simple Planet:  Show aggregated posts from multiple feeds sorted by date via a widget.
+ * Rationale for Email:  Adds custom email headers for comment-related emails.
+ * Simple Planet:  Show posts from multiple feeds sorted by date via a widget.
