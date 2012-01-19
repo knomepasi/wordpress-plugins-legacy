@@ -1,0 +1,118 @@
+.ps_wrap {
+	position: static;
+}
+
+.photoslider {
+	position: relative;
+	list-style-type: none !important;
+	margin-bottom: 1em;
+
+   -webkit-transition: all 1s ease-in;
+   -moz-transition: all 1s ease-in;
+   -o-transition: all 1s ease-in;
+   transition: all 1s ease-in;
+}
+
+.photoslider li {
+	display: none; 
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	list-style-type: none !important;
+}
+
+.photoslider li.first {
+	display: block;
+}
+
+.ps_wrap:after,
+.photoslider:after,
+.photoslider.image:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.photoslider .captions {
+	color: #aaa;
+	font-style: italic;
+}
+
+
+/*  Controls
+ *
+ */
+
+.photoslider .controls {
+	width: 0px;
+}
+
+.photoslider .c-prev,
+.photoslider .c-next {
+	position: absolute;
+
+	padding: 5px;
+	width: 20px;
+	height: 20px;
+
+	text-align: center;
+
+	font-size: 150%;
+	font-weight: bold;
+	line-height: 20px;
+
+	color: #000 !important;
+	background-color: #fff;
+	background-color: rgba( 255, 255, 255, 0.25 ) !important;
+	text-decoration: none !important;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+
+/*  Controls: On top
+ *
+ */
+
+.photoslider.ctrl-ontop .c-prev,
+.photoslider.ctrl-ontop .c-next {
+	display: none;
+	top: 10px;
+	left: 10px;
+}
+
+.photoslider.ctrl-ontop:hover .c-prev,
+.photoslider.ctrl-ontop:hover .c-next {
+	display: block;
+}
+
+.photoslider.ctrl-ontop .c-prev:hover,
+.photoslider.ctrl-ontop .c-next:hover {
+	background-color: #fff;
+	background-color: rgba( 255, 255, 255, 0.75 ) !important;
+}
+
+
+/*  Controls: Above
+ *
+ */
+
+.photoslider.ctrl-above .title {
+	margin: 0 30px;
+}
+
+.photoslider.ctrl-above .image {
+	margin-top: 30px;
+}
+
+.photoslider.ctrl-above .c-prev,
+.photoslider.ctrl-above .c-next {
+	top: -4px;
+}
+

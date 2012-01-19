@@ -78,8 +78,8 @@ add_action( 'wp_head', 'InteractiveImagesHead' );
 add_action( 'admin_head', 'InteractiveImagesHead' );
 
 function InteractiveImagesHead( ) {
-	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
-	print "<link rel=\"stylesheet\" href=\"{$x}defaults.css\" />\n";
+	$x = plugins_url( 'interactive-images' );
+	print "<link rel=\"stylesheet\" href=\"{$x}/defaults.css\" />\n";
 }
 
 /*  Include scripts
@@ -90,16 +90,16 @@ add_action( 'wp_enqueue_scripts', 'InteractiveImagesScripts' );
 add_action( 'admin_enqueue_scripts', 'InteractiveImagesAdminScripts' );
 
 function InteractiveImagesScripts( ) {
-	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
+	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "images.js", array( "jquery" ), "0.1" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "0.1" );
 }
 
 function InteractiveImagesAdminScripts( ) {
-	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
+	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "images.js", array( "jquery" ), "0.1" );
-	wp_enqueue_script( 'interactive_admin', $x . "images-admin.js", array( "jquery" ), "0.1" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "0.1" );
+	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "0.1" );
 }
 
 /*  Add shortcode

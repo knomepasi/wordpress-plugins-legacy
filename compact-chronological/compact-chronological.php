@@ -27,8 +27,8 @@ function CompactChronoInit( ) {
 add_action( 'wp_head', 'CompactChronoHead' );
 
 function CompactChronoHead( ) {
-	$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
-	print "<link rel=\"stylesheet\" href=\"{$x}defaults.css\" />\n";
+	$x = plugins_url( 'compact-chronological' );
+	print "<link rel=\"stylesheet\" href=\"{$x}/defaults.css\" />\n";
 }
 
 
