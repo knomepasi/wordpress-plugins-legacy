@@ -132,7 +132,11 @@ class PhotosliderWidget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'controls' ); ?>"><?php _e( 'Controls', 'photoslider' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'controls' ); ?>" name="<?php echo $this->get_field_name( 'controls' ); ?>">
 					<?php
-						$c_opt = array( "none" => "None", "above" => "Above", "ontop" => "On top" );
+						$c_opt = array(
+							"none" => _x( "None", "controls", "photoslider" ),
+							"above" => _x( "Above", "controls", "photoslider" ),
+							"ontop" => _x( "On top", "controls", "photoslider" )
+						);
 						foreach( $c_opt as $id => $name ) {
 							if( $id == $instance['controls'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
 							print '<option value="' . $id . '"' . $is_selected . '>' . $name . '</option>';
@@ -145,7 +149,13 @@ class PhotosliderWidget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'timeout' ); ?>"><?php _e( 'Time between transitions', 'photoslider' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'timeout' ); ?>" name="<?php echo $this->get_field_name( 'timeout' ); ?>">
 					<?php
-						$to_opt = array( "0" => "Don't advance automatically", "3000" => "Very fast", "6000" => "Fast", "8500" => "Default", "12000" => "Slow" );
+						$to_opt = array(
+							"0" => __( "Don't advance automatically", "photoslider" ),
+							"3000" => _x( "Very fast", "transition speed", "photoslider" ),
+							"6000" => _x( "Fast", "transition speed", "photoslider" ),
+							"8500" => _x( "Default", "transition speed", "photoslider" ),
+							"12000" => _x( "Slow", "transition speed", "photoslider" )
+						);
 						foreach( $to_opt as $id => $name ) {
 							if( $id == $instance['timeout'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
 							print '<option value="' . $id . '"' . $is_selected . '>' . $name . '</option>';
@@ -158,9 +168,9 @@ class PhotosliderWidget extends WP_Widget {
 			<?php _e( 'Show captions?', 'photoslider' ); ?><br />
 			<?php if( $instance['captions'] < 1 ) { $capt_no = ' checked="checked" '; } else { $capt_yes = ' checked="checked" '; } ?>
 			<input type="radio" id="<?php echo $this->get_field_id( 'captions_yes' ); ?>" name="<?php echo $this->get_field_name( 'captions' ); ?>" value="1" <?php echo $capt_yes; ?> />
-			<label for="<?php echo $this->get_field_id( 'captions_yes' ); ?>">Yes</label>&nbsp;&nbsp;&nbsp;
+			<label for="<?php echo $this->get_field_id( 'captions_yes' ); ?>"><?php _e( "Yes", "photoslider" ); ?></label>&nbsp;&nbsp;&nbsp;
 			<input type="radio" id="<?php echo $this->get_field_id( 'captions_no' ); ?>" name="<?php echo $this->get_field_name( 'captions' ); ?>" value="0" <?php echo $capt_no; ?> />
-			<label for="<?php echo $this->get_field_id( 'captions_no' ); ?>">No</label>
+			<label for="<?php echo $this->get_field_id( 'captions_no' ); ?>"><?php _e( "No", "photoslider" ); ?></label>
 		</p>
 
 		<input type="hidden" name="<?php echo $this->get_field_name( 'instance_id' ); ?>" value="<?php echo uniqid( 'photoslider_' ); ?>" />
