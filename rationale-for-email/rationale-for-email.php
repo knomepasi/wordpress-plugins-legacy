@@ -15,7 +15,7 @@ function RationaleNotification( $headers ) {
 }
 
 function RationaleModeration( $headers ) {
-	$headers .= "X-WordPress: 1\n" . "X-WordPress-Rationale: comment-moderate\n";
+	$headers .= "X-WordPress: 1\n" . "X-WordPress-Rationale: comment-moderation\n";
 	return $headers;
 }
 
