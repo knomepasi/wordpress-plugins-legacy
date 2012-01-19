@@ -1,18 +1,8 @@
 This is a repository to help maintain all WordPress plugins written by me. If not otherwise mentioned, the license for the plugins is GPLv3 (or later).
 
 The repository currently contains the following plugins:
-
- * Compact & Chronological (former "Yearly Archives")
-   Show month archive links in a compact view.
-
- * Interactive Images (former "ImgCapt")
-   Create interactive images by adding notes on top of images.
-
- * One Year Earlier (former "Last Year")
-   Show one article from one year earlier.
-
- * Photoslider (former "PicSlide")
-   Show a slideshow of user uploaded photos.
-
- * Simple Planet (former "myPlanet")
-   Show aggregated posts from multiple feeds sorted by date via a widget.
+ * Compact & Chronological:  Show month archive links in a compact view.
+ * Interactive Images:  Create interactive images by adding notes on top of images.
+ * One Year Earlier:  Show one article from one year earlier.
+ * Photoslider:  Show a slideshow of user uploaded photos.
+ * Simple Planet:  Show aggregated posts from multiple feeds sorted by date via a widget.
