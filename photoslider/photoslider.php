@@ -53,7 +53,7 @@ add_action( 'wp_enqueue_scripts', 'PhotosliderScripts' );
 function PhotosliderScripts( ) {
 	$x = plugins_url( 'photoslider' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'photoslider', $x . "/slider.js", array( "jquery" ), "0.2" );
+	wp_enqueue_script( 'photoslider', $x . "/slider.js", array( "jquery" ), "1.0" );
 }
 
 /*  Add widget

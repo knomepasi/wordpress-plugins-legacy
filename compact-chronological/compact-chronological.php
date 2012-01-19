@@ -3,7 +3,7 @@
  *  Plugin Name: Compact & Chronological
  *  Description: Show month archive links in a compact view.
  *  Author: Pasi Lallinaho
- *  Version: 0.2
+ *  Version: 1.0
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *

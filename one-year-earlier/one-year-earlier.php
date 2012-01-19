@@ -3,7 +3,7 @@
  *  Plugin Name: One Year Earlier
  *  Description: Show one article from one year earlier.
  *  Author: Pasi Lallinaho
- *  Version: 0.1
+ *  Version: 1.0
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
