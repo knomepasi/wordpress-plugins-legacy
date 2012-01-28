@@ -57,6 +57,7 @@ function changeImage( direction, instance_id, timeout ) {
 
 	jQuery( i_id + ' .image' ).css( 'height', nextImg.attr( 'height' ) );
 	jQuery( i_id + ' .image' ).css( 'width', parseInt( nextImg.attr( 'width' ) ) + 10 );
+	jQuery( i_id ).css( 'width', parseInt( nextImg.attr( 'width' ) ) + 10 );
 
 	jQuery( i_id + ' .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) );
 	jQuery( i_id + '.ctrl-ontop .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) - 10 );
