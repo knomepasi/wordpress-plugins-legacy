@@ -62,8 +62,7 @@ class SimplePlanetWidget extends WP_Widget {
 		}
 
 		$time_diff = $instance['refresh_in'] * 60;
-#		if( ( get_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', 0 ) + $time_diff ) < time( ) ) {
-		if( 1 == 1 ) {
+		if( ( get_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', 0 ) + $time_diff ) < time( ) ) {
 			# we need to update.
 			$count = 0;
 			$planet = array( );
@@ -101,7 +100,7 @@ class SimplePlanetWidget extends WP_Widget {
 				krsort( $planet );
 			}
 
-#			update_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', time( ) );
+			update_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', time( ) );
 			update_option( 'simple_planet_' . $args['widget_id'] . '_posts', $planet );
 		}
 
