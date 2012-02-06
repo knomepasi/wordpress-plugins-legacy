@@ -151,9 +151,8 @@ class PhotosliderWidget extends WP_Widget {
 					<?php
 						$to_opt = array(
 							"0" => __( "Don't advance automatically", "photoslider" ),
-							"3000" => _x( "Very fast", "transition speed", "photoslider" ),
-							"6000" => _x( "Fast", "transition speed", "photoslider" ),
-							"8500" => _x( "Default", "transition speed", "photoslider" ),
+							"6500" => _x( "Fast", "transition speed", "photoslider" ),
+							"9000" => _x( "Default", "transition speed", "photoslider" ),
 							"12000" => _x( "Slow", "transition speed", "photoslider" )
 						);
 						foreach( $to_opt as $id => $name ) {
