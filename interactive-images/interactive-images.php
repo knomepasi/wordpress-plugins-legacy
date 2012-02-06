@@ -344,7 +344,7 @@ function InteractiveImagesMenuForm( ) {
 					if( $image->image_box_width < 1 ) { $image->image_box_width = get_option( 'interactive_images_default_box_width' ); }
 					print '<p><input type="text" id="image_box_width" name="opts[image_box_width]" size="28" value="' . $image->image_box_width . '" /></p>';
 					print '</select></p>';
-					print '<p><strong>' . __( 'Print captions', 'interactive-images' ) . '</strong> (not yet implemented)</p>';
+#					print '<p><strong>' . __( 'Print captions', 'interactive-images' ) . '</strong> (not yet implemented)</p>';
 #					print '<p><strong>' . __( 'Upload New Image', 'interactive-images' ) . '</strong> (not yet implemented)</p>';
 				print '</div>';
 			print '</div>';
@@ -399,7 +399,6 @@ function InteractiveImagesMenuForm( ) {
 		$uppath = wp_upload_dir( );
 		if( is_writeable( $uppath['basedir'] ) ) {
 			print __( "<p>Great to see you here! Let's start with uploading an image.</p>", "interactive-images" );
-#			print __( "<p>Please note that once you create an Interactive Image, the attached image can't be changed, but you need to create a new Interactive Image. (Newer versions will most probably allow changing images on-the-fly as well.)</p>", "interactive-images" );
 			print '<form method="post" action="admin.php?page=interactive_form&mode=new" enctype="multipart/form-data">';
 			print '<p><input type="file" name="iimage_upload" id="iimage_upload" /></p>';
 			print '<p><input type="submit" value="' . __( 'Upload image', 'interactive-images' ) . '" class="button" /></p>';
