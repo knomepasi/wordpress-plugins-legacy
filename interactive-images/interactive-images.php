@@ -3,7 +3,7 @@
  *  Plugin Name: Interactive Images
  *  Description: Create interactive images by adding notes on top of images.
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
@@ -91,14 +91,14 @@ add_action( 'admin_enqueue_scripts', 'InteractiveImagesAdminScripts' );
 function InteractiveImagesScripts( ) {
 	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.0" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.1" );
 }
 
 function InteractiveImagesAdminScripts( ) {
 	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.0" );
-	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "1.0" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.1" );
+	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "1.1" );
 }
 
 /*  Add shortcode
@@ -169,9 +169,15 @@ function InteractiveImagesFooter( $image ) {
 add_action( 'admin_menu', 'InteractiveImagesMenus' );
 
 function InteractiveImagesMenus( ) {
-	add_menu_page( __( 'Interactive Images Preferences', 'interactive-images' ), 'Interactive Images', 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages', null, 50 );
-	add_submenu_page( 'interactive_images', __( 'Interactive Images', 'interactive-images' ), __( 'Images', 'interactive-images' ), 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages' );
-	add_submenu_page( 'interactive_images', __( 'Add/Edit Interactive Image', 'interactive-images' ), __( 'Add/Edit', 'interactive-images' ), 'upload_files', 'interactive_form', 'InteractiveImagesMenuForm' );
+	global $iimage_admin;
+
+	$iimage_admin_main = add_menu_page( __( 'Interactive Images Preferences', 'interactive-images' ), 'Interactive Images', 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages', null, 50 );
+	$iimage_admin_sub_images = add_submenu_page( 'interactive_images', __( 'Interactive Images', 'interactive-images' ), __( 'Images', 'interactive-images' ), 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages' );
+	$iimage_admin_sub_add = add_submenu_page( 'interactive_images', __( 'Add/Edit Interactive Image', 'interactive-images' ), __( 'Add/Edit', 'interactive-images' ), 'upload_files', 'interactive_form', 'InteractiveImagesMenuForm' );
+
+	add_action( 'load-' . $iimage_admin_main, 'InteractiveImagesHelp' );
+	add_action( 'load-' . $iimage_admin_sub_images, 'InteractiveImagesHelp' );
+	add_action( 'load-' . $iimage_admin_sub_add, 'InteractiveImagesHelp' );
 }
 
 function InteractiveImagesMenuImages( ) {
@@ -350,7 +356,6 @@ function InteractiveImagesMenuForm( ) {
 
 			print '<div class="group">';
 			print '<p style="text-align: right; float: right; margin-top: 5px;"><a href="#" class="button" id="iimage_new_caption">' . __( 'Add New Caption', 'interactive-images' ) . '</a></p>';
-			print '<p>' . __( 'After adding caption(s), select a radiobutton and point-and-click the preview image to update the position fields.', 'interactive-images' ) . '</p>';
 			print '</div>';
 
 			print '<table class="widefat" id="iimage_captions_table" style="clear: none;">';
@@ -411,12 +416,24 @@ function InteractiveImagesMenuForm( ) {
  *
  */
 
-add_action( 'admin_init', 'InteractiveImagesHelp' );
-
 function InteractiveImagesHelp( ) {
-	$help_main = __( "<h3>Using the Interactive Images shortcode</h3><p>To use the Interactive Images shortcode as is in your content, just type <em>[iimage id=image_id]</em>. You can overwrite the image options with shortcode attributes: <em>[iimage id=image_id box=120]</em> will print 120 pixel wide boxes.", "interactive-images" );
+	$help_shortcode = __( "<h3>Using the Interactive Images shortcode</h3><p>To use the Interactive Images shortcode as is in your content, just type <em>[iimage id=image_id]</em>. You can overwrite the image options with shortcode attributes: <em>[iimage id=image_id box=120]</em> will print 120 pixel wide boxes.", "interactive-images" );
+	$help_captions = __( "<h3>(Re)positioning captions</h3><p>After adding caption(s), select a radiobutton and point-and-click the preview image to update the position fields.<p>", 'interactive-images' );
 
-	add_contextual_help( 'toplevel_page_interactive_images', $help_main );
+	$iimage_captions = array(
+		'title' => _x( 'Captions', 'help topic', 'interactive-images' ),
+		'id' => 'iimage_help_captions',
+		'content' => $help_captions
+	);
+
+	$iimage_shortcode = array(
+		'title' => _x( 'Shortcode', 'help topic', 'interactive-images' ),
+		'id' => 'iimage_help_shortcode',
+		'content' => $help_shortcode
+	);
+
+	if( get_current_screen( )->id == "interactive-images_page_interactive_form" ) { get_current_screen( )->add_help_tab( $iimage_captions ); }
+	get_current_screen( )->add_help_tab( $iimage_shortcode );
 }
 
 ?>
