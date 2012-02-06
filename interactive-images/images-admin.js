@@ -12,11 +12,13 @@ jQuery( window ).load( function( ) {
 		var capt_id = jQuery( ".captions_radio:checked" ).val( );
 
 		if( capt_id > 0 ) {
-			var img_left = parseInt( jQuery( "#iimage_preview" ).children( "div" ).children( "img" ).position( ).left );
-			var img_top = parseInt( jQuery( "#iimage_preview" ).children( "div" ).children( "img" ).position( ).top );
+			var pos = jQuery( "#iimage_preview" ).children( "div" ).offset( );
 
-			jQuery( "#capt_" + capt_id + "_y" ).val( function( index, value ) { return e.pageY - img_top; } );
-			jQuery( "#capt_" + capt_id + "_x" ).val( function( index, value ) { return e.pageX - img_left; } );
+			var new_top = e.pageY - pos.top;
+			var new_left = e.pageX - pos.left;
+
+			jQuery( "#capt_" + capt_id + "_y" ).val( function( index, value ) { return new_top; } );
+			jQuery( "#capt_" + capt_id + "_x" ).val( function( index, value ) { return new_left; } );
 
 			jQuery( ".captions_radio" ).removeAttr( "checked" );
 
@@ -101,7 +103,7 @@ function refreshImgCaptPreview( ) {
 
 	findCaptions( new_captions, new_options );
 
- 	jQuery( "#iimage_preview" ).forceRedraw( true );
+// 	jQuery( "#iimage_preview" ).forceRedraw( true );
 }
 
 function delInteractiveImage( title ) {

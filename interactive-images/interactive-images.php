@@ -3,7 +3,7 @@
  *  Plugin Name: Interactive Images
  *  Description: Create interactive images by adding notes on top of images.
  *  Author: Pasi Lallinaho
- *  Version: 0.9
+ *  Version: 1.0
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
@@ -29,7 +29,6 @@ function InteractiveImagesActivate( ) {
 				`image_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				`image_file` TEXT NOT NULL,
 				`image_title` TEXT NOT NULL,
-				`image_slug` TEXT NOT NULL,
 				`image_box_width` INT NOT NULL
 			)" . $charset_collate;
 
@@ -92,14 +91,14 @@ add_action( 'admin_enqueue_scripts', 'InteractiveImagesAdminScripts' );
 function InteractiveImagesScripts( ) {
 	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "0.9" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.0" );
 }
 
 function InteractiveImagesAdminScripts( ) {
 	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "0.9" );
-	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "0.9" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.0" );
+	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "1.0" );
 }
 
 /*  Add shortcode
@@ -110,26 +109,26 @@ add_shortcode( 'iimage', 'InteractiveImagesShortCode' );
 
 function InteractiveImagesShortCode( $atts, $content, $code ) {
 	extract( shortcode_atts( array(
-		'slug' => '',
+		'id' => '',
 		'box' => ''
 	), $atts ) );
 
 	$uppath = wp_upload_dir( );
 
 	global $wpdb;
-	$image = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->interactive_images} WHERE image_slug = %s", $slug ), OBJECT );
+	$image = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->interactive_images} WHERE image_id = %s", $id ), OBJECT );
 
 	if( $box ) { $image->image_box_width = $box; }
 
 	if( is_object( $image ) ) {
 		$out .= InteractiveImagesFooter( $image );
-		$out .= '<div id="' . $image->image_slug .'">';
+		$out .= '<div id="iimage_' . $image->image_id .'">';
 		$out .= '<img src="' . $uppath['baseurl'] . "/" . get_option( 'interactive_images_upload_dir' ) . "/" . $image->image_file . '" alt="" />';
 		$out .= '</div>';
 
 		return $out;
 	} else {
-		$out .= '[iimage slug=' . $slug . ']';
+		$out .= '[iimage id=' . $id . ']';
 		return $out;
 	}
 }
@@ -145,19 +144,19 @@ function InteractiveImagesFooter( $image ) {
 	$out .= 'jQuery( window ).load( function( ) {';
 
 	/* captions */
-	$out .= 'var cap_' . $image->image_slug . ' = [' . "\n";
+	$out .= 'var cap_' . $image->image_id . ' = [' . "\n";
 	$captions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->interactive_captions} WHERE caption_parent = %d", $image->image_id ), ARRAY_A );
 	foreach( $captions as $caption ) {
-		$out .= '{ "parent": "' . $image->image_slug . '", "pos_x": ' . $caption['caption_x'] . ', "pos_y": ' . $caption['caption_y'] . ', "text": "' . $caption['caption_text'] . '", "id": ' . $caption['caption_id'] . ' },' . "\n";
+		$out .= '{ "parent": "iimage_' . $image->image_id . '", "pos_x": ' . $caption['caption_x'] . ', "pos_y": ' . $caption['caption_y'] . ', "text": "' . $caption['caption_text'] . '", "id": ' . $caption['caption_id'] . ' },' . "\n";
 	}
 	$out .= ']; ';
 
 	/* image options */
 	$option = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->interactive_images} WHERE image_id = %d", $image->image_id ), ARRAY_A );
 	if( $image->image_box_width ) { $option['image_box_width'] = $image->image_box_width; }
-	$out .= 'var opts_' . $image->image_slug . ' = { "box_width": ' . $option['image_box_width'] . ' };';
+	$out .= 'var opts_' . $image->image_id . ' = { "box_width": ' . $option['image_box_width'] . ' };';
 
-	$out .= 'findCaptions( cap_' . $image->image_slug . ', opts_' . $image->image_slug . ' ); } );';
+	$out .= 'findCaptions( cap_' . $image->image_id . ', opts_' . $image->image_id . ' ); } );';
 	$out .= '</script>';
 
 	return $out;
@@ -172,7 +171,7 @@ add_action( 'admin_menu', 'InteractiveImagesMenus' );
 function InteractiveImagesMenus( ) {
 	add_menu_page( __( 'Interactive Images Preferences', 'interactive-images' ), 'Interactive Images', 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages', null, 50 );
 	add_submenu_page( 'interactive_images', __( 'Interactive Images', 'interactive-images' ), __( 'Images', 'interactive-images' ), 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages' );
-	add_submenu_page( 'interactive_images', __( 'Add/Edit Interactive Image', 'interactive-images' ), __( 'Add/Edit', 'interactive-images' ), 'upload_images', 'interactive_form', 'InteractiveImagesMenuForm' );
+	add_submenu_page( 'interactive_images', __( 'Add/Edit Interactive Image', 'interactive-images' ), __( 'Add/Edit', 'interactive-images' ), 'upload_files', 'interactive_form', 'InteractiveImagesMenuForm' );
 }
 
 function InteractiveImagesMenuImages( ) {
@@ -192,7 +191,7 @@ function InteractiveImagesMenuImages( ) {
 
 	print '<h2>' . __( 'Interactive Images', 'interactive-images' ) . ' <a href="admin.php?page=interactive_form&mode=new" class="button add-new-h2">' . __( 'Add New', 'interactive-images' ) . '</a> </h2>';
 
-	print __( '<p>To insert an Interactive Image in a page or post, use the shortcode <em>iimage</em>. Example [iimage slug=yourslug].</p>', 'interactive-images' );
+#	print __( '<p>To insert an Interactive Image in a page or post, use the shortcode <em>iimage</em>. Example [iimage id=image_id].</p>', 'interactive-images' );
 
 	print '<table class="widefat">';
 	print '<thead>';
@@ -205,7 +204,6 @@ function InteractiveImagesMenuImages( ) {
 		$uppath = wp_upload_dir( );
 		print '<td><img src="' . $uppath['baseurl'] . '/' . get_option( 'interactive_images_upload_dir' ) . '/' . $image['image_file'] . '" alt="" width="120" /></td>';
 		print '<td><strong>' . $image['image_title'] . '</strong><br />';
-		print $image['image_slug'] . '<br />';
 		$captions = $wpdb->get_row( $wpdb->prepare( "SELECT COUNT(*) AS count FROM {$wpdb->interactive_captions} WHERE caption_parent = %s", $image['image_id'] ), ARRAY_A );
 		print ( $captions['count'] == 1 ? __( '1 caption', 'interactive-images' ) : ( $captions['count'] == 0 ? __( 'No captions', 'interactive-images' ) : sprintf( __( "%d captions", 'interactive-images' ), $captions['count'] ) ) );
 			print '<div class="row-actions">';
@@ -251,7 +249,7 @@ function InteractiveImagesMenuForm( ) {
 			global $wpdb;
 			$wpdb->insert( $wpdb->interactive_images, array( "image_file" => $filename ), array( '%s' ) );
 			$icid = $wpdb->insert_id;
-			$wpdb->update( $wpdb->interactive_images, array( "image_title" => __( "Interactive Image", 'interactive-images' ) . " #" . $icid, "image_slug" => "iimage_" . $icid ), array( "image_id" => $icid ), array( '%s', '%s' ), '%d' );
+			$wpdb->update( $wpdb->interactive_images, array( "image_title" => __( "Interactive Image", 'interactive-images' ) . " #" . $icid ), array( "image_id" => $icid ), array( '%s' ), '%d' );
 		} else {
 			$error_up = '<div id="message" class="error"><p>' . sprintf( __( '<strong>Error:</strong> Check file permissions; "%s" is not writable.', 'interactive-images' ), $destination ) . '</p></div>';
 			print $error_up;
@@ -267,11 +265,10 @@ function InteractiveImagesMenuForm( ) {
 
 		/* save options */
 		if( strlen( $_POST['opts']['image_title'] ) < 1 ) { $_POST['opts']['image_title'] = __( "Interactive Image", 'interactive-images' ) . " #" . $_POST['icid']; }
-		if( strlen( $_POST['opts']['image_slug'] ) < 1 ) { $_POST['opts']['image_slug'] = "iimage_" . $_POST['icid']; }
 		if( $_POST['opts']['image_box_width'] < 1 ) { $_POST['opts']['image_box_width'] = get_option( 'interactive_images_default_box_width' ); }
 		foreach( $_POST['opts'] as $k => $v ) { $_POST['opts'][$k] = esc_attr( stripslashes( $v ) ); }
 		// $data (==$_POST['opts']) = (array) Data to update (in column => value pairs). Both $data columns and $data values should be "raw" (neither should be SQL escaped).
-		$db = $wpdb->update( $wpdb->interactive_images, $_POST['opts'], array( "image_id" => $_POST['icid'] ), array( '%s', '%d', '%s' ), '%d' );
+		$db = $wpdb->update( $wpdb->interactive_images, $_POST['opts'], array( "image_id" => $_POST['icid'] ), array( '%s', '%s' ), '%d' );
 		if( $db === false ) { $error .= sprintf( __( 'Error updating options: %s', 'interactive-images' ), $wpdb->last_error ); print '<br />'; }
 
 		/* update old captions */
@@ -337,9 +334,6 @@ function InteractiveImagesMenuForm( ) {
 			print '<div class="postbox">';
 				print '<div class="handlediv"><br /></div><h3 class="hndle"><span>' . __( 'Image Options', 'interactive-images' ) . '</span></h3>';
 				print '<div class="inside">';
-					print '<p><strong>' . __( 'Slug', 'interactive-images' ) . '</strong><br />' . __( 'The slug must be unique. Used as the wrapping div ID in the markup.', 'interactive-images' ) . '</p>';
-					if( strlen( $image->image_slug ) < 1 ) { $image->image_slug = "iimage_" . $icid; }
-					print '<p><input type="text" name="opts[image_slug]" size="28" value="' . $image->image_slug . '" /></p>';
 					print '<p><strong>' . __( 'Box width', 'interactive-images' ) . '</strong><br />' . __( 'Box width for the notes in the image. Insert in pixels.', 'interactive-images' ) . '</p>';
 					if( $image->image_box_width < 1 ) { $image->image_box_width = get_option( 'interactive_images_default_box_width' ); }
 					print '<p><input type="text" id="image_box_width" name="opts[image_box_width]" size="28" value="' . $image->image_box_width . '" /></p>';
@@ -361,8 +355,7 @@ function InteractiveImagesMenuForm( ) {
 
 			print '<table class="widefat" id="iimage_captions_table" style="clear: none;">';
 				print '<thead><tr>';
-					$x = WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__ ), "", plugin_basename( __FILE__ ) );
-					print '<th style="width: 15px; text-align: center;"><img src="' . $x . 'images/icon_reposition.png" title="' . __( 'Reposition caption', 'interactive-images' ) . '" /></th>';
+					print '<th style="width: 15px; text-align: center;"><img src="' . plugins_url( 'interactive-images' ) . '/images/icon_reposition.png" title="' . __( 'Reposition caption', 'interactive-images' ) . '" /></th>';
 					print '<th style="width: 70px;">' . __( 'Position X', 'interactive-images' ) . '</th>';
 					print '<th style="width: 70px;">' . __( 'Position Y', 'interactive-images' ) . '</th>';
 					print '<th>' . __( 'Description', 'interactive-images' ) . '</th>';
@@ -385,7 +378,7 @@ function InteractiveImagesMenuForm( ) {
 
 			print InteractiveImagesFooter( $image );
 			print '<div id="iimage_preview">';
-			print '<div id="' . $image->image_slug .'">';
+			print '<div id="iimage_' . $image->image_id . '">';
 			$uppath = wp_upload_dir( );
 			print '<img src="' . $uppath['baseurl'] . '/' . get_option( 'interactive_images_upload_dir' ) . '/' . $image->image_file . '" alt="" />';
 			print '</div>';
@@ -401,7 +394,7 @@ function InteractiveImagesMenuForm( ) {
 		$uppath = wp_upload_dir( );
 		if( is_writeable( $uppath['basedir'] ) ) {
 			print __( "<p>Great to see you here! Let's start with uploading an image.</p>", "interactive-images" );
-			print __( "<p>Please note that once you create an Interactive Image, the attached image can't be changed, but you need to create a new Interactive Image. (Newer versions will most probably allow changing images on-the-fly as well.)</p>", "interactive-images" );
+#			print __( "<p>Please note that once you create an Interactive Image, the attached image can't be changed, but you need to create a new Interactive Image. (Newer versions will most probably allow changing images on-the-fly as well.)</p>", "interactive-images" );
 			print '<form method="post" action="admin.php?page=interactive_form&mode=new" enctype="multipart/form-data">';
 			print '<p><input type="file" name="iimage_upload" id="iimage_upload" /></p>';
 			print '<p><input type="submit" value="' . __( 'Upload image', 'interactive-images' ) . '" class="button" /></p>';
@@ -421,7 +414,7 @@ function InteractiveImagesMenuForm( ) {
 add_action( 'admin_init', 'InteractiveImagesHelp' );
 
 function InteractiveImagesHelp( ) {
-	$help_main = __( "<h3>Using the Interactive Images shortcode</h3><p>To use the Interactive Images shortcode as is in your content, just type <em>[iimage slug=yourslug]</em>. You can overwrite the image options with shortcode attributes: <em>[iimage slug=yourslug box=120]</em> will print 120 pixel wide boxes.", "interactive-images" );
+	$help_main = __( "<h3>Using the Interactive Images shortcode</h3><p>To use the Interactive Images shortcode as is in your content, just type <em>[iimage id=image_id]</em>. You can overwrite the image options with shortcode attributes: <em>[iimage id=image_id box=120]</em> will print 120 pixel wide boxes.", "interactive-images" );
 
 	add_contextual_help( 'toplevel_page_interactive_images', $help_main );
 }

@@ -43,8 +43,10 @@
 	background: transparent url(images/point_reposition.png) 0 0 no-repeat;
 }
 
-
-/* This is for the demo site only */
-/* .iimage_caption {
-	line-height: 1.3em;
-} */
+#iimage_preview div:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
