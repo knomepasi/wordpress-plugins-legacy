@@ -75,8 +75,8 @@ function changeImage( direction, instance_id, timeout ) {
 
 jQuery( function( ) {
 	window.isActive = true;
-	$( window ).focus( function ( ) { this.isActive = true; } );
-	$( window ).blur( function ( ) { this.isActive = false; } );
+	jQuery( window ).focus( function ( ) { this.isActive = true; } );
+	jQuery( window ).blur( function ( ) { this.isActive = false; } );
 
 	var sliders = jQuery( '.photoslider' );
 	jQuery.each( sliders, function( i ) {
