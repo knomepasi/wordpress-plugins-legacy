@@ -101,8 +101,6 @@ function refreshImgCaptPreview( ) {
 	var box_width = jQuery( "#image_box_width" ).val( );
 	new_options = { "box_width": box_width };
 
-	console.log( new_captions );
-
 	findCaptions( new_captions, new_options );
 }
 
