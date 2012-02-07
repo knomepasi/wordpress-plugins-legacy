@@ -209,8 +209,13 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 	/* determine photo size */
 	if( !$opts['size'] ) { $opts['size'] = get_option( 'photoslider_default_size' ); }
 
+	/* determine exact dimensions for first photo for non-js users */
+	$first_item = array_shift( array_values( $attachments ) );
+	$first_attr = wp_get_attachment_image_src( $first_item->ID, $opts['size'] );
+	$first_dmns = 'style="width: ' . $first_attr[1] . 'px; height: ' . $first_attr[2] . 'px;"';
+
 	/* start wrapping div */
-	$output = '<div class="ps_wrap">';
+	$output = '<div class="ps_wrap" ' . $first_dmns . '>';
 	$output .= '<div class="photoslider ctrl-' . $opts['controls'] . '" id="' . $opts['instance_id'] . '">';
 
 		$output .= '<div class="title">' . $title . '</div>';
@@ -220,7 +225,8 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 		$is_first = TRUE;
 		foreach( $attachments as $a ) {
 			if( $is_first ) {
-				$output .= '<li class="first active">'; $is_first = FALSE;
+				$output .= '<li class="first active">';
+				$is_first = FALSE;
 			} else {
 				$output .= '<li>';
 			}
