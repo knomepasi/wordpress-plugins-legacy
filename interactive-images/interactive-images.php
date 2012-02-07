@@ -81,6 +81,15 @@ add_action( 'admin_head', 'InteractiveImagesHead' );
 function InteractiveImagesHead( ) {
 	$x = plugins_url( 'interactive-images' );
 	print "<link rel=\"stylesheet\" href=\"{$x}/defaults.css\" />\n";
+
+	print "<!--[if IE]><style type=\"text/css\">";
+	print ".iimage_caption span.c_main { filter: alpha(opacity = 0); zoom: 1; }";
+	print ".iimage_caption:hover span.c_main { filter: alpha(opacity = 100); }";
+	print "</style><![endif]-->\n";
+
+	print "<!--[if lt IE 8]><style type=\"text/css\">";
+	print ".iimage_caption span.c_main { background-color: #222; color: #fff; }";
+	print "</style><![endif]-->\n";
 }
 
 /*  Include scripts

@@ -2,7 +2,7 @@ function findCaptions( cap, opt ) {
 	jQuery.each( cap, function( cid, c ) {
 		var div = jQuery( "<div/>", {
 			'class': 'iimage_caption',
-			'id': "iimage_caption_" + c.id
+			'id': 'iimage_caption_' + c.id
 		} ).appendTo( "#" + c.parent );
 		var span = jQuery( "<span/>", {
 			'class': 'c_main',
