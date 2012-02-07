@@ -3,7 +3,7 @@
  *  Plugin Name: Interactive Images
  *  Description: Create interactive images by adding notes on top of images.
  *  Author: Pasi Lallinaho
- *  Version: 1.1
+ *  Version: 1.2
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
@@ -93,14 +93,14 @@ add_action( 'admin_enqueue_scripts', 'InteractiveImagesAdminScripts' );
 function InteractiveImagesScripts( ) {
 	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.1" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.2" );
 }
 
 function InteractiveImagesAdminScripts( ) {
 	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.1" );
-	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "1.1" );
+	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.2" );
+	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "1.2" );
 }
 
 /*  Add shortcode
