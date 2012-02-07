@@ -219,6 +219,7 @@ function InteractiveImagesMenuImages( ) {
 		$uppath = wp_upload_dir( );
 		print '<td><img src="' . $uppath['baseurl'] . '/' . get_option( 'interactive_images_upload_dir' ) . '/' . $image['image_file'] . '" alt="" width="120" /></td>';
 		print '<td><strong>' . $image['image_title'] . '</strong><br />';
+		print '<u>Interactive Image ID ' . $image['image_id'] . '</u><br />';
 		$captions = $wpdb->get_row( $wpdb->prepare( "SELECT COUNT(*) AS count FROM {$wpdb->interactive_captions} WHERE caption_parent = %s", $image['image_id'] ), ARRAY_A );
 		print ( $captions['count'] == 1 ? __( '1 caption', 'interactive-images' ) : ( $captions['count'] == 0 ? __( 'No captions', 'interactive-images' ) : sprintf( __( "%d captions", 'interactive-images' ), $captions['count'] ) ) );
 			print '<div class="row-actions">';
