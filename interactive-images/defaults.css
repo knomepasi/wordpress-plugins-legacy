@@ -56,3 +56,9 @@
 	clear: both;
 	visibility: hidden;
 }
+
+/* To show caption graphic only when image is hovered, uncomment these: */
+/*
+.iimage_caption { opacity: 0; }
+.iimage_wrap:hover .iimage_caption { opacity: 1; }
+*/

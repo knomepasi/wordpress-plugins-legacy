@@ -25,11 +25,11 @@ function findCaptions( cap, opt ) {
 		// if span overlaps the bottom edge...
 		var img_bottom = div.parent( ).children( "img" ).innerHeight( ) + div.parent( ).children( "img" ).position( ).top;
 		var div_top = div.offset( ).top;
-		var div_topmost = div.offset( ).top - div.parent( ).children( "img" ).position( ).top - div.outerHeight( ) - 20;
+		var div_topmost = div.offset( ).top - div.parent( ).children( "img" ).position( ).top - div.outerHeight( ) - 15;
 
 		if( div_top > img_bottom && div_topmost > 1 ) {
 			// the div is going to be printed lower than the image, help!
-			var span_height = div.height( ) + 20;
+			var span_height = div.height( ) + 15;
 			div.children( "span.c_main" ).css( { 'margin-top': -span_height } );
 		}
 
