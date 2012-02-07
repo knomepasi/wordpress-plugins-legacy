@@ -30,7 +30,7 @@ function findCaptions( cap, opt ) {
 		if( div_top > img_bottom && div_topmost > 1 ) {
 			// the div is going to be printed lower than the image, help!
 			var span_height = div.height( ) + 20;
-			div.children( "span" ).css( { 'margin-top': -span_height } );
+			div.children( "span.c_main" ).css( { 'margin-top': -span_height } );
 		}
 
 		// if span overlaps the right edge...
@@ -41,7 +41,7 @@ function findCaptions( cap, opt ) {
 		if( div_left > img_right && div_leftmost > 1 ) {
 			// the div is going to be printed 'righter' than the image, help!
 			var span_width = div.width( ) + 28;
-			div.children( "span" ).css( { 'margin-left': -span_width } );
+			div.children( "span.c_main" ).css( { 'margin-left': -span_width } );
 		}
 
 		// check the image container

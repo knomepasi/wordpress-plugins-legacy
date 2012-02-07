@@ -29,7 +29,9 @@ function InteractiveImagesActivate( ) {
 				`image_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				`image_file` TEXT NOT NULL,
 				`image_title` TEXT NOT NULL,
-				`image_box_width` INT NOT NULL
+				`image_box_width` INT NOT NULL,
+				`image_width` INT NOT NULL,
+				`image_height` INT NOT NULL
 			)" . $charset_collate;
 
 		$wpdb->query( $wp_query );
@@ -122,7 +124,7 @@ function InteractiveImagesShortCode( $atts, $content, $code ) {
 
 	if( is_object( $image ) ) {
 		$out .= InteractiveImagesFooter( $image );
-		$out .= '<div id="iimage_' . $image->image_id .'">';
+		$out .= '<div class="iimage_wrap" id="iimage_' . $image->image_id .'" width="' . $image->image_width . '" height="' . $image->image_height . '">';
 		$out .= '<img src="' . $uppath['baseurl'] . "/" . get_option( 'interactive_images_upload_dir' ) . "/" . $image->image_file . '" alt="" />';
 		$out .= '</div>';
 
@@ -197,8 +199,6 @@ function InteractiveImagesMenuImages( ) {
 
 	print '<h2>' . __( 'Interactive Images', 'interactive-images' ) . ' <a href="admin.php?page=interactive_form&mode=new" class="button add-new-h2">' . __( 'Add New', 'interactive-images' ) . '</a> </h2>';
 
-#	print __( '<p>To insert an Interactive Image in a page or post, use the shortcode <em>iimage</em>. Example [iimage id=image_id].</p>', 'interactive-images' );
-
 	print '<table class="widefat">';
 	print '<thead>';
 	print '<tr><th style="width: 120px;"></th><th>' . __( 'Image', 'interactive-images' ) . '</th></tr>';
@@ -251,11 +251,13 @@ function InteractiveImagesMenuForm( ) {
 				$error_up = true;
 			}
 
+			$image_attr = getimagesize( $destination );
+
 			// insert image data in to database
 			global $wpdb;
 			$wpdb->insert( $wpdb->interactive_images, array( "image_file" => $filename ), array( '%s' ) );
 			$icid = $wpdb->insert_id;
-			$wpdb->update( $wpdb->interactive_images, array( "image_title" => __( "Interactive Image", 'interactive-images' ) . " #" . $icid ), array( "image_id" => $icid ), array( '%s' ), '%d' );
+			$wpdb->update( $wpdb->interactive_images, array( "image_title" => __( "Interactive Image", 'interactive-images' ) . " #" . $icid, "image_width" => $image_attr[0], "image_height" => $image_attr[1] ), array( "image_id" => $icid ), array( '%s', '%d', '%d' ), '%d' );
 		} else {
 			$error_up = '<div id="message" class="error"><p>' . sprintf( __( '<strong>Error:</strong> Check file permissions; "%s" is not writable.', 'interactive-images' ), $destination ) . '</p></div>';
 			print $error_up;
@@ -383,7 +385,7 @@ function InteractiveImagesMenuForm( ) {
 
 			print InteractiveImagesFooter( $image );
 			print '<div id="iimage_preview">';
-			print '<div id="iimage_' . $image->image_id . '">';
+			print '<div id="iimage_' . $image->image_id . '" width="' . $image->image_width . '" height="' . $image->image_height . '">';
 			$uppath = wp_upload_dir( );
 			print '<img src="' . $uppath['baseurl'] . '/' . get_option( 'interactive_images_upload_dir' ) . '/' . $image->image_file . '" alt="" />';
 			print '</div>';

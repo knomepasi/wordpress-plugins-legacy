@@ -11,7 +11,7 @@
 
 	padding: 3px 4px;
 
-	background-color: rgba( 0, 0, 0, 0.85 );
+	background-color: rgba( 0, 0, 0, 0.75 );
 	color: rgba( 255, 255, 255, 0.9 );
 
 	border: 1px solid rgba( 0, 0, 0, 0.1 );
@@ -29,21 +29,25 @@
 	transition: opacity 0.7s ease-in-out;
 }
 
-.iimage_caption.hover,
 .iimage_caption:hover {
 	background: transparent url(images/point_hover.png) 1px 1px no-repeat;
 }
 
-.iimage_caption.hover span.c_main,
 .iimage_caption:hover span.c_main {
 	opacity: 1;
+}
+
+.iimage img {
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 .iimage_reposition {
 	background: transparent url(images/point_reposition.png) 0 0 no-repeat;
 }
 
-#iimage_preview div:after {
+#iimage_preview div:after,
+.iimage_wrap:after {
 	content: ".";
 	display: block;
 	height: 0;

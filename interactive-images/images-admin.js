@@ -43,10 +43,10 @@ jQuery( window ).load( function( ) {
 
 		// desired content
 		var row;
-		row = '<td style="vertical-align: middle; text-align: center;"><input type="radio" name="captions" value="' + new_id + '" checked="checked" /></td>';
-		row = row + '<td class="imgcapt_y"><input type="text" id="capt_' + new_id + '_y" name="caption_new[' + new_id + '][caption_y]" value="" style="width: 70px;" /></td>'; 
-		row = row + '<td class="imgcapt_x"><input type="text" id="capt_' + new_id + '_x" name="caption_new[' + new_id + '][caption_x]" value="" style="width: 70px;" /></td>'; 
-		row = row + '<td class="imgcapt_text"><input type="text" id="capt_' + new_id + '_text" name="caption_new[' + new_id + '][caption_text]" value="" placeholder="Enter description here" style="width: 100%;" /></td>';
+		row = '<td class="iimage_id" style="vertical-align: middle; text-align: center;"><input type="radio" class="captions_radio" name="captions" value="' + new_id + '" checked="checked" /></td>';
+		row = row + '<td class="iimage_y"><input type="text" id="capt_' + new_id + '_y" name="caption_new[' + new_id + '][caption_y]" value="10" style="width: 70px;" /></td>'; 
+		row = row + '<td class="iimage_x"><input type="text" id="capt_' + new_id + '_x" name="caption_new[' + new_id + '][caption_x]" value="10" style="width: 70px;" /></td>'; 
+		row = row + '<td class="iimage_text"><input type="text" id="capt_' + new_id + '_text" name="caption_new[' + new_id + '][caption_text]" value="" placeholder="Enter description here" style="width: 100%;" /></td>';
 		row = row + '<td><span class="delete delete-imgcapt"><a href="#">Delete</a></span></td>';
 
 		var tr = jQuery( "<tr />", {
@@ -55,6 +55,7 @@ jQuery( window ).load( function( ) {
 
 		tr.children( ".iimage_text" ).children( "input" ).focus( );
 
+		refreshImgCaptPreview( );
 		e.preventDefault( );
 	} );
 
@@ -63,7 +64,6 @@ jQuery( window ).load( function( ) {
 		jQuery( this ).parent( "span" ).parent( "td" ).parent( "tr" ).remove( );
 
 		refreshImgCaptPreview( );
-
 		e.preventDefault( );
 	} ) );
 
@@ -101,9 +101,9 @@ function refreshImgCaptPreview( ) {
 	var box_width = jQuery( "#image_box_width" ).val( );
 	new_options = { "box_width": box_width };
 
-	findCaptions( new_captions, new_options );
+	console.log( new_captions );
 
-// 	jQuery( "#iimage_preview" ).forceRedraw( true );
+	findCaptions( new_captions, new_options );
 }
 
 function delInteractiveImage( title ) {
