@@ -74,6 +74,9 @@ function changeImage( direction, instance_id, timeout ) {
 }
 
 jQuery( function( ) {
+	jQuery( ".photoslider .captions" ).show( );
+	jQuery( ".photoslider .controls" ).show( );
+
 	window.isActive = true;
 	jQuery( window ).focus( function ( ) { this.isActive = true; } );
 	jQuery( window ).blur( function ( ) { this.isActive = false; } );

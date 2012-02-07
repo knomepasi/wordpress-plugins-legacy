@@ -40,6 +40,7 @@
 .photoslider .captions {
 	color: #aaa;
 	font-style: italic;
+	display: none;
 }
 
 
@@ -49,6 +50,7 @@
 
 .photoslider .controls {
 	width: 0px;
+	display: none;
 }
 
 .photoslider .c-prev,
