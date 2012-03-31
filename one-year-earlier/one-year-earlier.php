@@ -3,7 +3,7 @@
  *  Plugin Name: One Year Earlier
  *  Description: Show one article from one year earlier.
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
@@ -90,7 +90,7 @@ class OneYearEarlierWidget extends WP_Widget {
  */
 
 function OneYearEarlierFilterWhere( $where = '' ) {
-	$datelimit = date( "Y" ) - 1 . date( "m" ) . date( "d" ) + 1;
+	$datelimit = date( "Y" ) - 1 . date( "m" ) . date( "d" );
 	$where .= " AND post_date < '$datelimit' AND post_type = 'post' AND post_status = 'publish'";
 	return $where;
 }
