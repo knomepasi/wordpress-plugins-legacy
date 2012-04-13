@@ -3,7 +3,7 @@
  *  Plugin Name: Photoslider
  *  Description: Show a slideshow of user uploaded photos.
  *  Author: Pasi Lallinaho
- *  Version: 1.3
+ *  Version: 1.4
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
@@ -116,7 +116,7 @@ class PhotosliderWidget extends WP_Widget {
 					$default_sizes['medium'] = array( "width" => get_option( 'medium_size_w' ), "height" => get_option( 'medium_size_h' ) );
 					$default_sizes['large'] = array( "width" => get_option( 'large_size_w' ), "height" => get_option( 'large_size_h' ) );
 
-					$image_sizes = array_merge( $default_sizes, $_wp_additional_image_sizes );
+					$image_sizes = array_merge( $default_sizes, (array) $_wp_additional_image_sizes );
 
 					foreach( $image_sizes as $name => $attr ) {
 						if( $attr['crop'] == 1 ) { $is_cropped = ", cropped"; } else { unset( $is_cropped ); }
