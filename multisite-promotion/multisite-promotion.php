@@ -3,7 +3,7 @@
  *  Plugin Name: Multisite Promotion
  *  Description: Enables adding widgets to link to other (multi)sites for promotion
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
  *
@@ -68,7 +68,7 @@ class MultisitePromotionWidget extends WP_Widget {
 				<select class="widefat" id="<?php echo $this->get_field_id( 'promote_blog_id' ); ?>" name="<?php echo $this->get_field_name( 'promote_blog_id' ); ?>">
 					<?php
 						global $wpdb;
-						$blogs = $wpdb->get_results( 'SELECT * FROM wp_knomefi_blogs WHERE public = 1 ORDER BY domain ASC', OBJECT );
+						$blogs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->blogs . ' WHERE public = 1 ORDER BY domain ASC', OBJECT );
 
 						foreach( $blogs as $blog ) {
 							if( $blog->blog_id == $instance['promote_blog_id'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
