@@ -1,8 +1,9 @@
 This is a repository to help maintain all WordPress plugins written by me. If not otherwise mentioned, the license for the plugins is GPLv3 (or later).
 
-The repository currently contains the following plugins:
+The repository contains the following plugins:
  * Compact & Chronological:  Show month archive links in a compact view.
  * Interactive Images:  Create interactive images by adding notes on top of images.
+ * Multisite Promotion: Add widgets to link to other (multi)sites for promotion.
  * One Year Earlier:  Show one article from one year earlier.
  * Photoslider:  Show a slideshow of user uploaded photos.
  * Projects Catalog:  Organize and show your projects.
