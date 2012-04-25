@@ -12,13 +12,13 @@ jQuery( window ).load( function( ) {
 		var capt_id = jQuery( ".captions_radio:checked" ).val( );
 
 		if( capt_id > 0 ) {
-			var pos = jQuery( "#iimage_preview" ).children( "div" ).offset( );
+			var pos = jQuery( "#iimage_preview > div" ).offset( );
 
 			var new_top = e.pageY - pos.top;
 			var new_left = e.pageX - pos.left;
 
-			jQuery( "#capt_" + capt_id + "_y" ).val( function( index, value ) { return new_top; } );
-			jQuery( "#capt_" + capt_id + "_x" ).val( function( index, value ) { return new_left; } );
+			jQuery( "#capt_" + capt_id + "_y" ).val( function( index, value ) { return new_top; } );
+			jQuery( "#capt_" + capt_id + "_x" ).val( function( index, value ) { return new_left; } );
 
 			jQuery( ".captions_radio" ).removeAttr( "checked" );
 
@@ -34,7 +34,7 @@ jQuery( window ).load( function( ) {
 
 		// a big enough and unique id
 		// note that this id should not be saved to the database, as it might not be tablewise unique
-		var biggest = parseInt( jQuery( "#iimage_captions_table tbody tr" ).last( ).children( "td" ).first( ).children( "input" ).first( ).val( ) );
+		var biggest = parseInt( jQuery( "#iimage_captions_table tbody > tr:last > td:first > input:first" ).val( ) );
 		if( biggest > 0 ) {
 			var new_id = biggest + 1;
 		} else {
@@ -53,7 +53,7 @@ jQuery( window ).load( function( ) {
 			'html': row
 		} ).appendTo( table );
 
-		tr.children( ".iimage_text" ).children( "input" ).focus( );
+		tr.find(".iimage_text input").focus( );
 
 		refreshImgCaptPreview( );
 		e.preventDefault( );
@@ -61,7 +61,7 @@ jQuery( window ).load( function( ) {
 
 	/* Delete caption row */
 	jQuery( "#iimage_captions_table .delete-iimage a" ).live( 'click', ( function( e ) {
-		jQuery( this ).parent( "span" ).parent( "td" ).parent( "tr" ).remove( );
+		jQuery( this ).closest( "tr" ).remove( );
 
 		refreshImgCaptPreview( );
 		e.preventDefault( );
@@ -79,18 +79,19 @@ jQuery( window ).load( function( ) {
 
 function refreshImgCaptPreview( ) {
 	// remove all div's inside the main div
-	var image = jQuery( "#iimage_preview" ).children( "div" );
+	var image = jQuery( "#iimage_preview > div" );
 	image.children( "div" ).remove( );
 	var image_id = image.attr( "id" );
 
 	// read the table and create a new array and call printing function with it again
 	var new_captions = [{}];
 	var i = 0;
-	jQuery( "#iimage_captions_table > tbody" ).children( "tr" ).each( function( index ) {
-		var capt_id = parseInt( jQuery( this ).children( ".iimage_id" ).children( "input" ).val( ) );
-		var pos_y = parseInt( jQuery( this ).children( ".iimage_y" ).children( "input" ).val( ) );
-		var pos_x = parseInt( jQuery( this ).children( ".iimage_x" ).children( "input" ).val( ) );
-		var text = jQuery( this ).children( ".iimage_text" ).children( "input" ).val( );
+	jQuery( "#iimage_captions_table > tbody > tr" ).each( function( index ) {
+		var $this	=	$(this);
+		var capt_id = parseInt( $this.find( ".iimage_id input" ).val( ), 10 );
+		var pos_y = parseInt( $this.find( ".iimage_y input" ).val( ), 10 );
+		var pos_x = parseInt( $this.find( ".iimage_x input" ).val( ), 10 );
+		var text = $this.find( ".iimage_text input" ).val( );
 
 		new_captions[i] = { "parent": image_id, "pos_x": pos_x, "pos_y": pos_y, "text": text, "id": capt_id };
 
