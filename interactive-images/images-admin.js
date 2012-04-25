@@ -87,10 +87,11 @@ function refreshImgCaptPreview( ) {
 	var new_captions = [{}];
 	var i = 0;
 	jQuery( "#iimage_captions_table > tbody > tr" ).each( function( index ) {
-		var capt_id = parseInt( jQuery( this ).find( ".iimage_id input" ).val( ), 10 );
-		var pos_y = parseInt( jQuery( this ).find( ".iimage_y input" ).val( ), 10 );
-		var pos_x = parseInt( jQuery( this ).find( ".iimage_x input" ).val( ), 10 );
-		var text = jQuery( this ).find( ".iimage_text input" ).val( );
+		var $this	=	$(this);
+		var capt_id = parseInt( $this.find( ".iimage_id input" ).val( ), 10 );
+		var pos_y = parseInt( $this.find( ".iimage_y input" ).val( ), 10 );
+		var pos_x = parseInt( $this.find( ".iimage_x input" ).val( ), 10 );
+		var text = $this.find( ".iimage_text input" ).val( );
 
 		new_captions[i] = { "parent": image_id, "pos_x": pos_x, "pos_y": pos_y, "text": text, "id": capt_id };
 
