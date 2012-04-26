@@ -3,9 +3,11 @@
  *  Plugin Name: Interactive Images
  *  Description: Create interactive images by adding notes on top of images.
  *  Author: Pasi Lallinaho
- *  Version: 1.3
+ *  Version: 1.4
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
+ *
+ *  Additional optimizations provided by Alexander Blomen (ablomen).
  *
  */
 

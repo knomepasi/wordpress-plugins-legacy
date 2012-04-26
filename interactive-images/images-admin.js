@@ -34,12 +34,14 @@ jQuery( window ).load( function( ) {
 
 		// a big enough and unique id
 		// note that this id should not be saved to the database, as it might not be tablewise unique
-		var biggest = parseInt( jQuery( "#iimage_captions_table tbody > tr:last > td:first > input:first" ).val( ) );
-		if( biggest > 0 ) {
-			var new_id = biggest + 1;
-		} else {
-			var new_id = 1;
-		}
+
+		// var biggest = parseInt( jQuery( "#iimage_captions_table tbody > tr:last > td:first > input:first" ).val( ) );
+		// if( biggest > 0 ) {
+		// 	var new_id = biggest + 1;
+		// } else {
+		//	var new_id = 1;
+		// }
+		var new_id = (new Date().getTime());
 
 		// desired content
 		var row;
