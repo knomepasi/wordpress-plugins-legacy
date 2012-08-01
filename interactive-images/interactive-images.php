@@ -198,7 +198,7 @@ function InteractiveImagesMenuImages( ) {
 
 	print '<div class="wrap">';
 
-	if( $_GET['mode'] == "del" ) {
+	if( $_GET['mode'] == "del" && wp_verify_nonce( $_GET['_wpnonce'], 'interactive_image_del' ) ) {
 		// user is deleting an image
 		$db = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->interactive_images} WHERE image_id = %s", $_GET['icid'] ) );
 		if( $db === false ) {
@@ -217,6 +217,8 @@ function InteractiveImagesMenuImages( ) {
 
 	$images = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->interactive_images}" ), ARRAY_A );
 	foreach( $images as $image ) {
+		$del_nonce = wp_create_nonce( 'interactive_image_del' );
+
 		print '<tr>';
 		$uppath = wp_upload_dir( );
 		print '<td><img src="' . $uppath['baseurl'] . '/' . get_option( 'interactive_images_upload_dir' ) . '/' . $image['image_file'] . '" alt="" width="120" /></td>';
@@ -226,7 +228,7 @@ function InteractiveImagesMenuImages( ) {
 		print ( $captions['count'] == 1 ? __( '1 caption', 'interactive-images' ) : ( $captions['count'] == 0 ? __( 'No captions', 'interactive-images' ) : sprintf( __( "%d captions", 'interactive-images' ), $captions['count'] ) ) );
 			print '<div class="row-actions">';
 			print '<a href="admin.php?page=interactive_form&mode=edit&icid=' . $image['image_id'] . '" title="' . __( 'Edit and preview', 'interactive-images' ) . '">' . __( 'Edit and preview', 'interactive-images' ) . '</a> | ';
-			print '<span class="delete"><a onclick="return delInteractiveImage( \'' . $image['image_title'] . '\' );" href="admin.php?page=interactive_images&mode=del&icid=' . $image['image_id'] . '" title="' . __( 'Delete permanently', 'interactive-images' ) . 'Delete permanently">' . __( 'Delete permanently', 'interactive-images' ) . '</a></span>';
+			print '<span class="delete"><a onclick="return delInteractiveImage( \'' . $image['image_title'] . '\' );" href="admin.php?page=interactive_images&mode=del&icid=' . $image['image_id'] . '&_wpnonce=' . $del_nonce . '" title="' . __( 'Delete permanently', 'interactive-images' ) . '">' . __( 'Delete permanently', 'interactive-images' ) . '</a></span>';
 			print '</div>';
 		print '</td>';
 		print '</tr>';

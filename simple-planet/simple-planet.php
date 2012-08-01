@@ -42,7 +42,7 @@ class SimplePlanetWidget extends WP_Widget {
 	function SimplePlanetWidget( ) {
 		parent::WP_Widget(
 			'simple_planet',
-			'Simple Planet',	
+			_x( 'Simple Planet', 'widget name', 'simple-planet' ),	
 			array(
 				'description' => __( 'Show aggregated posts from multiple feeds sorted by date via a widget.', 'simple-planet' ),
 				'width'       => 500,
