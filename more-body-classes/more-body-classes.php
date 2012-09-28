@@ -15,16 +15,16 @@ function MoreBodyClasses( $classes ) {
 	$classes[] = "blogid-" . get_current_blog_id( );
 
 	$this_url = parse_url( get_bloginfo( 'url' ) );
-	$classes[] " host-" . str_replace( ".", "-", $this_url['host'] );
+	$classes[] = " host-" . str_replace( ".", "-", $this_url['host'] );
 
 	if( is_home( ) ) {
-		$classes[] " is-home";
+		$classes[] = " is-home";
 	} else {
-		$classes[] " is-not-home";
+		$classes[] = " is-not-home";
 	}
 
 	if( get_current_blog_id( ) == 1 && is_multisite( ) ) {
-		$classes[] " is-multisite-front";
+		$classes[] = " is-multisite-front";
 	}
 
 	return $classes;
