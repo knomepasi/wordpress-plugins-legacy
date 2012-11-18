@@ -68,7 +68,7 @@ class SimplePlanetWidget extends WP_Widget {
 			$planet = array( );
 
 			# include simplepie
-			include_once( ABSPATH . WPINC . '/class-simplepie.php' );
+			#include_once( ABSPATH . WPINC . '/class-simplepie.php' );
 
 			foreach( explode( "\n", $instance['feeds'] ) as $feed ) { 
 				$feeds[] = rtrim( ltrim( $feed ) );

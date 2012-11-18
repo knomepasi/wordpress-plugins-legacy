@@ -122,7 +122,7 @@ function _ms_stats_list( $month = null, $year = null ) {
 		print '<table class="widefat"><thead><tr><th style="width: 80px;">' . __( 'Loads', 'multisite-stats' ) . '</th><th>' . __( 'Post', 'multisite-stats' ) . '</th></tr></thead><tbody>';
 		foreach( $totals as $item ) {
 			$cur_post = get_post( $item['post_id'] );
-			print "<tr><td>" . $item['total'] . "</td><td>" . $cur_post->post_title . "</td></tr>";
+			print "<tr><td>" . $item['total'] . "</td><td><a href='" . get_permalink( $cur_post->ID ) . "'>" . $cur_post->post_title . "</a></td></tr>";
 		}
 		print "</tbody></table>";
 	}
