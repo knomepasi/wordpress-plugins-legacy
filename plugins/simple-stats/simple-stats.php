@@ -84,13 +84,13 @@ function MultisiteStatsHit( ) {
 add_action( 'admin_menu', 'MultisiteStatsMenu' );
 
 function MultisiteStatsMenu( ) {
-	if( current_user_can( 'manage_sites' ) ) {
+	if( current_user_can( 'activate_plugins' ) ) {
 		$ms_stats = add_menu_page( __( 'Statistics', 'multisite-stats' ), 'Statistics', 'see_stats', 'multisite-stats', 'MultisiteStatsAdmin', null, 50 );
 	}
 }
 
 function MultisiteStatsAdmin( ) {
-	if( current_user_can( 'manage_sites' ) ) {
+	if( current_user_can( 'activate_plugins' ) ) {
 		print '<div class="wrap">';
 		print '<h2>' . __( 'Statistics', 'multisite-stats' ) . '</h2>';
 

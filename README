@@ -1,16 +1,1 @@
-This is a repository to help maintain all WordPress plugins written by me. If not otherwise mentioned, the license for the plugins is GPLv3 (or later).
-
-The repository contains the following plugins:
- * Compact & Chronological:  Show month archive links in a compact view.
- * Interactive Images:  Create interactive images by adding notes on top of images.
- * More Body Classes:  Add more meaningful classes to body.
- * Multisite Promotion:  Add widgets to link to other (multi)sites for promotion.
- * One Year Earlier:  Show one article from one year earlier.
- * Photoslider:  Show a slideshow of user uploaded photos.
- * Projects Catalog:  Organize and show your projects.
- * Rationale for Email:  Adds custom email headers for comment-related emails.
- * Sensible Display Names:  Sets users' display names to "First Last" on registration.
- * Separate Page Attachments:  Use a separate directory for page attachments.
- * Simple FB Like:  Shows a Facebook Like button for a Facebook profile.
- * Simple Planet:  Show posts from multiple feeds sorted by date via a widget.
- * Simple Stats:  Gather simple page/post load statistics.
+This repository contains some WordPress plugins, themes and tools by Pasi Lallinaho. Unless otherwise mentioned, the license for all stuff in the repository is GPLv3 or later.
