@@ -1,7 +1,7 @@
 <?php
 /*
  *  Plugin Name: Simple Stats
- *  Description: Simple load statistics for single or multisite.
+ *  Description: Simple load statistics (single or multisite).
  *  Author: Pasi Lallinaho
  *  Version: 1.1
  *  Author URI: http://open.knome.fi/

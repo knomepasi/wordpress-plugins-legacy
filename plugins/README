@@ -1,5 +1,6 @@
 The repository contains the following plugins:
 
+Article Series:  Adds a new taxonomy "series" for posts.
 Compact & Chronological:  Show month archive links in a compact view.
 Interactive Images:  Create interactive images by adding notes on top of images.
 More Body Classes:  Add more meaningful classes to body.
@@ -12,4 +13,4 @@ Sensible Display Names:  Sets users' display names to "First Last" on registrati
 Separate Page Attachments:  Use a separate directory for page attachments.
 Simple FB Like:  Shows a Facebook Like button for a Facebook profile.
 Simple Planet:  Show posts from multiple feeds sorted by date via a widget.
-Simple Stats:  Gather simple page/post load statistics.
+Simple Stats:  Simple load statistics (single or multisite).
