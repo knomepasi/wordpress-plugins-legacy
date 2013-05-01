@@ -61,7 +61,7 @@ add_filter( 'the_content', 'ArticleSeriesContentHook', 100 );
 
 function ArticleSeriesContentHook( $content ) {
 	$series = get_the_term_list( get_the_ID( ), 'serie', null, ',', null );
-	if( count( $series ) > 0 ) {
+	if( strlen( $series ) > 0 ) {
 		$out = '<p class="post-serie">This article is part of the article series ' . $series . '.</p>';
 	}
 
