@@ -182,8 +182,6 @@ function InteractiveImagesFooter( $image ) {
 add_action( 'admin_menu', 'InteractiveImagesMenus' );
 
 function InteractiveImagesMenus( ) {
-	global $iimage_admin;
-
 	$iimage_admin_main = add_menu_page( __( 'Interactive Images Preferences', 'interactive-images' ), 'Interactive Images', 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages', null, 50 );
 	$iimage_admin_sub_images = add_submenu_page( 'interactive_images', __( 'Interactive Images', 'interactive-images' ), __( 'Images', 'interactive-images' ), 'upload_files', 'interactive_images', 'InteractiveImagesMenuImages' );
 	$iimage_admin_sub_add = add_submenu_page( 'interactive_images', __( 'Add/Edit Interactive Image', 'interactive-images' ), __( 'Add/Edit', 'interactive-images' ), 'upload_files', 'interactive_form', 'InteractiveImagesMenuForm' );

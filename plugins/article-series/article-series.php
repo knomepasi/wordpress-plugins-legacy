@@ -1,6 +1,6 @@
 <?
 /*  Plugin Name: Article Series
- *  Description: Adds a new taxonomy "series" for posts.
+ *  Description: Adds a new taxonomy 'series' for posts.
  *  Author: Pasi Lallinaho
  *  Version: 1.0
  *  Author URI: http://open.knome.fi/
@@ -15,7 +15,8 @@
 
 load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-/*  Add taxonomies for projects
+/*  
+ *  Add the 'serie' taxonomy
  *
  */
 
@@ -49,6 +50,22 @@ function ArticleSeriesInit( ) {
 		'query_var' => true,
 		'rewrite' => array( 'slug' => 'serie' )
 	) );
+}
+
+/*
+ *  Add a hook for the_content
+ *
+ */
+
+add_filter( 'the_content', 'ArticleSeriesContentHook', 100 );
+
+function ArticleSeriesContentHook( $content ) {
+	$series = get_the_term_list( get_the_ID( ), 'serie', null, ',', null );
+	if( count( $series ) > 0 ) {
+		$out = '<p class="post-serie">This article is part of the article series ' . $series . '.</p>';
+	}
+
+	return $content . $out;
 }
 
 /*
@@ -100,7 +117,8 @@ function ArticleSeriesAdminHead( ) {
 	print "<style> .column-article_serie { width: 20%; } </style>";
 }
 
-/*  Make sure permalinks work
+/*  
+ *  Make sure permalinks work
  *
  */
 
