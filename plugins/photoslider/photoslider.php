@@ -64,10 +64,10 @@ class PhotosliderWidget extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$attachments = PhotosliderAttachments( $instance['post'] );
-	
+		$attachments = PhotosliderAttachments( $instance['post'], $instance['orderby'], $instance['order'] );
+
 		echo $before_widget;
-		if( $instance['title'] && $attachments ) { $title = $before_title . $title . $after_title; }
+		if( $instance['title'] ) { $title = $before_title . $title . $after_title; }
 		if( $attachments ) { echo GetPhotoslider( $instance, $attachments, $title ); }
 		echo $after_widget;
 	}
@@ -78,9 +78,11 @@ class PhotosliderWidget extends WP_Widget {
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['size'] = strip_tags( $new_instance['size'] );
 		$instance['instance_id'] = strip_tags( $new_instance['instance_id'] );
-		$instance['controls'] = strip_tags( $new_instance['controls'] );
+		$instance['controls'] = $new_instance['controls'];
 		$instance['timeout'] = (int) $new_instance['timeout'];
 		$instance['captions'] = (int) $new_instance['captions'];
+		$instance['orderby'] = $new_instance['orderby'];
+		$instance['order'] = $new_instance['order'];
 		return $instance;
 	}
 
@@ -162,6 +164,32 @@ class PhotosliderWidget extends WP_Widget {
 			<input type="radio" id="<?php echo $this->get_field_id( 'captions_no' ); ?>" name="<?php echo $this->get_field_name( 'captions' ); ?>" value="0" <?php echo $capt_no; ?> />
 			<label for="<?php echo $this->get_field_id( 'captions_no' ); ?>"><?php _e( "No", "photoslider" ); ?></label>
 		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order by', 'photoslider' ); ?><br />
+				<select class="widefat" id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>">
+					<?php
+						$order_opt = array(
+							'title' => _x( 'Title', 'order by option', 'photoslider' ),
+							'date' => _x( 'Date', 'order by option', 'photoslider' ),
+							'name' => _x( 'Filename', 'order by option', 'photoslider' ),
+							'rand' => _x( 'Random', 'order by option', 'photoslider' )
+						);
+						foreach( $order_opt as $id => $name ) {
+							if( $id == $instance['orderby'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
+							print '<option value="' . $id . '"' . $is_selected . '>' . $name . '</option>';
+						}
+					?>
+				</select>
+			</label>
+		</p>
+		<p>
+			<?php _e( 'Order', 'photoslider' ); ?><br />
+			<?php if( $instance['order'] == "ASC" ) { $order_asc = ' checked="checked" '; } else { $order_desc = ' checked="checked" '; } ?>
+			<input type="radio" id="<?php echo $this->get_field_id( 'order_asc' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" value="ASC" <?php echo $order_asc; ?> />
+			<label for="<?php echo $this->get_field_id( 'order_asc' ); ?>"><?php _e( "Ascending", "photoslider" ); ?></label>&nbsp;&nbsp;&nbsp;
+			<input type="radio" id="<?php echo $this->get_field_id( 'order_desc' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" value="DESC" <?php echo $order_desc; ?> />
+			<label for="<?php echo $this->get_field_id( 'order_desc' ); ?>"><?php _e( "Descending", "photoslider" ); ?></label>
+		</p>
 
 		<?php /* FIXME: Allow setting a custom ID in widget */ ?>
 
@@ -185,11 +213,13 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 		'timeout' => 8000,
 		'captions' => 'no',
 		'post' => 0,
+		'orderby' => 'menu_order',
+		'orderdir' => 'ASC'
 	), $atts );
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
 
-	$attachments = PhotosliderAttachments( $atts['post'] );
+	$attachments = PhotosliderAttachments( $atts['post'], $atts['orderby'], $atts['orderdir'] );
 	if( $attachments ) { $out = GetPhotoslider( $slider_opts, $attachments ); }
 
 	return $out;
@@ -206,14 +236,13 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 	/* determine exact dimensions for first photo for non-js users */
 	$first_item = array_shift( array_values( $attachments ) );
 	$first_attr = wp_get_attachment_image_src( $first_item->ID, $opts['size'] );
-	$first_dmns = 'style="width: ' . $first_attr[1] . 'px; height: ' . $first_attr[2] . 'px;"';
+	$first_dimensions = 'style="width: ' . $first_attr[1] . 'px; height: ' . $first_attr[2] . 'px;"';
 
 	/* start wrapping div */
-	$output = '<div class="ps_wrap" ' . $first_dmns . '>';
+	$output = '<div class="ps_wrap" ' . $first_dimensions . '>';
 	$output .= '<div class="photoslider ctrl-' . $opts['controls'] . '" id="' . $opts['instance_id'] . '">';
 
 		$output .= '<div class="title">' . $title . '</div>';
-
 		$output .= '<ul>';
 
 		$is_first = TRUE;
@@ -282,8 +311,8 @@ function PhotosliderScriptsDynamic( $args ) {
  *
  */
 
-function PhotosliderAttachments( $input ) {
-	if( is_front_page( ) && ( !$input || $input < 1 ) ) {
+function PhotosliderAttachments( $id, $order_by = 'date', $order_direction = 'DESC' ) {
+	if( is_front_page( ) && ( !$id || $id < 1 ) ) {
 		$post_id = get_option( 'page_on_front' );
 	} elseif( $input > 0 ) {
 		$post_id = $input;
@@ -296,7 +325,8 @@ function PhotosliderAttachments( $input ) {
 		'post_parent' => $post_id,
 		'post_type' => 'attachment',
 		'post_mime_type' => 'image',
-		'order_by' => 'menu_order'
+		'order_by' => $order_by,
+		'order' => $order_direction
 	);
 
 	$attachments = get_children( $args );

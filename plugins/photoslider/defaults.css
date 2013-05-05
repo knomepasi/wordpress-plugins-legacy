@@ -17,7 +17,7 @@
 	display: none; 
 
 	position: absolute;
-	top: 0;
+	top: 1.5em;
 	left: 0;
 
 	list-style-type: none !important;
@@ -71,12 +71,12 @@
 	background-color: #fff;
 	background-color: rgba( 255, 255, 255, 0.25 ) !important;
 	text-decoration: none !important;
+	outline: none;
 
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
-
 
 /*  Controls: On top
  *
@@ -85,7 +85,7 @@
 .photoslider.ctrl-ontop .c-prev,
 .photoslider.ctrl-ontop .c-next {
 	display: none;
-	top: 10px;
+	top: 1.7em;
 	left: 10px;
 }
 
@@ -110,11 +110,11 @@
 }
 
 .photoslider.ctrl-above .image {
-	margin-top: 30px;
+	margin-top: 0.3em;
 }
 
 .photoslider.ctrl-above .c-prev,
 .photoslider.ctrl-above .c-next {
-	top: -4px;
+	top: -5px;
 }
 
