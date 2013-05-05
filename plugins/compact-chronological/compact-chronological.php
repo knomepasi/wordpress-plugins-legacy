@@ -9,13 +9,16 @@
  *
  */
 
-/*
- *  Load textdomain for translations
+/*  Init plugin
  *
  */
 
-load_plugin_textdomain( 'compact-chrono', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+add_action( 'plugins_loaded', 'CompactChronoInit' );
 
+function CompactChronoInit( ) {
+	/* Load text domain for i18n */
+	load_plugin_textdomain( 'compact-chrono', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+}
 
 /*
  *  Include CSS

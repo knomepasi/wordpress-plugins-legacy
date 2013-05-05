@@ -9,7 +9,7 @@
  *
  */
 
-/*
+/*  FIXME: Add this to README
  *  Uses images uploaded to the current post. Available as widget and shortcode [picslide].
  */
 
@@ -27,11 +27,11 @@ function PhotosliderActivate( ) {
  *
  */
 
-add_action( 'init', 'PhotosliderInit' );
+add_action( 'plugins_loaded', 'PhotosliderInit' );
 
 function PhotosliderInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'photoslider' );
+	load_plugin_textdomain( 'photoslider', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*  Include default CSS

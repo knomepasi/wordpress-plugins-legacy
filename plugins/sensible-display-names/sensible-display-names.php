@@ -24,4 +24,6 @@ function sensible_names_register( $user_id ) {
 	);
 }
 
+// FIXME: Add support for other formats as well (asian names are usually formatted LAST FIRST)
+
 ?>

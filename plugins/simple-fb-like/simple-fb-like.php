@@ -13,11 +13,11 @@
  *
  */
 
-add_action( 'init', 'SimpleFBLikeInit' );
+add_action( 'plugins_loaded', 'SimpleFBLikeInit' );
 
 function SimpleFBLikeInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'simple-fb-like' );
+	load_plugin_textdomain( 'simple-fb-like', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*  Add widget
@@ -73,7 +73,7 @@ class SimpleFBLikeWidget extends WP_Widget {
 	}
 }
 
-/* Add shortcode
+/*  Add shortcode
  *
  */
 
@@ -87,7 +87,7 @@ function SimpleFBLikeShortcode( $atts, $content, $code ) {
 	return _SimpleFB_IFrame( $fbid );
 }
 
-/* Helper function to print the FB-like iframe
+/*  Helper function to print the FB-like iframe
  *
  */
 

@@ -22,4 +22,7 @@ function RationaleModeration( $headers ) {
 add_filter( 'comment_notification_headers', 'RationaleNotification' );
 add_filter( 'comment_moderation_headers', 'RationaleModeration' );
 
+// FIXME: User registration
+// FIXME: Changed password
+
 ?>

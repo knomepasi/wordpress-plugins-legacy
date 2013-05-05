@@ -9,13 +9,16 @@
  *
  */
 
-/*
- *  Load textdomain for translations
+/*  Init plugin
  *
  */
 
-load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+add_action( 'plugins_loaded', 'ArticleSeriesInit' );
 
+function ArticleSeriesInit( ) {
+	/* Load text domain for i18n */
+	load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+}
 
 /*  
  *  Add the 'serie' taxonomy

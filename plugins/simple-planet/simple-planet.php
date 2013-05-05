@@ -10,6 +10,7 @@
  */
 
 /*  Plugin activation
+ *  FIXME: Add deactivation hook?
  *
  */
 
@@ -24,11 +25,11 @@ function SimplePlanetActivate( ) {
  *
  */
 
-add_action( 'init', 'SimplePlanetInit' );
+add_action( 'plugins_loaded', 'SimplePlanetInit' );
 
 function SimplePlanetInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'simple-planet' );
+	load_plugin_textdomain( 'simple-planet', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*  Widget class

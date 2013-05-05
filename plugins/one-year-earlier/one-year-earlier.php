@@ -13,11 +13,11 @@
  *
  */
 
-add_action( 'init', 'OneYearEarlierInit' );
+add_action( 'plugins_loaded', 'OneYearEarlierInit' );
 
-function OneYearEarlierInit( ) {
+function SimpleFBLikeInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'one-year-earlier' );
+	load_plugin_textdomain( 'one-year-earlier', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*  Widget

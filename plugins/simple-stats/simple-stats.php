@@ -36,14 +36,11 @@ function SimpleStatsDBInit( ) {
  *
  */
 
-add_action( 'init', 'SimpleStatsInit' );
+add_action( 'plugins_loaded', 'SimpleStatsInit' );
 
 function SimpleStatsInit( ) {
 	/* Load text domain for i18n */
 	load_plugin_textdomain( 'simple-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
-	global $wpdb;
-	$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
 }
 
 /*  Add hook to all page loads
@@ -54,7 +51,6 @@ add_action( 'shutdown', 'SimpleStatsHit' );
 
 function SimpleStatsHit( ) {
 	global $blog_id, $wpdb;
-	$wpdb->simplestats = $wpdb->base_prefix . "simplestats"; // FIXME: del?
 
 	$month = gmdate( "Y-m-00" );
 	$post_id = get_the_ID( );

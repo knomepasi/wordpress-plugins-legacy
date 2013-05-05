@@ -8,11 +8,16 @@
  *
  */
 
-/*  Load textdomain for translations
+/*  Init plugin
  *
  */
 
-load_plugin_textdomain( 'projects-catalog', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+add_action( 'plugins_loaded', 'ProjectsCatalogInit' );
+
+function ProjectsCatalogInit( ) {
+	/* Load text domain for i18n */
+	load_plugin_textdomain( 'projects-catalog', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+}
 
 /*  Create databases on plugin activation if needed
  *
@@ -22,6 +27,8 @@ register_activation_hook( __FILE__, 'project_databases' );
 
 function project_databases( ) {
 	global $wpdb;
+
+	$wpdb->project_groupmeta = $wpdb->prefix . "project_groupmeta";
 
 	if( !empty( $wpdb->charset ) ) { $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset"; }
 	if( !empty( $wpdb->collate ) ) { $charset_collate .= " COLLATE $wpdb->collate"; }
@@ -111,8 +118,6 @@ function project_taxonomy_init( ) {
 		'query_var' => true,
 		'rewrite' => false
 	) );
-
-	$wpdb->project_groupmeta = $wpdb->prefix . "project_groupmeta";
 }
 
 /*  Add new fields for the 'Project Group' taxonomy

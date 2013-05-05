@@ -13,11 +13,11 @@
  *
  */
 
-add_action( 'init', 'MultisitePromotionInit' );
+add_action( 'plugins_loaded', 'MultisitePromotionInit' );
 
 function MultisitePromotionInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'multisite-promotion' );
+	load_plugin_textdomain( 'multisite-promotion', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*  Widget
