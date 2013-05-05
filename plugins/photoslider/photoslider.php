@@ -34,26 +34,20 @@ function PhotosliderInit( ) {
 	load_plugin_textdomain( 'photoslider', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
-/*  Include default CSS
- *
- */
-
-add_action( 'wp_head', 'PhotosliderHead' );
-
-function PhotosliderHead( ) {
-	print "<link rel=\"stylesheet\" href=\"" . plugins_url( 'photoslider' ) . "/defaults.css\" />\n";
-}
-
-/*  Include scripts
+/*  Include scripts and default stylesheets
  *
  */
 
 add_action( 'wp_enqueue_scripts', 'PhotosliderScripts' );
 
 function PhotosliderScripts( ) {
-	$x = plugins_url( 'photoslider' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'photoslider', $x . "/slider.js", array( "jquery" ), "1.3" );
+
+	wp_register_script( 'photoslider', plugins_url( 'slider.js', __FILE__ ), array ( 'jquery' ), '1.3' );
+	wp_enqueue_script( 'photoslider' );
+
+	wp_register_style( 'photoslider-defaults', plugins_url( 'defaults.css', __FILE__ ) );
+	wp_enqueue_style( 'photoslider-defaults' );
 }
 
 /*  Add widget

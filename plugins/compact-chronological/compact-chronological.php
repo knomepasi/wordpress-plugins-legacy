@@ -21,15 +21,15 @@ function CompactChronoInit( ) {
 }
 
 /*
- *  Include CSS
+ *  Include default stylesheets
  *
  */
 
-add_action( 'wp_head', 'CompactChronoHead' );
+add_action( 'wp_enqueue_scripts', 'CompactChronoScripts' );
 
-function CompactChronoHead( ) {
-	$x = plugins_url( 'compact-chronological' );
-	print "<link rel=\"stylesheet\" href=\"{$x}/defaults.css\" />\n";
+function CompactChronoScripts( ) {
+	wp_register_style( 'compact-chrono-defaults', plugins_url( 'defaults.css', __FILE__ );
+	wp_enqueue_style( 'compact-chrono-defaults' );
 }
 
 

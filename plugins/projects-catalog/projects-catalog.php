@@ -241,14 +241,15 @@ function project_columns_show( $column ) {
 	}
 }
 
-/*  Include default CSS
+/*  Include default stylesheets
  *
  */
 
-add_action( 'wp_head', 'ProjectsCatalogHead' );
+add_action( 'wp_enqueue_scripts', 'ProjectsCatalogScripts' );
 
-function ProjectsCatalogHead( ) {
-	print "<link rel=\"stylesheet\" href=\"" . plugins_url( 'projects-catalog' ) . "/defaults.css\" />\n";
+function ProjectsCatalogScripts( ) {
+	wp_register_style( 'projects-catalog-defaults', plugins_url( 'defaults.css', __FILE__ ) );
+	wp_enqueue_style( 'projects-catalog-defaults' );
 }
 
 /*  Load the file with default showtypes

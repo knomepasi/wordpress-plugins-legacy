@@ -68,7 +68,7 @@ function InteractiveImagesInit( ) {
 	load_plugin_textdomain( 'interactive-images', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
-/*  Include default CSS
+/*  Include some CSS
  *
  */
 
@@ -76,9 +76,6 @@ add_action( 'wp_head', 'InteractiveImagesHead' );
 add_action( 'admin_head', 'InteractiveImagesHead' );
 
 function InteractiveImagesHead( ) {
-	$x = plugins_url( 'interactive-images' );
-	print "<link rel=\"stylesheet\" href=\"{$x}/defaults.css\" />\n";
-
 	print "<!--[if IE]><style type=\"text/css\">";
 	print ".iimage_caption span.c_main { filter: alpha(opacity = 0); zoom: 1; }";
 	print ".iimage_caption:hover span.c_main { filter: alpha(opacity = 100); }";
@@ -89,24 +86,26 @@ function InteractiveImagesHead( ) {
 	print "</style><![endif]-->\n";
 }
 
-/*  Include scripts
+/*  Include scripts and stylesheets
  *
  */
 
 add_action( 'wp_enqueue_scripts', 'InteractiveImagesScripts' );
-add_action( 'admin_enqueue_scripts', 'InteractiveImagesAdminScripts' );
+add_action( 'admin_enqueue_scripts', 'InteractiveImagesScripts' );
 
 function InteractiveImagesScripts( ) {
-	$x = plugins_url( 'interactive-images' );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.3" );
-}
 
-function InteractiveImagesAdminScripts( ) {
-	$x = plugins_url( 'interactive-images' );
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'interactive_images', $x . "/images.js", array( "jquery" ), "1.3" );
-	wp_enqueue_script( 'interactive_admin', $x . "/images-admin.js", array( "jquery" ), "1.3" );
+	wp_register_script( 'interactive-images', plugins_url( 'images.js', __FILE__ ), array( 'jquery', '1.3' );
+	wp_enqueue_script( 'interactive-images' );
+
+	if( is_admin( ) ) {
+		wp_register_script( 'interactive-images-admin', plugins_url( 'images-admin.js', __FILE__ ), array( 'jquery' ), '1.3' );
+		wp_enqueue_script( 'interactive-images-admin' );
+	}
+
+	wp_register_style( 'interactive-images-default', plugins_url( 'defaults.css', __FILE__ ) );
+	wp_enqueue_style( 'interactive-images-default' );
 }
 
 /*  Add shortcode
