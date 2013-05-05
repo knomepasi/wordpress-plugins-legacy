@@ -5,7 +5,7 @@
  *  Author: Pasi Lallinaho
  *  Version: 1.0
  *  Author URI: http://open.knome.fi/
- *  Plugin URI: https://github.com/knomepasi/WordPress-plugins
+ *  Plugin URI: http://wordpress.knome.fi/
  *
  */
 
