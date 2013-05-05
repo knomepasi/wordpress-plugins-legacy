@@ -5,7 +5,7 @@ function runPhotoslider( opt ) {
 	var i_id = '#' + opt.id;
 
 	/* add timer for the slider if there is more than one photo and if we want to advance automatically */
-	if( jQuery( i_id + ' ul' ).children( ).length > 1 && opt.timeout > 500 ) {
+	if( jQuery( i_id + ' ul' ).children( ).length > 1 && opt.timeout > 0 ) {
 		photoslider_timers[opt.id] = setTimeout( "changeImage( 'next', '" + opt.id + "', '" + opt.timeout + "' )", opt.timeout );
 		photoslider_timeouts[opt.id] = opt.timeout;
 	}
@@ -70,7 +70,9 @@ function changeImage( direction, instance_id, timeout ) {
 	}
 
 	/* set the timeout for next transition */
-	photoslider_timers[instance_id] = setTimeout( "changeImage( 'next', '" + instance_id + "', '" + timeout + "' )", timeout );
+	if( timeout > 0 ) {
+		photoslider_timers[instance_id] = setTimeout( "changeImage( 'next', '" + instance_id + "', '" + timeout + "' )", timeout );
+	}
 }
 
 jQuery( function( ) {
