@@ -6,11 +6,6 @@
 	position: relative;
 	list-style-type: none !important;
 	margin-bottom: 1em;
-
-   -webkit-transition: all 1s ease-in;
-   -moz-transition: all 1s ease-in;
-   -o-transition: all 1s ease-in;
-   transition: all 1s ease-in;
 }
 
 .photoslider li {
@@ -118,3 +113,10 @@
 	top: -5px;
 }
 
+.photoslider.ctrl-above .c-prev {
+	text-align: left;
+}
+
+.photoslider.ctrl-above .c-next {
+	text-align: right;
+}

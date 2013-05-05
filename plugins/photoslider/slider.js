@@ -1,5 +1,6 @@
 var photoslider_timers = [ ];
 var photoslider_timeouts = [ ];
+var photoslider_transitions = [ ];
 
 function runPhotoslider( opt ) {
 	var i_id = '#' + opt.id;
@@ -9,11 +10,14 @@ function runPhotoslider( opt ) {
 		photoslider_timers[opt.id] = setTimeout( "changeImage( 'next', '" + opt.id + "', '" + opt.timeout + "' )", opt.timeout );
 		photoslider_timeouts[opt.id] = opt.timeout;
 	}
+
+	photoslider_transitions[opt.id] = opt.transition;
 }
 
 function changeImage( direction, instance_id, timeout ) {
 	if( this.isActive == true ) {
 		var i_id = '#' + instance_id;
+		var transition = photoslider_transitions[instance_id];
 
 		if( direction == 'prev' ) {
 			/* prev */
@@ -35,17 +39,12 @@ function changeImage( direction, instance_id, timeout ) {
 
 		nextImg = nextItem.children( '.image' ).children( 'img' );
 
-		/* hide the old element */
-		jQuery( i_id + ' .active p' ).fadeOut( 'slow' );
-		jQuery( i_id + ' .active' ).fadeOut( 2000 );
-		jQuery( i_id + ' .active' ).removeClass( 'active' );
-
 		/* see if we need to tweak the height or width */
 		new_height =
-			parseInt( jQuery( i_id + ' .controls a' ).outerHeight( ) ) +
-			parseInt( jQuery( i_id + " .title" ).height( ) ) +
+			parseInt( jQuery( instance_id + ' .controls a' ).outerHeight( ) ) +
+			parseInt( jQuery( instance_id + ' .title' ).height( ) ) +
 			parseInt( nextImg.attr( 'height' ) ) +
-			parseInt( jQuery( i_id + ' .captions' ).height( ) );
+			parseInt( jQuery( instance_id + ' .captions' ).height( ) );
 		new_width = parseInt( nextImg.attr( 'width' ) ) + parseInt( jQuery( i_id + ' .captions' ).width( ) );
 
 		if( new_height > jQuery( i_id ).height( ) ) {
@@ -62,11 +61,35 @@ function changeImage( direction, instance_id, timeout ) {
 
 		jQuery( i_id + ' .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) );
 		jQuery( i_id + '.ctrl-ontop .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) - 10 );
+
+		/* hide the old element */
+		jQuery( i_id + ' .active p' ).fadeOut( 'slow' );
+
+		if ( transition == 'slideleft' ) {
+			jQuery( i_id + ' .active' ).effect( 'slide', { mode: 'hide' }, 2000 );
+		} else if ( transition == 'slideright' ) {
+			jQuery( i_id + ' .active' ).effect( 'slide', { mode: 'hide', direction: 'right' }, 2000 );
+		} else if ( transition == 'fadefast' ) {
+			jQuery( i_id + ' .active' ).fadeOut( 800 );
+		} else {
+			jQuery( i_id + ' .active' ).fadeOut( 2000 );
+		}
+
+		jQuery( i_id + ' .active' ).removeClass( 'active' );
 	
-		/* show next picture */
+		/* show next element */
 		nextItem.addClass( 'active' ); 
 		jQuery( i_id + ' .active p' ).fadeIn( 'slow' );
-		jQuery( i_id + ' .active' ).fadeIn( 2000 );
+
+		if ( transition == 'slideleft' ) {
+			jQuery( i_id + ' .active' ).effect( 'slide', { mode: 'show', direction: 'right' }, 2000 );
+		} else if ( transition == 'slideright' ) {
+			jQuery( i_id + ' .active' ).effect( 'slide', { mode: 'show' }, 2000 );
+		} else if ( transition == 'fadefast' ) {
+			jQuery( i_id + ' .active' ).fadeIn( 800 );
+		} else {
+			jQuery( i_id + ' .active' ).fadeIn( 2000 );
+		}
 	}
 
 	/* set the timeout for next transition */
@@ -76,18 +99,21 @@ function changeImage( direction, instance_id, timeout ) {
 }
 
 jQuery( function( ) {
+	/* show captions and controls */
 	jQuery( ".photoslider .captions" ).show( );
 	jQuery( ".photoslider .controls" ).show( );
 
+	/* set the window activity state; if not active, don't progress */
 	window.isActive = true;
 	jQuery( window ).focus( function ( ) { this.isActive = true; } );
 	jQuery( window ).blur( function ( ) { this.isActive = false; } );
 
+	/* initialize all sliders on the page */
 	var sliders = jQuery( '.photoslider' );
 	jQuery.each( sliders, function( i ) {
 		var cur_slider = '#' + jQuery( this ).attr( 'id' );
 
-		new_height = 
+		new_height =
 			parseInt( jQuery( cur_slider + ' .controls a' ).outerHeight( ) ) +
 			parseInt( jQuery( cur_slider + ' .title' ).height( ) ) +
 			parseInt( jQuery( cur_slider + ' li img' ).first( ).attr( 'height' ) ) +
@@ -122,4 +148,3 @@ jQuery( function( ) {
 		e.preventDefault( );
 	} );
 } );
-

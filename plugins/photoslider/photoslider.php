@@ -3,7 +3,7 @@
  *  Plugin Name: Photoslider
  *  Description: Show a slideshow of user uploaded photos.
  *  Author: Pasi Lallinaho
- *  Version: 1.4
+ *  Version: 1.5
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -38,8 +38,9 @@ add_action( 'wp_enqueue_scripts', 'PhotosliderScripts' );
 
 function PhotosliderScripts( ) {
 	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-effects-slide' );
 
-	wp_register_script( 'photoslider', plugins_url( 'slider.js', __FILE__ ), array ( 'jquery' ), '1.3' );
+	wp_register_script( 'photoslider', plugins_url( 'slider.js', __FILE__ ), array ( 'jquery' ), '1.4' );
 	wp_enqueue_script( 'photoslider' );
 
 	wp_register_style( 'photoslider-defaults', plugins_url( 'defaults.css', __FILE__ ) );
@@ -79,6 +80,7 @@ class PhotosliderWidget extends WP_Widget {
 		$instance['size'] = strip_tags( $new_instance['size'] );
 		$instance['instance_id'] = strip_tags( $new_instance['instance_id'] );
 		$instance['controls'] = $new_instance['controls'];
+		$instance['transition'] = $new_instance['transition'];
 		$instance['timeout'] = (int) $new_instance['timeout'];
 		$instance['captions'] = (int) $new_instance['captions'];
 		$instance['orderby'] = $new_instance['orderby'];
@@ -132,6 +134,24 @@ class PhotosliderWidget extends WP_Widget {
 						);
 						foreach( $c_opt as $id => $name ) {
 							if( $id == $instance['controls'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
+							print '<option value="' . $id . '"' . $is_selected . '>' . $name . '</option>';
+						}
+					?>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'transition' ); ?>"><?php _e( 'Transition type', 'photoslider' ); ?><br />
+				<select class="widefat" id="<?php echo $this->get_field_id( 'transition' ); ?>" name="<?php echo $this->get_field_name( 'transition' ); ?>">
+					<?php
+						$to_opt = array(
+							'fade' => _x( 'Fade', 'transition type', 'photoslider' ),
+							'fadefast' => _x( 'Fade (fast)', 'transition type', 'photoslider' ),
+							'slideleft' => _x( 'Slide (towards left)', 'transition type', 'photoslider' ),
+							'slideright' => _x( 'Slide (towards right)', 'transition type', 'photoslider' ),
+						);
+						foreach( $to_opt as $id => $name ) {
+							if( $id == $instance['transition'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
 							print '<option value="' . $id . '"' . $is_selected . '>' . $name . '</option>';
 						}
 					?>
@@ -210,6 +230,7 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 	$slider_opts = shortcode_atts( array(
 		'size' => 'medium',
 		'controls' => 'none',
+		'transition' => 'fade',
 		'timeout' => 8000,
 		'captions' => 'no',
 		'post' => 0,
@@ -296,7 +317,7 @@ function PhotosliderScriptsDynamic( $args ) {
 	$out .= 'jQuery( window ).load( function( ) {';
 
 	$out .= 'var ' . $args['instance_id'] . ' = ' . "\n";
-	$out .= '{ "id": "' . $args['instance_id'] . '", "controls": "' . $args['controls'] . '", "timeout": "' . $args['timeout'] . '" } ' . "\n";
+	$out .= '{ "id": "' . $args['instance_id'] . '", "controls": "' . $args['controls'] . '", "timeout": "' . $args['timeout'] . '", "transition": "' . $args['transition'] . '" } ' . "\n";
 	$out .= '; ';
 
 	$out .= 'runPhotoslider( ' . $args['instance_id'] . ' );';
