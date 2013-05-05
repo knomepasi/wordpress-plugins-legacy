@@ -9,10 +9,6 @@
  *
  */
 
-/*  FIXME: Add this to README
- *  Uses images uploaded to the current post. Available as widget and shortcode [picslide].
- */
-
 /*  On plugin activation, create options for default values if needed
  *
  */
@@ -167,6 +163,8 @@ class PhotosliderWidget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'captions_no' ); ?>"><?php _e( "No", "photoslider" ); ?></label>
 		</p>
 
+		<?php /* FIXME: Allow setting a custom ID in widget */ ?>
+
 		<input type="hidden" name="<?php echo $this->get_field_name( 'instance_id' ); ?>" value="<?php echo uniqid( 'photoslider_' ); ?>" />
 
 		<?php 
@@ -174,6 +172,7 @@ class PhotosliderWidget extends WP_Widget {
 }
 
 /*  Add shortcode
+ *  FIXME: Document
  *
  */
 

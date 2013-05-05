@@ -78,7 +78,7 @@ function project_posttype_init( ) {
 		'show_ui' => true,
 		'show_in_menu' => true,
 		'menu_position' => 4,
-		'menu_icon' => null, // add a custom icon?
+		'menu_icon' => null, // FIXME: add a custom icon
 		'capability_type' => 'page',
 		'hierarchical' => true,
 		'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'comments',	'revisions' ),

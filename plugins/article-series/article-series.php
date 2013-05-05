@@ -104,7 +104,6 @@ function ArticleSeriesColumnShow( $column ) {
 			if( is_string( $terms ) ) {
 				echo $terms;
 			} else {
-//				_e( "Not in any serie.", "article-series" );
 				echo "—";
 			}
 			break;

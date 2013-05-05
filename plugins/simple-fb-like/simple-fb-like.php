@@ -75,6 +75,7 @@ class SimpleFBLikeWidget extends WP_Widget {
 }
 
 /*  Add shortcode
+ *  FIXME: Document
  *
  */
 

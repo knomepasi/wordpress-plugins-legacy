@@ -10,7 +10,6 @@
  */
 
 /*  Plugin activation
- *  FIXME: Add deactivation hook?
  *
  */
 
