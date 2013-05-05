@@ -65,7 +65,7 @@ class PhotosliderWidget extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$attachments = PhotosliderAttachments( $instance['post'], $instance['orderby'], $instance['order'] );
+		$attachments = PhotosliderAttachments( $instance['custom_id'], $instance['orderby'], $instance['order'] );
 
 		echo $before_widget;
 		if( $instance['title'] ) { $title = $before_title . $title . $after_title; }
@@ -85,6 +85,7 @@ class PhotosliderWidget extends WP_Widget {
 		$instance['captions'] = (int) $new_instance['captions'];
 		$instance['orderby'] = $new_instance['orderby'];
 		$instance['order'] = $new_instance['order'];
+		$instance['custom_id'] = (int) $new_instance['custom_id'];
 		return $instance;
 	}
 
@@ -92,6 +93,7 @@ class PhotosliderWidget extends WP_Widget {
 	function form( $instance ) {
 		$title = esc_attr( $instance['title'] );
 		$size = esc_attr( $instance['size'] );
+		$custom_id = esc_attr( $instance['custom_id'] );
 
 		if( !$size ) { $size = get_option( 'photoslider_default_size' ); }
 		?>
@@ -210,8 +212,11 @@ class PhotosliderWidget extends WP_Widget {
 			<input type="radio" id="<?php echo $this->get_field_id( 'order_desc' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" value="DESC" <?php echo $order_desc; ?> />
 			<label for="<?php echo $this->get_field_id( 'order_desc' ); ?>"><?php _e( "Descending", "photoslider" ); ?></label>
 		</p>
-
-		<?php /* FIXME: Allow setting a custom ID in widget */ ?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'custom_id' ); ?>"><?php _e( 'Page or post ID (leave blank for current)', 'photoslider' ); ?><br />
+				<input style="width: 220px;" id="<?php echo $this->get_field_id( 'custom_id' ); ?>" name="<?php echo $this->get_field_name( 'custom_id' ); ?>" type="text" value="<?php echo $custom_id; ?>" />
+			</label>
+		</p>
 
 		<input type="hidden" name="<?php echo $this->get_field_name( 'instance_id' ); ?>" value="<?php echo uniqid( 'photoslider_' ); ?>" />
 
@@ -233,9 +238,9 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 		'transition' => 'fade',
 		'timeout' => 8000,
 		'captions' => 'no',
-		'post' => 0,
 		'orderby' => 'menu_order',
-		'orderdir' => 'ASC'
+		'orderdir' => 'ASC',
+		'post' => 0
 	), $atts );
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
