@@ -1,5 +1,6 @@
-<?
-/*  Plugin Name: Article Series
+<?php
+/*
+ *  Plugin Name: Article Series
  *  Description: Adds a new taxonomy 'series' for posts.
  *  Author: Pasi Lallinaho
  *  Version: 1.0
@@ -14,6 +15,7 @@
  */
 
 load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
 
 /*  
  *  Add the 'serie' taxonomy

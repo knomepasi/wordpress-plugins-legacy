@@ -9,18 +9,16 @@
  *
  */
 
-/*  Init plugin
+/*
+ *  Load textdomain for translations
  *
  */
 
-add_action( 'init', 'CompactChronoInit' );
+load_plugin_textdomain( 'compact-chrono', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-function CompactChronoInit( ) {
-	/* Load text domain for i18n */
-	load_plugin_textdomain( 'compact-chrono' );
-}
 
-/*  Include CSS
+/*
+ *  Include CSS
  *
  */
 
@@ -32,7 +30,8 @@ function CompactChronoHead( ) {
 }
 
 
-/*  Widget
+/*
+ *  Widget
  *
  */
 
