@@ -1,0 +1,44 @@
+# Translation of Category Excerpts in Finnish
+# This file is distributed under the same license as the Category Excerpts package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2013-02-17 17:30:08+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Category Excerpts\n"
+
+#: category-excerpts.php:34
+msgctxt "widget name"
+msgid "Category Excerpts"
+msgstr "Kategoriaotteet"
+
+#: category-excerpts.php:36
+msgid "Show newest excerpts from a defined category."
+msgstr "Näytä uusimmat otteet valitusta kategoriasta."
+
+#: category-excerpts.php:64
+msgid "Read more"
+msgstr "Lue lisää"
+
+#: category-excerpts.php:98
+msgid "Title"
+msgstr "Otsikko"
+
+#: category-excerpts.php:103
+msgid "Category"
+msgstr "Kategoria"
+
+#: category-excerpts.php:110
+msgid "-- All categories --"
+msgstr "-- Kaikki kategoriat --"
+
+#: category-excerpts.php:125
+msgid "Number of excerpts"
+msgstr "Otteiden lukumäärä"
+
+#: category-excerpts.php:130
+msgid "'More articles' link text"
+msgstr "'Lisää artikkeleita' -linkin teksti"
