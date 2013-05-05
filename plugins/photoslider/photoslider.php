@@ -50,17 +50,18 @@ function PhotosliderScripts( ) {
 	wp_enqueue_style( 'photoslider-defaults' );
 }
 
-/*  Add widget
+/*  Widget
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("PhotosliderWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'PhotosliderWidget' ); } );
 
 class PhotosliderWidget extends WP_Widget {
 	/** constructor */
-	function PhotosliderWidget() {
-		$ops = array( "description" => __( 'Show a slideshow of user uploaded photos.', 'photoslider' ) );
-		parent::WP_Widget( false, $name = __( 'Photoslider', 'photoslider' ), $ops );
+	function __construct() {
+		$widget_ops = array( 'description' => __( 'Show a slideshow of user uploaded photos.', 'photoslider' ) );
+
+		parent::__construct( 'photoslider', _x( 'Photoslider', 'widget name', 'photoslider' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */

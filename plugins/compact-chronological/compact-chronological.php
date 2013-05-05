@@ -33,18 +33,18 @@ function CompactChronoScripts( ) {
 }
 
 
-/*
- *  Widget
+/*  Widget
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("CompactChronoWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'CompactChronoWidget' ); } );
 
 class CompactChronoWidget extends WP_Widget {
 	/** constructor */
-	function CompactChronoWidget() {
-		$ops = array( "description" => __( 'Show month archive links in a compact view.', 'compact-chrono' ) );
-		parent::WP_Widget( false, $name = __( 'Compact & Chronological', 'compact-chrono' ), $ops );
+	function __construct() {
+		$widget_ops = array( 'description' => __( 'Show month archive links in a compact view.', 'compact-chrono' ) );
+
+		parent::__construct( 'compact-chrono', _x( 'Compact & Chronological', 'widget name', 'compact-chrono' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */

@@ -134,23 +134,18 @@ function ArticleSeriesRewriteFlush( ) {
 
 register_activation_hook( __FILE__, 'ArticleSeriesRewriteFlush' );
 
-/*
- *  Add a widget to promote article series
+/*  Add a widget to promote article series
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("ArticleSeriesWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'ArticleSeriesWidget' ); } );
 
 class ArticleSeriesWidget extends WP_Widget {
 	/** constructor */
-	function ArticleSeriesWidget( ) {
-		parent::WP_Widget(
-			'article_series',
-			_x( 'Article series', 'widget name', 'article-series' ),
-			array(
-				'description' => __( 'Promote article series.', 'article-series' ),
-			)
-		);
+	function __construct( ) {
+		$widget_ops = array( 'description' => __( 'Promote article series.', 'article-series' ) );
+
+		parent::__construct( 'article-series', _x( 'Article series', 'widget name', 'article-series' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */

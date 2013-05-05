@@ -24,13 +24,14 @@ function MultisitePromotionInit( ) {
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("MultisitePromotionWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'MultisitePromotionWidget' ); } );
 
 class MultisitePromotionWidget extends WP_Widget {
 	/** constructor */
-	function MultisitePromotionWidget() {
-		$ops = array( "description" => __( 'Enables adding widgets to link to other sites on multisites.', 'multisite-promotion' ) );
-		parent::WP_Widget( false, $name = __( 'Multisite Promotion', 'multisite-promotion' ), $ops );
+	function __construct() {
+		$widget_ops = array( 'description' => __( 'Enables adding widgets to link to other sites on multisites.', 'multisite-promotion' ) );
+
+		parent::__construct( 'multisite-promotion', _x( 'Multisite Promotion', 'widget name', 'multisite-promotion' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */

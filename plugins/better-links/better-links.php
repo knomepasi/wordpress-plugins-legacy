@@ -20,18 +20,18 @@ function BetterLinksInit( ) {
 	load_plugin_textdomain( 'better-links', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
-/*
- *  Widget
+/*  Widget
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget( "BetterLinksWidget" );' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'BetterLinksWidget' ); } );
 
 class BetterLinksWidget extends WP_Widget {
 	/** constructor */
-	function BetterLinksWidget( ) {
-		$ops = array( "description" => __( 'Show easy-clickable links with inline descriptions.', 'better-links' ) );
-		parent::WP_Widget( false, $name = __( 'Better links', 'better-links' ), $ops );
+	function __construct( ) {
+		$widget_ops = array( 'description' => __( 'Show easy-clickable links with inline descriptions.', 'better-links' ) );
+
+		parent::__construct( 'better-links', _x( 'Better links', 'widget name', 'better-links' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */

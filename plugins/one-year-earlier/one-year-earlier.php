@@ -24,13 +24,14 @@ function SimpleFBLikeInit( ) {
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("OneYearEarlierWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'OneYearEarlierWidget' ); } );
 
 class OneYearEarlierWidget extends WP_Widget {
 	/** constructor */
-	function OneYearEarlierWidget() {
-		$ops = array( "description" => __( 'Show one article from one year earlier.', 'one-year-earlier' ) );
-		parent::WP_Widget( false, $name = __( 'One Year Earlier', 'one-year-earlier' ), $ops );
+	function __construct() {
+		$widget_ops = array( 'description' => __( 'Show one article from one year earlier.', 'one-year-earlier' ) );
+
+		parent::__construct( 'one-year-earlier', _x( 'One Year Earlier', 'widget name', 'one-year-earlier' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */

@@ -36,20 +36,15 @@ function SimplePlanetInit( ) {
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("SimplePlanetWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'SimplePlanetWidget' ); } );
 
 class SimplePlanetWidget extends WP_Widget {
 	/** constructor */
-	function SimplePlanetWidget( ) {
-		parent::WP_Widget(
-			'simple_planet',
-			_x( 'Simple Planet', 'widget name', 'simple-planet' ),	
-			array(
-				'description' => __( 'Show aggregated posts from multiple feeds sorted by date via a widget.', 'simple-planet' ),
-				'width'       => 500,
-				'height'      => 400
-			)
-		);
+	function __construct( ) {
+ 		$widget_ops = array( 'description' => __( 'Show aggregated posts from multiple feeds sorted by date via a widget.', 'simple-planet' ) );
+		$control_ops = array( 'width' => 500, 'height' => 400 );
+
+		parent::__construct( 'simple-planet', _x( 'Simple Planet', 'widget name', 'simple-planet' ), $widget_ops, $control_ops );
 	}
 
 	/** @see WP_Widget::widget */

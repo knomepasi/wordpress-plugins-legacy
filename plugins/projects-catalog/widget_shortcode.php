@@ -4,14 +4,15 @@
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("ProjectsCatalogWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'ProjectsCatalogWidget' ); } );
 
 class ProjectsCatalogWidget extends WP_Widget {
 	/** constructor */
-	function ProjectsCatalogWidget() {
-		$widget_ops = array( "description" => __( 'Show the projects catalog listing.', 'projects-catalog' ) );
-		$control_ops = array( "width" => 200 );
-		parent::WP_Widget( false, $name = _x( 'Projects Catalog', 'widget name', 'projects-catalog' ), $widget_ops, $control_ops );
+	function __construct() {
+		$widget_ops = array( 'description' => __( 'Show the projects catalog listing.', 'projects-catalog' ) );
+		$control_ops = array( 'width' => 200 );
+
+		parent::__construct( 'projects-catalog', _x( 'Projects Catalog', 'widget name', 'projects-catalog' ), $widget_ops, $control_ops );
 	}
 
 	/** @see WP_Widget::widget */

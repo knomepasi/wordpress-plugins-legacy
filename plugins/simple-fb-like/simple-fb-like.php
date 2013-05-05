@@ -20,17 +20,18 @@ function SimpleFBLikeInit( ) {
 	load_plugin_textdomain( 'simple-fb-like', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
-/*  Add widget
+/*  Widget
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("SimpleFBLikeWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'SimpleFBLikeWidget' ); } );
 
 class SimpleFBLikeWidget extends WP_Widget {
 	/** constructor */
-	function SimpleFBLikeWidget() {
-		$ops = array( "description" => __( 'Shows a Facebook Like button for a Facebook profile.', 'simple-fb-like' ) );
-		parent::WP_Widget( false, $name = 'FB Like', $ops );
+	function __construct() {
+		$widget_ops = array( 'description' => __( 'Shows a Facebook Like button for a Facebook profile.', 'simple-fb-like' ) );
+
+		parent::__construct( 'simple-fb-like', _x( 'FB Like', 'widget name', 'simple-fb-like' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */
