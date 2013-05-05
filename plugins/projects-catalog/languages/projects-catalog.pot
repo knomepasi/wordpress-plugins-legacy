@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-05 22:31+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../plugins/projects-catalog/projects-catalog.php:60
+msgctxt "Post type"
+msgid "Projects"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:61
+msgctxt "Post type (singular)"
+msgid "Project"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:62
+msgctxt "project"
+msgid "Add New"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:63
+msgid "Add New Project"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:64
+msgid "Edit Project"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:65
+msgid "New Project"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:66
+msgid "View Project"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:67
+msgid "Search Projects"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:68
+msgid "No projects found"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:69
+msgid "No projects found in Trash"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:70
+msgid "Main Project"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:71
+msgid "Projects"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:101
+msgctxt "Taxonomy name"
+msgid "Project Group"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:102
+msgctxt "Taxonomy name (singular)"
+msgid "Project Group"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:103
+msgid "Search Project Groups"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:104
+msgid "All Project Groups"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:107
+msgid "Edit Project Group"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:108
+msgid "Update Project Group"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:109
+msgid "Add New Project Group"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:110
+msgid "New Project Group name"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:111
+msgid "Groups"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:136
+#: ../plugins/projects-catalog/widget_shortcode.php:69
+#: ../plugins/projects-catalog/widget_shortcode.php:70
+msgid "Showtype"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:141
+msgid "This selection defines how the project group is presented by default."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:145
+msgid "Order"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:148
+msgid "The sort order. Smaller integers go bottom."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:179
+#, php-format
+msgid "Project updated. <a href=\"%s\">View project</a>"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:180
+msgid "Custom field updated."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:181
+msgid "Custom field deleted."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:182
+msgid "Project updated."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:184
+#, php-format
+msgid "Project restored to revision from %s"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:185
+#, php-format
+msgid "Project published. <a href=\"%s\">View project</a>"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:186
+msgid "Project saved."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:187
+#, php-format
+msgid "Project submitted. <a target=\"_blank\" href=\"%s\">Preview project</a>"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:188
+#, php-format
+msgid ""
+"Project scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview project</a>"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:190
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:191
+#, php-format
+msgid ""
+"Project draft updated. <a target=\"_blank\" href=\"%s\">Preview project</a>"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:218
+#: ../plugins/projects-catalog/widget_shortcode.php:55
+#: ../plugins/projects-catalog/widget_shortcode.php:56
+msgid "Project Group"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:238
+msgid "Not in any group."
+msgstr ""
+
+#: ../plugins/projects-catalog/showtypes.php:42
+msgctxt "showtype"
+msgid "Simple list"
+msgstr ""
+
+#: ../plugins/projects-catalog/showtypes.php:71
+msgctxt "showtype"
+msgid "Thumbs"
+msgstr ""
+
+#: ../plugins/projects-catalog/showtypes.php:107
+msgctxt "showtype"
+msgid "Screenshot with project name and description"
+msgstr ""
+
+#: ../plugins/projects-catalog/showtypes.php:147
+msgctxt "showtype"
+msgid "Small mosaic"
+msgstr ""
+
+#: ../plugins/projects-catalog/widget_shortcode.php:12
+msgid "Show the projects catalog listing."
+msgstr ""
+
+#: ../plugins/projects-catalog/widget_shortcode.php:15
+msgctxt "widget name"
+msgid "Projects Catalog"
+msgstr ""
+
+#: ../plugins/projects-catalog/widget_shortcode.php:50
+msgid "Title"
+msgstr ""
+
+#: ../plugins/projects-catalog/widget_shortcode.php:71
+msgid "None (use defaults)"
+msgstr ""
+
+#: ../plugins/projects-catalog/widget_shortcode.php:74
+msgid ""
+"If you specify a showtype here, all the category defaults will be overridden "
+"and all categories will use the selected showtype."
+msgstr ""
+
+#: ../plugins/projects-catalog/widget_shortcode.php:118
+msgid "Undefined"
+msgstr ""

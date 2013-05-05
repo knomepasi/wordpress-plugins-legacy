@@ -17,28 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-stats/simple-stats.php:84
-#: ../plugins/simple-stats/simple-stats.php:91
-msgid "Statistics"
+#: ../plugins/simple-fb-like/simple-fb-like.php:32
+msgid "Shows a Facebook Like button for a Facebook profile."
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Loads"
+#: ../plugins/simple-fb-like/simple-fb-like.php:34
+msgctxt "widget name"
+msgid "FB Like"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Post"
+#: ../plugins/simple-fb-like/simple-fb-like.php:63
+msgid "Title"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:133
-msgid "Select year"
-msgstr ""
-
-#: ../plugins/simple-stats/simple-stats.php:136
-msgid "Select month"
-msgstr ""
-
-#: ../plugins/simple-stats/simple-stats.php:152
-#: ../plugins/simple-stats/simple-stats.php:155
-msgid "Filter"
+#: ../plugins/simple-fb-like/simple-fb-like.php:68
+msgid "Profile name"
 msgstr ""

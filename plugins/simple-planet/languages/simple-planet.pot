@@ -17,28 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-stats/simple-stats.php:84
-#: ../plugins/simple-stats/simple-stats.php:91
-msgid "Statistics"
+#: ../plugins/simple-planet/simple-planet.php:43
+msgid "Show aggregated posts from multiple feeds sorted by date via a widget."
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Loads"
+#: ../plugins/simple-planet/simple-planet.php:46
+msgctxt "widget name"
+msgid "Simple Planet"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Post"
+#: ../plugins/simple-planet/simple-planet.php:110
+msgid "by"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:133
-msgid "Select year"
+#: ../plugins/simple-planet/simple-planet.php:147
+msgid "Title"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:136
-msgid "Select month"
+#: ../plugins/simple-planet/simple-planet.php:150
+msgid "Feeds (one per line)"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:152
-#: ../plugins/simple-stats/simple-stats.php:155
-msgid "Filter"
+#: ../plugins/simple-planet/simple-planet.php:153
+msgid "Items to show"
+msgstr ""
+
+#: ../plugins/simple-planet/simple-planet.php:156
+msgid "Minimum refresh interval (in minutes)"
 msgstr ""

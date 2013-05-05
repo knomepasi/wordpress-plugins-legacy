@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-17 19:25+0200\n"
+"POT-Creation-Date: 2013-05-05 22:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: category-excerpts.php:34
+#: ../plugins/category-excerpts/category-excerpts.php:32
+msgid "Show newest excerpts from a defined category."
+msgstr ""
+
+#: ../plugins/category-excerpts/category-excerpts.php:34
 msgctxt "widget name"
 msgid "Category Excerpts"
 msgstr ""
 
-#: category-excerpts.php:36
-msgid "Show newest excerpts from a defined category."
-msgstr ""
-
-#: category-excerpts.php:64
+#: ../plugins/category-excerpts/category-excerpts.php:60
 msgid "Read more"
 msgstr ""
 
-#: category-excerpts.php:98
+#: ../plugins/category-excerpts/category-excerpts.php:94
 msgid "Title"
 msgstr ""
 
-#: category-excerpts.php:103
+#: ../plugins/category-excerpts/category-excerpts.php:99
 msgid "Category"
 msgstr ""
 
-#: category-excerpts.php:110
+#: ../plugins/category-excerpts/category-excerpts.php:106
 msgid "-- All categories --"
 msgstr ""
 
-#: category-excerpts.php:125
+#: ../plugins/category-excerpts/category-excerpts.php:121
 msgid "Number of excerpts"
 msgstr ""
 
-#: category-excerpts.php:130
+#: ../plugins/category-excerpts/category-excerpts.php:126
 msgid "'More articles' link text"
 msgstr ""

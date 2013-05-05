@@ -17,28 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-stats/simple-stats.php:84
-#: ../plugins/simple-stats/simple-stats.php:91
-msgid "Statistics"
+#: ../plugins/compact-chronological/compact-chronological.php:45
+msgid "Show month archive links in a compact view."
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Loads"
+#: ../plugins/compact-chronological/compact-chronological.php:47
+msgctxt "widget name"
+msgid "Compact & Chronological"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Post"
+#: ../plugins/compact-chronological/compact-chronological.php:94
+msgid "posts"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:133
-msgid "Select year"
+#: ../plugins/compact-chronological/compact-chronological.php:124
+msgid "Title"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:136
-msgid "Select month"
-msgstr ""
-
-#: ../plugins/simple-stats/simple-stats.php:152
-#: ../plugins/simple-stats/simple-stats.php:155
-msgid "Filter"
+#: ../plugins/compact-chronological/compact-chronological.php:129
+msgid "Split to two rows?"
 msgstr ""
