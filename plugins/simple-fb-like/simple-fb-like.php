@@ -20,6 +20,17 @@ function SimpleFBLikeInit( ) {
 	load_plugin_textdomain( 'simple-fb-like', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
+/*  Include scripts and default stylesheets
+ *
+ */
+
+add_action( 'wp_enqueue_scripts', 'SimpleFBLikeScripts' );
+
+function SimpleFBLikeScripts( ) {
+	wp_register_style( 'simplefblike-defaults', plugins_url( 'defaults.css', __FILE__ ) );
+	wp_enqueue_style( 'simplefblike-defaults' );
+}
+
 /*  Widget
  *
  */
@@ -40,7 +51,7 @@ class SimpleFBLikeWidget extends WP_Widget {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $before_widget;
-		if( $instance['title'] ) { $title = $before_title . $title . $after_title; }
+		if( $instance['title'] ) { print $before_title . $title . $after_title; }
 		print _SimpleFB_IFrame( $instance['profile'] );
 		echo $after_widget;
 	}
@@ -94,7 +105,7 @@ function SimpleFBLikeShortcode( $atts, $content, $code ) {
  */
 
 function _SimpleFB_IFrame( $id ) {
-	return '<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2F' . $fbid . '&width=292&height=62&colorscheme=light&show_faces=false&border_color&stream=false&header=false" width="292" height="24"></iframe>';
+	return '<iframe class="simplefb" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2F' . $id . '&width=292&height=62&colorscheme=light&show_faces=false&border_color&stream=false&header=false" width="292" height="24"></iframe>';
 }
 
 ?>
