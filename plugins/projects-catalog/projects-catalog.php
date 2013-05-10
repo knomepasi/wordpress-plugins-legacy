@@ -8,26 +8,14 @@
  *
  */
 
-/*  Init plugin
+/*  On plugin activation, create databases and options for default values if needed
  *
  */
 
-add_action( 'plugins_loaded', 'ProjectsCatalogInit' );
+register_activation_hook( __FILE__, 'ProjectsCatalogActivate' );
 
-function ProjectsCatalogInit( ) {
-	/* Load text domain for i18n */
-	load_plugin_textdomain( 'projects-catalog', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
-}
-
-/*  Create databases on plugin activation if needed
- *
- */
-
-register_activation_hook( __FILE__, 'project_databases' );
-
-function project_databases( ) {
+function ProjectsCatalogActivate( ) {
 	global $wpdb;
-
 	$wpdb->project_groupmeta = $wpdb->prefix . "project_groupmeta";
 
 	if( !empty( $wpdb->charset ) ) { $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset"; }
@@ -47,6 +35,21 @@ function project_databases( ) {
 
 		$wpdb->query( $wp_query );
 	}
+}
+
+/*  Init plugin
+ *
+ */
+
+add_action( 'plugins_loaded', 'ProjectsCatalogInit' );
+
+function ProjectsCatalogInit( ) {
+	/* Load text domain for i18n */
+	load_plugin_textdomain( 'projects-catalog', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+
+	/* Init database */
+	global $wpdb;
+	$wpdb->project_groupmeta = $wpdb->prefix . "project_groupmeta";
 }
 
 /*  Register new post type 'project'

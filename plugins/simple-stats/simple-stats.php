@@ -3,7 +3,7 @@
  *  Plugin Name: Simple Stats
  *  Description: Simple load statistics (single or multisite).
  *  Author: Pasi Lallinaho
- *  Version: 1.1
+ *  Version: 1.2
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *

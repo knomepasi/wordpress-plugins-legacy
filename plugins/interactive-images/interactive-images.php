@@ -66,6 +66,11 @@ add_action( 'plugins_loaded', 'InteractiveImagesInit' );
 function InteractiveImagesInit( ) {
 	/* Load text domain for i18n */
 	load_plugin_textdomain( 'interactive-images', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+
+	/* Init database */
+	global $wpdb;
+	$wpdb->interactive_images = $wpdb->prefix . "interactive_images";
+	$wpdb->interactive_captions = $wpdb->prefix . "interactive_captions";
 }
 
 /*  Include some CSS
