@@ -13,11 +13,17 @@
  *
  */
 
-register_activation_hook( __FILE__, 'SimpleStatsDBInit' );
+register_activation_hook( __FILE__, 'SimpleStatsActivate' );
 
-function SimpleStatsDBInit( ) {
+function SimpleStatsActivate( ) {
+	add_site_option( 'simplestats_shared_table', true );
+
 	global $wpdb;
-	$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
+	if( get_site_option( 'simplestats_shared_table' ) == true ) {
+		$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
+	} else {
+		$wpdb->simplestats = $wpdb->prefix . "simplestats";
+	}
 
 	if( !empty( $wpdb->charset ) ) { $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset"; }
 	if( !empty( $wpdb->collate ) ) { $charset_collate .= " COLLATE $wpdb->collate"; }
@@ -41,6 +47,14 @@ add_action( 'plugins_loaded', 'SimpleStatsInit' );
 function SimpleStatsInit( ) {
 	/* Load text domain for i18n */
 	load_plugin_textdomain( 'simple-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+	/* Init database */
+	global $wpdb;
+	if( get_site_option( 'simplestats_shared_table' ) == true ) {
+		$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
+	} else {
+		$wpdb->simplestats = $wpdb->prefix . "simplestats";
+	}
 }
 
 /*  Add hook to all page loads
@@ -81,7 +95,7 @@ add_action( 'admin_menu', 'SimpleStatsMenu' );
 
 function SimpleStatsMenu( ) {
 	if( current_user_can( 'activate_plugins' ) ) {
-		$ms_stats = add_menu_page( __( 'Statistics', 'simple-stats' ), __( 'Statistics', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdmin', null, 50 );
+		add_menu_page( __( 'Statistics', 'simple-stats' ), __( 'Statistics', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdmin', null, 50 );
 	}
 }
 
