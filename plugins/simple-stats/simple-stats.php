@@ -18,6 +18,7 @@ register_activation_hook( __FILE__, 'SimpleStatsActivate' );
 function SimpleStatsActivate( ) {
 	/* Add option to use a table per blog */
 	add_site_option( 'simplestats_table_per_blog', false );
+	add_option( 'simplestats_results_visible_default', 20 );
 
 	global $wpdb;
 	if( get_site_option( 'simplestats_table_per_blog' ) == true ) {
@@ -63,6 +64,20 @@ function SimpleStatsInit( ) {
 	}
 }
 
+/*  Include scripts and stylesheets
+ *
+ */
+
+add_action( 'admin_enqueue_scripts', 'SimpleStatsScripts' );
+
+function SimpleStatsScripts( ) {
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-ui-blind' );
+
+	wp_register_script( 'simple-stats-admin', plugins_url( 'admin.js', __FILE__ ), array( 'jquery' ), '0.1' );
+	wp_enqueue_script( 'simple-stats-admin' );
+}
+
 /*  Add hook to all page loads
  *
  */
@@ -104,12 +119,10 @@ function SimpleStatsHit( ) {
 				array( 'count' => $contexts['referrer']['count'] + 1 ),
 				array( 'blog_id' => $blog_id, 'context' => 'referrer', 'item' => $referrer, 'month' => $month ),
 				array( '%d' ),
-				array( '%d', '%s', '%d', '%s', )
+				array( '%d', '%s', '%s', '%s', )
 			);
 		}
 	}
-
-	print "<!-- " . $referrer . " -->";
 
 	/* Unique visitors */
 	if( $contexts['visitor']['count'] < 1 ) {
@@ -123,7 +136,7 @@ function SimpleStatsHit( ) {
 			array( 'count' => $contexts['visitor']['count'] + 1 ),
 			array( 'blog_id' => $blog_id, 'context' => 'visitor', 'item' => $visitor_ip, 'month' => $month ),
 			array( '%d' ),
-			array( '%d', '%s', '%d', '%s' )
+			array( '%d', '%s', '%s', '%s' )
 		);
 	}
 
@@ -193,7 +206,7 @@ function SimpleStatsAdminReferrers( ) {
 			print '<h2>' . __( 'Referrer statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
 
 			_simple_stats_months_dropdown( 'simple-stats-referrers' );
-			_simple_stats_items_list( 'referrer', $_POST['month'], $_POST['year'] );
+			_simple_stats_items_list( 'referrer', $_POST['month'], $_POST['year'], 'simple-stats-referrers' );
 		print '</div>';
 	}
 }
@@ -202,7 +215,7 @@ function SimpleStatsAdminReferrers( ) {
  *
  */
 
-function _simple_stats_items_list( $context, $month = null, $year = null ) {
+function _simple_stats_items_list( $context, $month = null, $year = null, $redirect_to = 'simple-stats' ) {
 	global $blog_id, $wpdb;
 
 	if( $month ) {
@@ -228,17 +241,26 @@ function _simple_stats_items_list( $context, $month = null, $year = null ) {
 	print '<table class="widefat"><thead><tr><th style="width: 80px;">' . $opts[$context]['amount_text'] . '</th><th>' . $opts[$context]['item_text'] . '</th></tr></thead><tbody>';
 	if( count( $totals ) > 0 ) {
 		foreach( $totals as $item ) {
+			if( $items_count == get_option( 'simplestats_results_visible_default' ) && $_GET['show'] != "all" ) {
+				print '</tbody><tbody class="more" style="display: none;">';
+			}
+
 			if( $context == "hit" ) {
 				$cur_post = get_post( $item['item'] );
 				print '<tr><td>' . $item['total'] . '</td><td><a href="' . get_permalink( $cur_post ) . '">' . $cur_post->post_title . '</a></td></tr>';
 			} elseif( $context == "referrer" ) {
 				print '<tr><td>' . $item['total'] . '</td><td><a href="' . $item['item'] . '">' . $item['item'] . '</a></td></tr>';
 			}
+			$items_count++;
 		}
 	} else {
 		print '<tr><td colspan="2">' . $opts[$context]['noresults_text'] . '</td></tr>';
 	}
 	print '</tbody></table>';
+
+	if( $items_count > get_option( 'simplestats_results_visible_default' ) && $_GET['show'] != "all" ) {
+		print '<p class="show-more"><a href="admin.php?page=' . $redirect_to . '&show=all">' . __( 'Show more results', 'simple-stats' ) . '</a></p>';
+	}
 }
 
 function _simple_stats_months_dropdown( $redirect_to = 'simple-stats' ) {
