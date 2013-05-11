@@ -1,41 +1,47 @@
 <?php
 /*
  *  Plugin Name: Simple Stats
- *  Description: Simple load statistics (single or multisite).
+ *  Description: Simple hit, visitor and referrer statistics.
  *  Author: Pasi Lallinaho
- *  Version: 1.2
+ *  Version: 2.0-alpha1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
  */
 
-/*  Create database on plugin activation if needed
+/*  Plugin activation
  *
  */
 
 register_activation_hook( __FILE__, 'SimpleStatsActivate' );
 
 function SimpleStatsActivate( ) {
-	add_site_option( 'simplestats_shared_table', true );
+	/* Add option to use a table per blog */
+	add_site_option( 'simplestats_table_per_blog', false );
 
 	global $wpdb;
-	if( get_site_option( 'simplestats_shared_table' ) == true ) {
-		$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
-	} else {
+	if( get_site_option( 'simplestats_table_per_blog' ) == true ) {
 		$wpdb->simplestats = $wpdb->prefix . "simplestats";
+	} else {
+		$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
 	}
 
-	if( !empty( $wpdb->charset ) ) { $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset"; }
-	if( !empty( $wpdb->collate ) ) { $charset_collate .= " COLLATE $wpdb->collate"; }
+	/* Create database if needed */
+	$sql = "CREATE TABLE IF NOT EXISTS $wpdb->simplestats (
+		blog_id bigint(20) UNSIGNED NOT NULL,
+		context varchar(20) NOT NULL,
+		item varchar(255) NOT NULL,
+		month date NOT NULL,
+		count bigint(20) UNSIGNED NOT NULL,
+		UNIQUE KEY id (blog_id,context,item,month)
+	);";
 
-	$wp_query = "CREATE TABLE IF NOT EXISTS `" . $wpdb->simplestats . "` (
-			blog_id bigint(20) unsigned NOT NULL,
-			post_id bigint(20) unsigned NOT NULL,
-			month date NOT NULL,
-			count bigint(20) unsigned NOT NULL
-		)" . $charset_collate;
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
 
-	$wpdb->query( $wp_query );
+	/* Add capabilities */
+	$admin = get_role( 'administrator' );
+	$admin->add_cap( 'see_stats' );
 }
 
 /*  Init plugin
@@ -50,10 +56,10 @@ function SimpleStatsInit( ) {
 
 	/* Init database */
 	global $wpdb;
-	if( get_site_option( 'simplestats_shared_table' ) == true ) {
-		$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
-	} else {
+	if( get_site_option( 'simplestats_table_per_blog' ) == true ) {
 		$wpdb->simplestats = $wpdb->prefix . "simplestats";
+	} else {
+		$wpdb->simplestats = $wpdb->base_prefix . "simplestats";
 	}
 }
 
@@ -64,26 +70,81 @@ function SimpleStatsInit( ) {
 add_action( 'shutdown', 'SimpleStatsHit' );
 
 function SimpleStatsHit( ) {
-	global $blog_id, $wpdb;
+	global $blog_id, $wpdb; $wpdb->show_errors();
 
 	$month = gmdate( "Y-m-00" );
 	$post_id = get_the_ID( );
+	$visitor_ip = $_SERVER['REMOTE_ADDR'];
+	$referrer = $_SERVER['HTTP_REFERER'];
 
-	if( $post_id == 0 || !is_single( ) ) { exit; }
+	$rows = $wpdb->get_results( $wpdb->prepare( "
+		SELECT context, item, count FROM $wpdb->simplestats
+		WHERE blog_id = %d AND month = %s AND (
+			( context = 'hit' AND item = %s ) OR
+			( context = 'referrer' AND item = %s ) OR
+			( context = 'visitor' AND item = %s )
+		)
+		", $blog_id, $month, $post_id, $referrer, $visitor_ip ), ARRAY_A );
 
-	$r = $wpdb->get_row( "SELECT count, month FROM $wpdb->simplestats WHERE blog_id = '" . $blog_id . "' AND post_id = '" . $post_id . "' AND month = '" . $month . "'", ARRAY_A );
-	if( $r['count'] < 1 ) {
+	foreach( $rows as $row ) {
+		$contexts[$row['context']] = $row;
+	}
+
+	/* Referrers */
+	/* Make sure we don't get stupid results */
+	if( strlen( $referrer ) > 0 && strpos( $referrer, get_option( 'home' ) ) === false && strpos( $referrer, 'wp-admin' ) === false ) {
+		if( $contexts['referrer']['count'] < 1 ) {
+			$wpdb->insert(
+				$wpdb->simplestats,
+				array( 'blog_id' => $blog_id, 'context' => 'referrer', 'item' => $referrer, 'month' => $month, 'count' => 1 )
+			);
+		} else {
+			$wpdb->update(
+				$wpdb->simplestats,
+				array( 'count' => $contexts['referrer']['count'] + 1 ),
+				array( 'blog_id' => $blog_id, 'context' => 'referrer', 'item' => $referrer, 'month' => $month ),
+				array( '%d' ),
+				array( '%d', '%s', '%d', '%s', )
+			);
+		}
+	}
+
+	print "<!-- " . $referrer . " -->";
+
+	/* Unique visitors */
+	if( $contexts['visitor']['count'] < 1 ) {
 		$wpdb->insert(
 			$wpdb->simplestats,
-			array( "blog_id" => $blog_id, "post_id" => $post_id, "month" => $month, "count" => 1 )
+			array( 'blog_id' => $blog_id, 'context' => 'visitor', 'item' => $visitor_ip, 'month' => $month, 'count' => 1 )
 		);
 	} else {
-		$new_count = $r['count'] + 1;
 		$wpdb->update(
 			$wpdb->simplestats,
-			array( "count" => $new_count ),
-			array( "blog_id" => $blog_id, "post_id" => $post_id, "month" => $month )
+			array( 'count' => $contexts['visitor']['count'] + 1 ),
+			array( 'blog_id' => $blog_id, 'context' => 'visitor', 'item' => $visitor_ip, 'month' => $month ),
+			array( '%d' ),
+			array( '%d', '%s', '%d', '%s' )
 		);
+	}
+
+	/* Hits */
+	/* Don't update the stats if we aren't on a single page... */
+	// FIXME: Handle frontpage?
+	if( $post_id != 0 && is_single( ) ) {
+		if( $contexts['hit']['count'] < 1 ) {
+			$wpdb->insert(
+				$wpdb->simplestats,
+				array( 'blog_id' => $blog_id, 'context' => 'hit', 'item' => $post_id, 'month' => $month, 'count' => 1 )
+			);
+		} else {
+			$wpdb->update(
+				$wpdb->simplestats,
+				array( 'count' => $contexts['hit']['count'] + 1 ),
+				array( 'blog_id' => $blog_id, 'context' => 'hit', 'item' => $post_id, 'month' => $month ),
+				array( '%d' ),
+				array( '%d', '%s', '%d', '%s' )
+			);
+		}
 	}
 }
 
@@ -94,21 +155,45 @@ function SimpleStatsHit( ) {
 add_action( 'admin_menu', 'SimpleStatsMenu' );
 
 function SimpleStatsMenu( ) {
-	if( current_user_can( 'activate_plugins' ) ) {
-		add_menu_page( __( 'Statistics', 'simple-stats' ), __( 'Statistics', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdmin', null, 50 );
+	if( current_user_can( 'see_stats' ) ) {
+		add_menu_page( __( 'Statistics', 'simple-stats' ), __( 'Statistics', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdminHits', null, 100 );
+		add_submenu_page( 'simple-stats', __( 'Hit statistics', 'simple-stats' ), __( 'Hits', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdminHits' );
+		add_submenu_page( 'simple-stats', __( 'Visitor statistics', 'simple-stats' ), __( 'Visitors', 'simple-stats' ), 'see_stats', 'simple-stats-visitors', 'SimpleStatsAdminVisitors' );
+		add_submenu_page( 'simple-stats', __( 'Referrer statistics', 'simple-stats' ), __( 'Referrers', 'simple-stats' ), 'see_stats', 'simple-stats-referrers', 'SimpleStatsAdminReferrers' );
+	}
+
+	// FIXME: Add custom icon
+	// FIXME: Add network wide stats
+}
+
+function SimpleStatsAdminHits( ) {
+	if( current_user_can( 'see_stats' ) ) {
+		print '<div class="wrap">';
+			print '<h2>' . __( 'Hit statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
+
+			_simple_stats_months_dropdown( );
+			_simple_stats_items_list( 'hit', $_POST['month'], $_POST['year'] );
+		print '</div>';
 	}
 }
 
-function SimpleStatsAdmin( ) {
-	if( current_user_can( 'activate_plugins' ) ) {
+function SimpleStatsAdminVisitors( ) {
+	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
-		print '<h2>' . __( 'Statistics', 'simple-stats' ) . '</h2>';
+			print '<h2>' . __( 'Visitor statistics', 'simple-stats' ) . '</h2>';
 
-		if( !$_POST['submit-month'] ) { unset( $_POST['month'] ); }
-		if( !$_POST['submit-year'] ) { unset( $_POST['year'] ); }
+			_simple_stats_months_list( 'visitor' );			
+		print '</div>';
+	}
+}
 
-		_ms_stats_months( );
-		_ms_stats_list( $_POST['month'], $_POST['year'] );
+function SimpleStatsAdminReferrers( ) {
+	if( current_user_can( 'see_stats' ) ) {
+		print '<div class="wrap">';
+			print '<h2>' . __( 'Referrer statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
+
+			_simple_stats_months_dropdown( 'simple-stats-referrers' );
+			_simple_stats_items_list( 'referrer', $_POST['month'], $_POST['year'] );
 		print '</div>';
 	}
 }
@@ -117,7 +202,7 @@ function SimpleStatsAdmin( ) {
  *
  */
 
-function _ms_stats_list( $month = null, $year = null ) {
+function _simple_stats_items_list( $context, $month = null, $year = null ) {
 	global $blog_id, $wpdb;
 
 	if( $month ) {
@@ -127,19 +212,40 @@ function _ms_stats_list( $month = null, $year = null ) {
 		$filter = $wpdb->prepare( " AND YEAR( month ) = '%d'", $year );
 	}
 
-	$totals = $wpdb->get_results( "SELECT post_id, SUM( count ) as total FROM $wpdb->simplestats WHERE blog_id = '" . $blog_id . "'" . $filter .  " GROUP BY post_id ORDER BY total DESC", ARRAY_A );
-	if( is_array( $totals ) ) {
-		print '<table class="widefat"><thead><tr><th style="width: 80px;">' . __( 'Loads', 'simple-stats' ) . '</th><th>' . __( 'Post', 'simple-stats' ) . '</th></tr></thead><tbody>';
+	$opts['hit'] = array(
+		'amount_text' => __( 'Hits', 'simple-stats' ),
+		'item_text' => __( 'Post', 'simple-stats' ),
+		'noresults_text' => __( 'No hits during this period of time.', 'simple-stats' )
+	);
+	$opts['referrer'] = array(
+		'amount_text' => __( 'References', 'simple-stats' ),
+		'item_text' => __( 'URL', 'simple-stats' ),
+		'noresults_text' => __( 'No referrers during this period of time.', 'simple-stats' )
+	);
+
+	/* Print results */
+	$totals = $wpdb->get_results( $wpdb->prepare( "SELECT item, SUM( count ) as total FROM $wpdb->simplestats WHERE blog_id = %d AND context = %s $filter GROUP BY item ORDER BY total DESC", $blog_id, $context ), ARRAY_A );
+	print '<table class="widefat"><thead><tr><th style="width: 80px;">' . $opts[$context]['amount_text'] . '</th><th>' . $opts[$context]['item_text'] . '</th></tr></thead><tbody>';
+	if( count( $totals ) > 0 ) {
 		foreach( $totals as $item ) {
-			$cur_post = get_post( $item['post_id'] );
-			print "<tr><td>" . $item['total'] . "</td><td><a href='" . get_permalink( $cur_post->ID ) . "'>" . $cur_post->post_title . "</a></td></tr>";
+			if( $context == "hit" ) {
+				$cur_post = get_post( $item['item'] );
+				print '<tr><td>' . $item['total'] . '</td><td><a href="' . get_permalink( $cur_post ) . '">' . $cur_post->post_title . '</a></td></tr>';
+			} elseif( $context == "referrer" ) {
+				print '<tr><td>' . $item['total'] . '</td><td><a href="' . $item['item'] . '">' . $item['item'] . '</a></td></tr>';
+			}
 		}
-		print "</tbody></table>";
+	} else {
+		print '<tr><td colspan="2">' . $opts[$context]['noresults_text'] . '</td></tr>';
 	}
+	print '</tbody></table>';
 }
 
-function _ms_stats_months( ) {
+function _simple_stats_months_dropdown( $redirect_to = 'simple-stats' ) {
 	global $blog_id, $wpdb;
+
+	if( !$_POST['submit-month'] ) { unset( $_POST['month'] ); }
+	if( !$_POST['submit-year'] ) { unset( $_POST['year'] ); }
 
 	$months = $wpdb->get_results( "SELECT DATE_FORMAT( month, '%m' ) as m_month, DATE_FORMAT( month, '%Y' ) as m_year, month FROM {$wpdb->simplestats} WHERE blog_id = '" . $blog_id . "' GROUP BY month ORDER BY month DESC", ARRAY_A );
 	if( is_array( $months ) ) {
@@ -153,13 +259,12 @@ function _ms_stats_months( ) {
 				$select_y .= '<option value="' . $month['m_year'] . '" ' . selected( $_POST['year'], $month['m_year'], false ) . ' >' . $month['m_year'] . '</option>';
 			}			
 			$last_year = $month['m_year'];
-
-			$select_m .= '<option value="' . $month['month'] . '" ' . selected( $_POST['month'], $month['month'], false ) . '>' . date( "F", mktime( 0, 0, 0, $month['m_month'] ) ) . ' ' . $month['m_year'] . '</option>';
+			$select_m .= '<option value="' . $month['month'] . '" ' . selected( $_POST['month'], $month['month'], false ) . '>' . strftime( "%B", mktime( 0, 0, 0, $month['m_month'] ) ) . ' ' . $month['m_year'] . '</option>';
 		}
 		$select_y .= '</select> ';
 		$select_m .= '</select> ';
 
-		print '<form action="admin.php?page=simple-stats" id="posts-filter" method="post">';
+		print '<form action="admin.php?page=' . $redirect_to . '" id="posts-filter" method="post">';
 		print '<div class="tablenav actions">';
 
 		print $select_y;
@@ -171,6 +276,38 @@ function _ms_stats_months( ) {
 		print '</div>';
 		print '</form>';
 	}
+}
+
+function _simple_stats_months_list( $context ) {
+	global $blog_id, $wpdb;
+
+	$opts['visitor'] = array(
+		'item_text' => __( 'Unique visitors', 'simple-stats' ),
+		'noresults_text' => __( 'No visitors during this period of time.', 'simple-stats' )
+	);
+
+	$totals = $wpdb->get_results( $wpdb->prepare( "SELECT month, SUM( count ) as total FROM $wpdb->simplestats WHERE blog_id = %d AND context = %s ORDER BY month DESC", $blog_id, $context ), ARRAY_A );
+	print '<table class="widefat"><thead><tr><th style="width: 160px;">' . _x( 'Month', 'column header', 'simple-stats' ) . '</th><th>' . $opts[$context]['item_text'] . '</th></tr></thead><tbody>';
+	if( count( $totals ) > 0 ) {
+		foreach( $totals as $item ) {
+			print '<tr><td>' . strftime( "%B %Y", mktime( 0, 0, 0, substr( $item['month'], 6, 2 ), 1, substr( $item['month'], 0, 4 ) ) ) . '</td><td>' . $item['total'] . '</td></tr>';
+		}
+	} else {
+		print '<tr><td colspan="2">' . $opts[$context]['noresults_text'] . '</td></tr>';
+	}
+	print '</tbody></table>';
+}
+
+function _simple_stats_title_postfix( ) {
+	if( $_POST['submit-month'] && $_POST['month'] ) {
+		$postfix = ": " . strftime( "%B %Y", mktime( 0, 0, 0, substr( $_POST['month'], 6, 2 ), 1, substr( $_POST['month'], 0, 4 ) ) );
+	} elseif( $_POST['submit-year'] && $_POST['year'] ) {
+		$postfix = ": " . $_POST['year'];
+	} else {
+		$postfix = ": " . __( 'Forever', 'simple-stats' );
+	}
+
+	return $postfix;
 }
 
 ?>

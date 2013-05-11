@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Stats\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 13:36+0200\n"
-"PO-Revision-Date: 2013-02-11 20:58+0200\n"
+"POT-Creation-Date: 2013-05-11 05:17+0300\n"
+"PO-Revision-Date: 2013-05-11 05:22+0200\n"
 "Last-Translator: Pasi Lallinaho <pasi@digitoucan.fi>\n"
 "Language-Team: \n"
 "Language: Finnish\n"
@@ -12,32 +12,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_x\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: Finnish\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:88
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:95
+#: ../plugins/simple-stats/simple-stats.php:159
 msgid "Statistics"
-msgstr "Statistiikka"
+msgstr "Tilastot"
 
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:122
-msgid "Loads"
-msgstr "Lataukset"
+#: ../plugins/simple-stats/simple-stats.php:160
+#: ../plugins/simple-stats/simple-stats.php:179
+msgid "Hit statistics"
+msgstr "Osumatilastot"
 
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:122
+#: ../plugins/simple-stats/simple-stats.php:160
+#: ../plugins/simple-stats/simple-stats.php:251
+msgid "Hits"
+msgstr "Osumat"
+
+#: ../plugins/simple-stats/simple-stats.php:161
+#: ../plugins/simple-stats/simple-stats.php:190
+msgid "Visitor statistics"
+msgstr "Kävijätilastot"
+
+#: ../plugins/simple-stats/simple-stats.php:161
+msgid "Visitors"
+msgstr "Vierailijat"
+
+#: ../plugins/simple-stats/simple-stats.php:162
+#: ../plugins/simple-stats/simple-stats.php:208
+msgid "Referrer statistics"
+msgstr "Viittaustilastot"
+
+#: ../plugins/simple-stats/simple-stats.php:162
+msgid "Referrers"
+msgstr "Viittaukset"
+
+#: ../plugins/simple-stats/simple-stats.php:176
+#: ../plugins/simple-stats/simple-stats.php:205
+msgid "Forever"
+msgstr "Iankaikkisesti"
+
+#: ../plugins/simple-stats/simple-stats.php:224
+msgid "Unique visitors"
+msgstr "Uniikit kävijät"
+
+#: ../plugins/simple-stats/simple-stats.php:225
+msgid "No visitors during this period of time."
+msgstr "Ei kävijöitä tällä ajanjaksolla."
+
+#: ../plugins/simple-stats/simple-stats.php:229
+msgctxt "column header"
+msgid "Month"
+msgstr "Kuukausi"
+
+#: ../plugins/simple-stats/simple-stats.php:252
 msgid "Post"
 msgstr "Artikkeli"
 
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:137
+#: ../plugins/simple-stats/simple-stats.php:253
+msgid "No hits during this period of time."
+msgstr "Ei osumia tällä ajanjaksolla."
+
+#: ../plugins/simple-stats/simple-stats.php:256
+msgid "References"
+msgstr "Viitteet"
+
+#: ../plugins/simple-stats/simple-stats.php:257
+msgid "URL"
+msgstr "URL"
+
+#: ../plugins/simple-stats/simple-stats.php:258
+msgid "No referrers during this period of time."
+msgstr "Ei viittauksia tällä ajanjaksolla."
+
+#: ../plugins/simple-stats/simple-stats.php:288
 msgid "Select year"
 msgstr "Valitse vuosi"
 
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:140
+#: ../plugins/simple-stats/simple-stats.php:291
 msgid "Select month"
 msgstr "Valitse kuukausi"
 
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:156
-#: /ssh/nebula/public_html/knomefi/wp-content/plugins/multisite-stats/multisite-stats.php:159
+#: ../plugins/simple-stats/simple-stats.php:306
+#: ../plugins/simple-stats/simple-stats.php:309
 msgid "Filter"
 msgstr "Suodata"
 
+#~ msgid "Loads"
+#~ msgstr "Lataukset"

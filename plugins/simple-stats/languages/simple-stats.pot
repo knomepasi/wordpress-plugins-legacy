@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 22:31+0300\n"
+"POT-Creation-Date: 2013-05-11 05:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,85 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-stats/simple-stats.php:84
-#: ../plugins/simple-stats/simple-stats.php:91
+#: ../plugins/simple-stats/simple-stats.php:159
 msgid "Statistics"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
-msgid "Loads"
+#: ../plugins/simple-stats/simple-stats.php:160
+#: ../plugins/simple-stats/simple-stats.php:179
+msgid "Hit statistics"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:118
+#: ../plugins/simple-stats/simple-stats.php:160
+#: ../plugins/simple-stats/simple-stats.php:251
+msgid "Hits"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:161
+#: ../plugins/simple-stats/simple-stats.php:190
+msgid "Visitor statistics"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:161
+msgid "Visitors"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:162
+#: ../plugins/simple-stats/simple-stats.php:208
+msgid "Referrer statistics"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:162
+msgid "Referrers"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:176
+#: ../plugins/simple-stats/simple-stats.php:205
+msgid "Forever"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:224
+msgid "Unique visitors"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:225
+msgid "No visitors during this period of time."
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:229
+msgctxt "column header"
+msgid "Month"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:252
 msgid "Post"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:133
+#: ../plugins/simple-stats/simple-stats.php:253
+msgid "No hits during this period of time."
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:256
+msgid "References"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:257
+msgid "URL"
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:258
+msgid "No referrers during this period of time."
+msgstr ""
+
+#: ../plugins/simple-stats/simple-stats.php:288
 msgid "Select year"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:136
+#: ../plugins/simple-stats/simple-stats.php:291
 msgid "Select month"
 msgstr ""
 
-#: ../plugins/simple-stats/simple-stats.php:152
-#: ../plugins/simple-stats/simple-stats.php:155
+#: ../plugins/simple-stats/simple-stats.php:306
+#: ../plugins/simple-stats/simple-stats.php:309
 msgid "Filter"
 msgstr ""
