@@ -1,0 +1,10 @@
+#toplevel_page_simple-stats .wp-menu-image {
+	background: url(simple-stats-icon-sprites.png) no-repeat 6px 6px !important;
+}
+#toplevel_page_simple-stats:hover .wp-menu-image, #toplevel_page_simple-stats.wp-has-current-submenu .wp-menu-image {
+	background-position: 6px -26px !important;
+}
+
+.icon32-simple-stats {
+	background: url(simple-stats-icon-sprites.png) no-repeat 0 -64px !important;
+}

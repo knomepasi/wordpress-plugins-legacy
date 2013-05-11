@@ -3,7 +3,7 @@
  *  Plugin Name: Simple Stats
  *  Description: Simple hit, visitor and referrer statistics.
  *  Author: Pasi Lallinaho
- *  Version: 2.0-alpha2
+ *  Version: 2.0-alpha3
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -77,6 +77,9 @@ function SimpleStatsScripts( ) {
 
 	wp_register_script( 'simple-stats-admin', plugins_url( 'admin.js', __FILE__ ), array( 'jquery' ), '0.1' );
 	wp_enqueue_script( 'simple-stats-admin' );
+
+	wp_register_style( 'simple-stats-admin', plugins_url( 'admin.css', __FILE__ ) );
+	wp_enqueue_style( 'simple-stats-admin' );
 }
 
 /*  Add hook to all page loads
@@ -193,6 +196,7 @@ function SimpleStatsMenu( ) {
 function SimpleStatsAdminHits( ) {
 	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
+			print '<div id="icon-edit" class="icon32 icon32-simple-stats"><br /></div>';
 			print '<h2>' . __( 'Hit statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
 
 			_simple_stats_months_dropdown( );
@@ -204,6 +208,7 @@ function SimpleStatsAdminHits( ) {
 function SimpleStatsAdminVisitors( ) {
 	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
+			print '<div id="icon-edit" class="icon32 icon32-simple-stats"><br /></div>';
 			print '<h2>' . __( 'Visitor statistics', 'simple-stats' ) . '</h2>';
 
 			_simple_stats_months_list( 'visitor' );			
@@ -214,6 +219,7 @@ function SimpleStatsAdminVisitors( ) {
 function SimpleStatsAdminReferrers( ) {
 	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
+			print '<div id="icon-edit" class="icon32 icon32-simple-stats"><br /></div>';
 			print '<h2>' . __( 'Referrer statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
 
 			_simple_stats_months_dropdown( 'simple-stats-referrers' );
