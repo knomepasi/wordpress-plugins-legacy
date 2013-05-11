@@ -3,7 +3,7 @@
  *  Plugin Name: Simple Stats
  *  Description: Simple hit, visitor and referrer statistics.
  *  Author: Pasi Lallinaho
- *  Version: 2.0-alpha1
+ *  Version: 2.0-alpha2
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -19,6 +19,7 @@ function SimpleStatsActivate( ) {
 	/* Add option to use a table per blog */
 	add_site_option( 'simplestats_table_per_blog', false );
 	add_option( 'simplestats_results_visible_default', 20 );
+	add_option( 'simplestats_bot_user_agents', '' );
 
 	global $wpdb;
 	if( get_site_option( 'simplestats_table_per_blog' ) == true ) {
@@ -91,6 +92,24 @@ function SimpleStatsHit( ) {
 	$post_id = get_the_ID( );
 	$visitor_ip = $_SERVER['REMOTE_ADDR'];
 	$referrer = $_SERVER['HTTP_REFERER'];
+	$user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
+
+	// Bot handling
+	$bot_agents = array(
+		'bot', 'crawler', 'robot', 'spider', // Generic crawlers
+		'aggregator', 'feedbooster', 'feedfetcher', 'feedparser', 'syndication', // Generic feed aggregators
+	);
+
+	$bots = array_merge( $bot_agents, explode( ' ', get_option( 'simplestats_bot_user_agents' ) ) );
+
+	foreach( $bots as $bot ) {
+		if( strlen( $bot ) > 0 ) {
+			if( strpos( $user_agent, $bot ) !== false ) {
+				// It's a bot, ignore
+				exit;
+			}
+		}
+	}
 
 	$rows = $wpdb->get_results( $wpdb->prepare( "
 		SELECT context, item, count FROM $wpdb->simplestats
@@ -119,7 +138,7 @@ function SimpleStatsHit( ) {
 				array( 'count' => $contexts['referrer']['count'] + 1 ),
 				array( 'blog_id' => $blog_id, 'context' => 'referrer', 'item' => $referrer, 'month' => $month ),
 				array( '%d' ),
-				array( '%d', '%s', '%s', '%s', )
+				array( '%d', '%s', '%s', '%s' )
 			);
 		}
 	}
@@ -130,19 +149,11 @@ function SimpleStatsHit( ) {
 			$wpdb->simplestats,
 			array( 'blog_id' => $blog_id, 'context' => 'visitor', 'item' => $visitor_ip, 'month' => $month, 'count' => 1 )
 		);
-	} else {
-		$wpdb->update(
-			$wpdb->simplestats,
-			array( 'count' => $contexts['visitor']['count'] + 1 ),
-			array( 'blog_id' => $blog_id, 'context' => 'visitor', 'item' => $visitor_ip, 'month' => $month ),
-			array( '%d' ),
-			array( '%d', '%s', '%s', '%s' )
-		);
 	}
 
 	/* Hits */
 	/* Don't update the stats if we aren't on a single page... */
-	// FIXME: Handle frontpage?
+	// FIXME: Handle frontpage, archives, ...
 	if( $post_id != 0 && is_single( ) ) {
 		if( $contexts['hit']['count'] < 1 ) {
 			$wpdb->insert(
@@ -308,7 +319,7 @@ function _simple_stats_months_list( $context ) {
 		'noresults_text' => __( 'No visitors during this period of time.', 'simple-stats' )
 	);
 
-	$totals = $wpdb->get_results( $wpdb->prepare( "SELECT month, SUM( count ) as total FROM $wpdb->simplestats WHERE blog_id = %d AND context = %s ORDER BY month DESC", $blog_id, $context ), ARRAY_A );
+	$totals = $wpdb->get_results( $wpdb->prepare( "SELECT month, COUNT(*) as total FROM $wpdb->simplestats WHERE blog_id = %d AND context = %s ORDER BY month DESC", $blog_id, $context ), ARRAY_A );
 	print '<table class="widefat"><thead><tr><th style="width: 160px;">' . _x( 'Month', 'column header', 'simple-stats' ) . '</th><th>' . $opts[$context]['item_text'] . '</th></tr></thead><tbody>';
 	if( count( $totals ) > 0 ) {
 		foreach( $totals as $item ) {
