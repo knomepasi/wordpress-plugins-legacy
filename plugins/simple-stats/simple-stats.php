@@ -3,7 +3,7 @@
  *  Plugin Name: Simple Stats
  *  Description: Simple hit, visitor and referrer statistics.
  *  Author: Pasi Lallinaho
- *  Version: 2.0-alpha3
+ *  Version: 2.0-alpha4
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -183,35 +183,35 @@ add_action( 'admin_menu', 'SimpleStatsMenu' );
 
 function SimpleStatsMenu( ) {
 	if( current_user_can( 'see_stats' ) ) {
-		add_menu_page( __( 'Statistics', 'simple-stats' ), __( 'Statistics', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdminHits', null, 100 );
-		add_submenu_page( 'simple-stats', __( 'Hit statistics', 'simple-stats' ), __( 'Hits', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdminHits' );
-		add_submenu_page( 'simple-stats', __( 'Visitor statistics', 'simple-stats' ), __( 'Visitors', 'simple-stats' ), 'see_stats', 'simple-stats-visitors', 'SimpleStatsAdminVisitors' );
-		add_submenu_page( 'simple-stats', __( 'Referrer statistics', 'simple-stats' ), __( 'Referrers', 'simple-stats' ), 'see_stats', 'simple-stats-referrers', 'SimpleStatsAdminReferrers' );
+		add_menu_page( __( 'Statistics', 'simple-stats' ), __( 'Statistics', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdminOverview', null, 100 );
+		add_submenu_page( 'simple-stats', __( 'Monthly overview', 'simple-stats' ), __( 'Overview', 'simple-stats' ), 'see_stats', 'simple-stats', 'SimpleStatsAdminOverview' );
+		add_submenu_page( 'simple-stats', __( 'Popularity', 'simple-stats' ), __( 'Popular articles', 'simple-stats' ), 'see_stats', 'simple-stats-hits', 'SimpleStatsAdminHits' );
+		add_submenu_page( 'simple-stats', __( 'Referrers', 'simple-stats' ), __( 'Referrers', 'simple-stats' ), 'see_stats', 'simple-stats-referrers', 'SimpleStatsAdminReferrers' );
 	}
 
 	// FIXME: Add custom icon
 	// FIXME: Add network wide stats
 }
 
-function SimpleStatsAdminHits( ) {
+function SimpleStatsAdminOverview( ) {
 	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
 			print '<div id="icon-edit" class="icon32 icon32-simple-stats"><br /></div>';
-			print '<h2>' . __( 'Hit statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
+			print '<h2>' . __( 'Monthly overview', 'simple-stats' ) . '</h2>';
 
-			_simple_stats_months_dropdown( );
-			_simple_stats_items_list( 'hit', $_POST['month'], $_POST['year'] );
+			_simple_stats_overview_table( );			
 		print '</div>';
 	}
 }
 
-function SimpleStatsAdminVisitors( ) {
+function SimpleStatsAdminHits( ) {
 	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
 			print '<div id="icon-edit" class="icon32 icon32-simple-stats"><br /></div>';
-			print '<h2>' . __( 'Visitor statistics', 'simple-stats' ) . '</h2>';
+			print '<h2>' . __( 'Popularity', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
 
-			_simple_stats_months_list( 'visitor' );			
+			_simple_stats_months_dropdown( 'simple-stats-hits' );
+			_simple_stats_items_list( 'hit', $_POST['month'], $_POST['year'], 'simple-stats-hits' );
 		print '</div>';
 	}
 }
@@ -220,7 +220,7 @@ function SimpleStatsAdminReferrers( ) {
 	if( current_user_can( 'see_stats' ) ) {
 		print '<div class="wrap">';
 			print '<div id="icon-edit" class="icon32 icon32-simple-stats"><br /></div>';
-			print '<h2>' . __( 'Referrer statistics', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
+			print '<h2>' . __( 'Referrers', 'simple-stats' ) . _simple_stats_title_postfix( ) . '</h2>';
 
 			_simple_stats_months_dropdown( 'simple-stats-referrers' );
 			_simple_stats_items_list( 'referrer', $_POST['month'], $_POST['year'], 'simple-stats-referrers' );
@@ -232,14 +232,17 @@ function SimpleStatsAdminReferrers( ) {
  *
  */
 
-function _simple_stats_items_list( $context, $month = null, $year = null, $redirect_to = 'simple-stats' ) {
+function _simple_stats_items_list( $context, $month = null, $year = null, $redirect_to = null ) {
 	global $blog_id, $wpdb;
 
-	if( $month ) {
-		$filter = $wpdb->prepare( " AND month = %s", $month );
-	}
 	if( $year ) {
 		$filter = $wpdb->prepare( " AND YEAR( month ) = '%d'", $year );
+	} elseif( $month ) {
+		$filter = $wpdb->prepare( " AND month = %s", $month );
+	} elseif( $_POST['submit-forever'] ) {
+		unset( $filter );
+	} else {
+		$filter = $wpdb->prepare( " AND month = %s", gmdate( "Y-m-00" ) );
 	}
 
 	$opts['hit'] = array(
@@ -283,16 +286,23 @@ function _simple_stats_items_list( $context, $month = null, $year = null, $redir
 function _simple_stats_months_dropdown( $redirect_to = 'simple-stats' ) {
 	global $blog_id, $wpdb;
 
-	if( !$_POST['submit-month'] ) { unset( $_POST['month'] ); }
-	if( !$_POST['submit-year'] ) { unset( $_POST['year'] ); }
+	if( $_POST['submit-forever'] ) {
+		unset( $_POST['month'], $_POST['year'] );
+	} else {
+		if( !$_POST['submit-month'] ) { unset( $_POST['month'] ); }
+		if( !$_POST['submit-year'] ) { unset( $_POST['year'] ); }
+		if( !$_POST['submit-month'] && !$_POST['submit-year'] ) { $_POST['month'] = gmdate( "Y-m-00" ); }
+	}
 
-	$months = $wpdb->get_results( "SELECT DATE_FORMAT( month, '%m' ) as m_month, DATE_FORMAT( month, '%Y' ) as m_year, month FROM {$wpdb->simplestats} WHERE blog_id = '" . $blog_id . "' GROUP BY month ORDER BY month DESC", ARRAY_A );
+	$where = $wpdb->prepare( "WHERE blog_id = %d", $blog_id );
+	$months = $wpdb->get_results( "SELECT DATE_FORMAT( month, '%m' ) as m_month, DATE_FORMAT( month, '%Y' ) as m_year, month FROM {$wpdb->simplestats} {$where} GROUP BY month ORDER BY month DESC", ARRAY_A );
 	if( is_array( $months ) ) {
-		$select_y = '<select name="year" class="postform">';
-		$select_y .= '<option value="" ' . selected( $_POST['year'], false, false ) . '>' . __( 'Select year', 'simple-stats' ) . '</option>';
-
 		$select_m = '<select name="month" class="postform">';
-		$select_m .= '<option value="" ' . selected( $_POST['month'], false, false ) . '>' . __( 'Select month', 'simple-stats' ) . '</option>';
+		$select_m .= '<option value="" ' . selected( $_POST['month'], false, false ) . '>' . __( '-- Month --', 'simple-stats' ) . '</option>';
+
+		$select_y = '<select name="year" class="postform">';
+		$select_y .= '<option value="" ' . selected( $_POST['year'], false, false ) . '>' . __( '-- Year --', 'simple-stats' ) . '</option>';
+
 		foreach( $months as $month ) {
 			if( $last_year != $month['m_year'] ) {
 				$select_y .= '<option value="' . $month['m_year'] . '" ' . selected( $_POST['year'], $month['m_year'], false ) . ' >' . $month['m_year'] . '</option>';
@@ -303,36 +313,53 @@ function _simple_stats_months_dropdown( $redirect_to = 'simple-stats' ) {
 		$select_y .= '</select> ';
 		$select_m .= '</select> ';
 
-		print '<form action="admin.php?page=' . $redirect_to . '" id="posts-filter" method="post">';
+		print '<form action="admin.php?page=' . $redirect_to . '" id="statistics-filter" method="post">';
 		print '<div class="tablenav actions">';
 
-		print $select_y;
-		print '<input type="submit" name="submit-year" id="post-query-submit" class="button-secondary" value="' . __( 'Filter', 'simple-stats' ) . '" />';
-
 		print $select_m;
-		print '<input type="submit" name="submit-month" id="post-query-submit" class="button-secondary" value="' . __( 'Filter', 'simple-stats' ) . '" />';
+		print '<input type="submit" name="submit-month" class="button-secondary" value="' . __( 'Filter by month', 'simple-stats' ) . '" />';
+
+		print $select_y;
+		print '<input type="submit" name="submit-year" class="button-secondary" value="' . __( 'Filter by year', 'simple-stats' ) . '" />';
+
+		print '<input type="submit" name="submit-forever" class="button-primary" value="' . __( 'Show all', 'simple-stats' ) . '" />';
 
 		print '</div>';
 		print '</form>';
 	}
 }
 
-function _simple_stats_months_list( $context ) {
+function _simple_stats_overview_table( ) {
 	global $blog_id, $wpdb;
 
-	$opts['visitor'] = array(
-		'item_text' => __( 'Unique visitors', 'simple-stats' ),
-		'noresults_text' => __( 'No visitors during this period of time.', 'simple-stats' )
-	);
+	/* Unique visitors */
+	$unique = $wpdb->get_results( $wpdb->prepare( "SELECT month, COUNT(*) as total FROM $wpdb->simplestats WHERE blog_id = %d AND context = 'visitor' ORDER BY month DESC", $blog_id ), ARRAY_A );
+	foreach( $unique as $row ) {
+		$data[$row['month']]['unique'] = $row['total'];
+	}
 
-	$totals = $wpdb->get_results( $wpdb->prepare( "SELECT month, COUNT(*) as total FROM $wpdb->simplestats WHERE blog_id = %d AND context = %s ORDER BY month DESC", $blog_id, $context ), ARRAY_A );
-	print '<table class="widefat"><thead><tr><th style="width: 160px;">' . _x( 'Month', 'column header', 'simple-stats' ) . '</th><th>' . $opts[$context]['item_text'] . '</th></tr></thead><tbody>';
-	if( count( $totals ) > 0 ) {
-		foreach( $totals as $item ) {
-			print '<tr><td>' . strftime( "%B %Y", mktime( 0, 0, 0, substr( $item['month'], 6, 2 ), 1, substr( $item['month'], 0, 4 ) ) ) . '</td><td>' . $item['total'] . '</td></tr>';
+	/* Monthly hits */
+	$hits = $wpdb->get_results( $wpdb->prepare( "SELECT month, SUM(count) as total FROM $wpdb->simplestats WHERE blog_id = %d AND ( context = 'hit' OR context = 'pagehit' ) GROUP BY month ORDER BY month DESC", $blog_id ), ARRAY_A );
+	foreach( $hits as $row ) {
+		$data[$row['month']]['hits'] = $row['total'];
+	}
+
+	print '<table class="widefat"><thead><tr>';
+	print '<th style="width: 160px;">' . _x( 'Month', 'column header', 'simple-stats' ) . '</th>';
+	print '<th>' . _x( 'Hits', 'column header', 'simple-stats' )  . '</th>';
+	print '<th>' . _x( 'Unique visitors', 'column header', 'simple-stats' ) . '</th>';
+	print '</tr></thead><tbody>';
+
+	if( is_array( $data ) ) {
+		foreach( $data as $month => $totals ) {
+			print '<tr>';
+			print '<td>' . strftime( "%B %Y", mktime( 0, 0, 0, substr( $month, 6, 2 ), 1, substr( $month, 0, 4 ) ) ) . '</td>';
+			print '<td>' . $totals['hits'] . '</td>';
+			print '<td>' . $totals['unique'] . '</td>';
+			print '</tr>';
 		}
 	} else {
-		print '<tr><td colspan="2">' . $opts[$context]['noresults_text'] . '</td></tr>';
+		print '<tr><td colspan="2">' . __( 'No data gathered for this period of time.', 'simple-stats' ) . '</td></tr>';
 	}
 	print '</tbody></table>';
 }
@@ -342,8 +369,10 @@ function _simple_stats_title_postfix( ) {
 		$postfix = ": " . strftime( "%B %Y", mktime( 0, 0, 0, substr( $_POST['month'], 6, 2 ), 1, substr( $_POST['month'], 0, 4 ) ) );
 	} elseif( $_POST['submit-year'] && $_POST['year'] ) {
 		$postfix = ": " . $_POST['year'];
-	} else {
+	} elseif( $_POST['submit-forever'] ) {
 		$postfix = ": " . __( 'Forever', 'simple-stats' );
+	} else {
+		$postfix = ": " . strftime( "%B %Y", time( ) );
 	}
 
 	return $postfix;
