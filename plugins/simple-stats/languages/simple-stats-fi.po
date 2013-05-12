@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Stats\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-12 00:14+0300\n"
-"PO-Revision-Date: 2013-05-12 00:15+0200\n"
+"POT-Creation-Date: 2013-05-12 03:49+0300\n"
+"PO-Revision-Date: 2013-05-12 03:51+0200\n"
 "Last-Translator: Pasi Lallinaho <pasi@digitoucan.fi>\n"
 "Language-Team: \n"
 "Language: Finnish\n"
@@ -21,85 +21,118 @@ msgstr "Tilastot"
 
 #: ../plugins/simple-stats/simple-stats.php:187
 #: ../plugins/simple-stats/simple-stats.php:200
-msgid "Hit statistics"
-msgstr "Osumatilastot"
+msgid "Monthly overview"
+msgstr "Kuukausittainen yhteenveto"
 
 #: ../plugins/simple-stats/simple-stats.php:187
-#: ../plugins/simple-stats/simple-stats.php:246
-msgid "Hits"
-msgstr "Osumat"
+msgid "Overview"
+msgstr "Yhteenveto"
 
 #: ../plugins/simple-stats/simple-stats.php:188
-#: ../plugins/simple-stats/simple-stats.php:212
-msgid "Visitor statistics"
-msgstr "Kävijätilastot"
+#: ../plugins/simple-stats/simple-stats.php:211
+msgid "Popularity"
+msgstr "Suositut"
 
 #: ../plugins/simple-stats/simple-stats.php:188
-msgid "Visitors"
-msgstr "Vierailijat"
+msgid "Popular articles"
+msgstr "Suositut artikkelit"
 
 #: ../plugins/simple-stats/simple-stats.php:189
 #: ../plugins/simple-stats/simple-stats.php:223
-msgid "Referrer statistics"
-msgstr "Viittaustilastot"
-
-#: ../plugins/simple-stats/simple-stats.php:189
 msgid "Referrers"
 msgstr "Viittaukset"
 
-#: ../plugins/simple-stats/simple-stats.php:247
+#: ../plugins/simple-stats/simple-stats.php:249
+msgid "Hits"
+msgstr "Osumat"
+
+#: ../plugins/simple-stats/simple-stats.php:250
 msgid "Post"
 msgstr "Artikkeli"
 
-#: ../plugins/simple-stats/simple-stats.php:248
+#: ../plugins/simple-stats/simple-stats.php:251
 msgid "No hits during this period of time."
 msgstr "Ei osumia tällä ajanjaksolla."
 
-#: ../plugins/simple-stats/simple-stats.php:251
+#: ../plugins/simple-stats/simple-stats.php:254
 msgid "References"
 msgstr "Viitteet"
 
-#: ../plugins/simple-stats/simple-stats.php:252
+#: ../plugins/simple-stats/simple-stats.php:255
 msgid "URL"
 msgstr "URL"
 
-#: ../plugins/simple-stats/simple-stats.php:253
+#: ../plugins/simple-stats/simple-stats.php:256
 msgid "No referrers during this period of time."
 msgstr "Ei viittauksia tällä ajanjaksolla."
 
-#: ../plugins/simple-stats/simple-stats.php:279
+#: ../plugins/simple-stats/simple-stats.php:282
 msgid "Show more results"
 msgstr "Näytä lisää tuloksia"
 
-#: ../plugins/simple-stats/simple-stats.php:292
-msgid "Select year"
-msgstr "Valitse vuosi"
+#: ../plugins/simple-stats/simple-stats.php:301
+msgid "-- Month --"
+msgstr "-- Kuukausi --"
 
-#: ../plugins/simple-stats/simple-stats.php:295
-msgid "Select month"
-msgstr "Valitse kuukausi"
+#: ../plugins/simple-stats/simple-stats.php:304
+msgid "-- Year --"
+msgstr "-- Vuosi --"
 
-#: ../plugins/simple-stats/simple-stats.php:310
-#: ../plugins/simple-stats/simple-stats.php:313
-msgid "Filter"
-msgstr "Suodata"
+#: ../plugins/simple-stats/simple-stats.php:320
+msgid "Filter by month"
+msgstr "Suodata kuukauden mukaan"
 
-#: ../plugins/simple-stats/simple-stats.php:324
-msgid "Unique visitors"
-msgstr "Uniikit kävijät"
+#: ../plugins/simple-stats/simple-stats.php:323
+msgid "Filter by year"
+msgstr "Suodata vuoden mukaan"
 
 #: ../plugins/simple-stats/simple-stats.php:325
-msgid "No visitors during this period of time."
-msgstr "Ei kävijöitä tällä ajanjaksolla."
+msgid "Show all"
+msgstr "Näytä kaikki"
 
-#: ../plugins/simple-stats/simple-stats.php:329
+#: ../plugins/simple-stats/simple-stats.php:348
 msgctxt "column header"
 msgid "Month"
 msgstr "Kuukausi"
 
-#: ../plugins/simple-stats/simple-stats.php:346
+#: ../plugins/simple-stats/simple-stats.php:349
+msgctxt "column header"
+msgid "Hits"
+msgstr "Osumat"
+
+#: ../plugins/simple-stats/simple-stats.php:350
+msgctxt "column header"
+msgid "Unique visitors"
+msgstr "Uniikit kävijät"
+
+#: ../plugins/simple-stats/simple-stats.php:362
+msgid "No data gathered for this period of time."
+msgstr "Ei kerättyjä tilastoja tältä ajanjaksolta."
+
+#: ../plugins/simple-stats/simple-stats.php:373
 msgid "Forever"
 msgstr "Iankaikkisesti"
+
+#~ msgid "Hit statistics"
+#~ msgstr "Osumatilastot"
+
+#~ msgid "Visitor statistics"
+#~ msgstr "Kävijätilastot"
+
+#~ msgid "Visitors"
+#~ msgstr "Vierailijat"
+
+#~ msgid "Referrer statistics"
+#~ msgstr "Viittaustilastot"
+
+#~ msgid "Select year"
+#~ msgstr "Valitse vuosi"
+
+#~ msgid "Select month"
+#~ msgstr "Valitse kuukausi"
+
+#~ msgid "No visitors during this period of time."
+#~ msgstr "Ei kävijöitä tällä ajanjaksolla."
 
 #~ msgid "Loads"
 #~ msgstr "Lataukset"
