@@ -3,7 +3,7 @@
  *  Plugin Name: Compact & Chronological
  *  Description: Show month archive links in a compact view.
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -62,10 +62,11 @@ class CompactChronoWidget extends WP_Widget {
 		$archives = $wpdb->get_results( $query );
 
 		if( is_array( $archives ) ) {
-			print "<div class=\"compact_chrono group\">";
+			print '<div class="compact_chrono group">';
 
 			foreach( $archives as $current ) {
 				$arch[$current->year][$current->month] = $current->posts;
+				$ycounts[$current->year] += $current->posts;
 			}
 
 			$last_year = $archives['0']->year;
@@ -73,17 +74,19 @@ class CompactChronoWidget extends WP_Widget {
 
 			for( $y = $last_year; $y >= $first_year; $y-- ) {
 				if( $instance['split_rows'] == "on" ) {
-					print "<ul class=\"split\">";
+					print '<ul class="split">';
 				} else {
-					print "<ul>";
+					print '<ul>';
 				}
-				print "<li class=\"year\">" . $y . "</li> ";
+				print '<li class="year">';
+				print '<a href="' . get_year_link( $y ) . '" title="' . sprintf( _x( '%d: %d posts', 'year: count', 'compact-chrono' ), $y, $counts[$y] ) . '">' . $y . '</a>';
+				print '</li> '; // intended space!
 				for( $m = 1; $m <= 12; $m++ ) {
-					if( $m > date( 'n' ) && $y >= date( "Y" ) ) { $class = "month future"; }
-					elseif( $m == date( 'n' ) && $y == date( "Y" ) ) { $class = "month now"; }
-					else { $class = "month past"; }
+					if( $m > date( 'n' ) && $y >= date( 'Y' ) ) { $class = 'month future'; }
+					elseif( $m == date( 'n' ) && $y == date( 'Y' ) ) { $class = 'month now'; }
+					else { $class = 'month past'; }
 
-					print "<li class=\"" . $class . "\">";
+					print '<li class="' . $class . '">';
 
 					$month_name = ucfirst( strftime( "%B", mktime( 0, 0, 0, $m, 10, $y ) ) );
 					$month_abbr = ucfirst( strftime( "%b", mktime( 0, 0, 0, $m, 10, $y ) ) );
@@ -91,14 +94,19 @@ class CompactChronoWidget extends WP_Widget {
 					if( $arch[$y][$m] < 1 ) {
 						print substr( $month_abbr, 0, 3 );
 					} else {
-						print "<a href=\"" . get_month_link( $y, $m ) . "\" title=\"" . $month_name . " " . $y . ": " . $arch[$y][$m] . " " . __( "posts", 'compact-chrono' ) . "\">" . substr( $month_abbr, 0, 3 ) . "</a>";
+						print '<a href="' . get_month_link( $y, $m ) . '" title="' . sprintf( _x( '%s %d: %d posts', 'month, year: count', 'compact-chrono' ), $month_name, $y, $arch[$y][$m] ) . '">';
+						print '<span class="monthname">' . substr( $month_abbr, 0, 3 ) . '</span>';
+						if( $instance['article_counts'] == 1 ) {
+							print '<span class="count">' . $arch[$y][$m] . '</span>';
+						}
+						print '</a>';
 					}
-					print "</li> ";
+					print '</li> ';
 				}
-				print "</ul>\n";
+				print '</ul>\n';
 			}
 
-			print "</div>\n";
+			print '</div>\n';
 		}
 		/* */
 		echo $after_widget;
