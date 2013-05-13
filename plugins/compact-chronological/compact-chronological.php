@@ -28,7 +28,7 @@ function CompactChronoInit( ) {
 add_action( 'wp_enqueue_scripts', 'CompactChronoScripts' );
 
 function CompactChronoScripts( ) {
-	wp_register_style( 'compact-chrono-defaults', plugins_url( 'defaults.css', __FILE__ );
+	wp_register_style( 'compact-chrono-defaults', plugins_url( 'defaults.css', __FILE__ ) );
 	wp_enqueue_style( 'compact-chrono-defaults' );
 }
 
@@ -79,8 +79,10 @@ class CompactChronoWidget extends WP_Widget {
 					print '<ul>';
 				}
 				print '<li class="year">';
-				print '<a href="' . get_year_link( $y ) . '" title="' . sprintf( _x( '%d: %d posts', 'year: count', 'compact-chrono' ), $y, $counts[$y] ) . '">' . $y . '</a>';
-				print '</li> '; // intended space!
+				print '<a href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( __( '%d posts', 'compact-chrono' ), $ycounts[$y] ) . '">';
+				print '<span class="name">' . $y . '</span>';
+				print '</a>';
+				print '</li>'; // intended space!
 				for( $m = 1; $m <= 12; $m++ ) {
 					if( $m > date( 'n' ) && $y >= date( 'Y' ) ) { $class = 'month future'; }
 					elseif( $m == date( 'n' ) && $y == date( 'Y' ) ) { $class = 'month now'; }
@@ -88,25 +90,25 @@ class CompactChronoWidget extends WP_Widget {
 
 					print '<li class="' . $class . '">';
 
-					$month_name = ucfirst( strftime( "%B", mktime( 0, 0, 0, $m, 10, $y ) ) );
+					$month_name = ucfirst( strftime( "%B %Y", mktime( 0, 0, 0, $m, 10, $y ) ) );
 					$month_abbr = ucfirst( strftime( "%b", mktime( 0, 0, 0, $m, 10, $y ) ) );
 
 					if( $arch[$y][$m] < 1 ) {
 						print substr( $month_abbr, 0, 3 );
 					} else {
-						print '<a href="' . get_month_link( $y, $m ) . '" title="' . sprintf( _x( '%s %d: %d posts', 'month, year: count', 'compact-chrono' ), $month_name, $y, $arch[$y][$m] ) . '">';
-						print '<span class="monthname">' . substr( $month_abbr, 0, 3 ) . '</span>';
+						print '<a href="' . get_month_link( $y, $m ) . '" title="' . $month_name . ": " . sprintf( __( '%d posts', 'compact-chrono' ), $arch[$y][$m] ) . '">';
+						print '<span class="name">' . substr( $month_abbr, 0, 3 ) . '</span>';
 						if( $instance['article_counts'] == 1 ) {
 							print '<span class="count">' . $arch[$y][$m] . '</span>';
 						}
 						print '</a>';
 					}
-					print '</li> ';
+					print '</li>';
 				}
-				print '</ul>\n';
+				print '</ul>';
 			}
 
-			print '</div>\n';
+			print '</div>';
 		}
 		/* */
 		echo $after_widget;
