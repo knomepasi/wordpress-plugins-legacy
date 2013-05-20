@@ -17,7 +17,7 @@ add_action( 'plugins_loaded', 'CompactChronoInit' );
 
 function CompactChronoInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'compact-chrono', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'compact-chronological', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*
@@ -42,9 +42,9 @@ add_action( 'widgets_init', function( ) { register_widget( 'CompactChronoWidget'
 class CompactChronoWidget extends WP_Widget {
 	/** constructor */
 	function __construct() {
-		$widget_ops = array( 'description' => __( 'Show month archive links in a compact view.', 'compact-chrono' ) );
+		$widget_ops = array( 'description' => __( 'Show month archive links in a compact view.', 'compact-chronological' ) );
 
-		parent::__construct( 'compact-chrono', _x( 'Compact & Chronological', 'widget name', 'compact-chrono' ), $widget_ops );
+		parent::__construct( 'compact-chronological', _x( 'Compact & Chronological', 'widget name', 'compact-chronological' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */
@@ -79,7 +79,7 @@ class CompactChronoWidget extends WP_Widget {
 					print '<ul>';
 				}
 				print '<li class="year">';
-				print '<a href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( __( '%d posts', 'compact-chrono' ), $ycounts[$y] ) . '">';
+				print '<a href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( __( '%d posts', 'compact-chronological' ), $ycounts[$y] ) . '">';
 				print '<span class="name">' . $y . '</span>';
 				print '</a>';
 				print '</li>'; // intended space!
@@ -96,7 +96,7 @@ class CompactChronoWidget extends WP_Widget {
 					if( $arch[$y][$m] < 1 ) {
 						print substr( $month_abbr, 0, 3 );
 					} else {
-						print '<a href="' . get_month_link( $y, $m ) . '" title="' . $month_name . ": " . sprintf( __( '%d posts', 'compact-chrono' ), $arch[$y][$m] ) . '">';
+						print '<a href="' . get_month_link( $y, $m ) . '" title="' . $month_name . ": " . sprintf( __( '%d posts', 'compact-chronological' ), $arch[$y][$m] ) . '">';
 						print '<span class="name">' . substr( $month_abbr, 0, 3 ) . '</span>';
 						if( $instance['article_counts'] == 1 ) {
 							print '<span class="count">' . $arch[$y][$m] . '</span>';
@@ -131,12 +131,12 @@ class CompactChronoWidget extends WP_Widget {
 
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'compact-chrono' ); ?>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'compact-chronological' ); ?>
 				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 			</label>
 			<label for="<?php echo $this->get_field_id( 'split_rows' ); ?>">
 				<input id="<?php echo $this->get_field_id( 'split_rows' ); ?>" name="<?php echo $this->get_field_name( 'split_rows' ); ?>" type="checkbox" value="on" <?php echo $is_split; ?> />
-				<?php echo _e( 'Split to two rows?', 'compact-chrono' ); ?>
+				<?php echo _e( 'Split to two rows?', 'compact-chronological' ); ?>
 			</label>
 		</p>
 		<?php 
