@@ -3,7 +3,7 @@
  *  Plugin Name: Category Excerpts
  *  Description: Show newest excerpts from a defined category.
  *  Author: Pasi Lallinaho
- *  Version: 0.9
+ *  Version: 1.0
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -24,12 +24,12 @@ function CategoryExcerptsInit( ) {
  *
  */
 
-add_action( 'widgets_init', function( ) { register_widget( 'CategodyExcerptsWidget' ); } );
+add_action( 'widgets_init', function( ) { register_widget( 'CategoryExcerptsWidget' ); } );
 
 class CategoryExcerptsWidget extends WP_Widget {
 	/** constructor */
 	function __construct( ) {
-		$widget_ops = array( 'description' => __( 'Show newest excerpts from a defined category.', 'category-excerpts' );
+		$widget_ops = array( 'description' => __( 'Show newest excerpts from a defined category.', 'category-excerpts' ) );
 
 		parent::__construct( 'category_excerpts', _x( 'Category Excerpts', 'widget name', 'category-excerpts' ), $widget_ops );
 	}
