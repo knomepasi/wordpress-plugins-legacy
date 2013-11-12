@@ -33,13 +33,13 @@ function TaxonomyPromotionScripts( ) {
 	wp_enqueue_script( 'jquery' );
 
 	if( is_admin( ) ) {
-		wp_register_script( 'taxonomy-promotion-admin', plugins_url( 'taxpromo-admin.js', __FILE__ ), array( 'jquery' ), '1.0' );
+		wp_register_script( 'taxonomy-promotion-admin', plugins_url( 'taxpromo-admin.js', __FILE__ ), array( 'jquery' ), '1.1' );
 		# make the full url available for the script
 		wp_localize_script( 'taxonomy-promotion-admin', 'WP_AJAX', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 
 		# translate the script
 		wp_localize_script( 'taxonomy-promotion-admin', 'l10n', array(
-			'selecttax' => __( '-- Select a taxonomy first --', 'taxonomy-promotion' )
+			'selecttax' => __( '-- Select taxonomy first --', 'taxonomy-promotion' )
 		) );
 
 		wp_enqueue_script( 'taxonomy-promotion-admin' );
@@ -66,6 +66,7 @@ function TaxonomyPromotionAJAX( ) {
 	} else {
 		echo $out;
 	}
+
 	die;
 }
 
@@ -116,7 +117,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 			if( !$prev ) { $first = " first"; $prev = 1; } else { $first = ""; }
 
 			switch( $instance['display'] ) {
-				case "excerpts":
+				case 'excerpts':
 					print '<div class="item">';
 					print '<strong class="title' . $first . '">' . get_the_title( ) . '</strong>';
 					print '<p class="excerpt">' . get_the_excerpt( );
@@ -124,7 +125,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 					print '</p>';
 					print '</div>';
 				break;
-				case "list":
+				case 'titles':
 				default:
 					print '<li class="title"><a href="' . get_permalink( ) . '">' . get_the_title( ) . '</a></li>';
 				break;
@@ -179,18 +180,18 @@ class TaxonomyPromotionWidget extends WP_Widget {
 
 		<!-- Taxonomy and term -->
 		<!-- JS is enabled -->
-		<p class="hide-if-no-js">
+		<p class="taxpromo hide-if-no-js">
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy and term', 'taxonomy-promotion' ); ?><br />
 				<select class="widefat taxpromo-tax" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
 					<?php
 						$args = array( "public" => true, "show_ui" => true );
 						$taxs = get_taxonomies( $args, 'objects' );
 
-						print '<option value="0"' . selected( 0, $taxonomy ) . '>' . __( '-- Select taxonomy --' ) . '</option>';
+						print '<option value="0" ' . selected( 0, $taxonomy, false ) . '>' . __( '-- Select taxonomy --' ) . '</option>';
 
 						foreach( $taxs as $tax ) {
 							if( count( get_terms( $tax->name, array( 'number' => 1 ) ) ) > 0 ) {
-								print '<option value="' . $tax->name . '"' . selected( $tax->name, $taxonomy ) . '>' . $tax->labels->singular_name . '</option>';
+								print '<option value="' . $tax->name . '"' . selected( $tax->name, $taxonomy, false ) . '>' . $tax->labels->singular_name . '</option>';
 							}
 						}
 					?>
@@ -204,24 +205,24 @@ class TaxonomyPromotionWidget extends WP_Widget {
 						$terms = get_terms( $taxonomy );
 
 						foreach( $terms as $term ) {
-							print '<option value="' . $term->term_id . '"' . selected( $term->term_id, $taxonomy_term ) . '>' . $term->name . '</option>';
+							print '<option value="' . $term->term_id . '"' . selected( $term->term_id, $taxonomy_term, false ) . '>' . $term->name . '</option>';
 						}
 					}
 				?>
 			</select>
 		</p>
-		<p class="hide-if-js">
+		<p class="taxpromo hide-if-js">
 			<label for="<?php echo $this->get_field_id( 'taxonomy_and_term' ); ?>"><?php _e( 'Taxonomy and term', 'taxonomy-promotion' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'taxonomy_and_term' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy_and_term' ); ?>">
 					<?php
 						$args = array( "public" => true, "show_ui" => true );
 						$taxs = get_taxonomies( $args, 'objects' );
 
-						print '<option value="0"' . selected( 0, $taxonomy ) . '>' . __( '-- Select taxonomy and term --' ) . '</option>';
+						print '<option value="0" ' . selected( 0, $taxonomy, false ) . '>' . __( '-- Select taxonomy and term --' ) . '</option>';
 
 						foreach( $taxs as $tax ) {
 							foreach( get_terms( $tax->name ) as $term ) {
-								print '<option value="' . $tax->name . '.' . $term->term_id . '"' . selected( $tax->name . '.' . $term->term_id, $taxonomy . '.' . $taxonomy_term ) . '>' . $tax->labels->singular_name . ': ' . $term->name . '</option>';
+								print '<option value="' . $tax->name . '.' . $term->term_id . '"' . selected( $tax->name . '.' . $term->term_id, $taxonomy . '.' . $taxonomy_term, false ) . '>' . $tax->labels->singular_name . ': ' . $term->name . '</option>';
 							}
 						}
 					?>
@@ -232,7 +233,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		<p><!-- What to display? -->
 			<label for="<?php echo $this->get_field_id( 'display' ); ?>"><?php _e( 'Display', 'taxonomy-promotion' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'display' ); ?>" name="<?php echo $this->get_field_name( 'display' ); ?>">
-					<option value="list" <?php selected( $display, 'list' ); ?>><?php _e( 'Titles', 'taxonomy-promotion' ); ?></option>
+					<option value="titles" <?php selected( $display, 'list' ); ?>><?php _e( 'Titles', 'taxonomy-promotion' ); ?></option>
 					<option value="excerpts" <?php selected( $display, 'excerpts' ); ?>><?php _e( 'Excerpts', 'taxonomy-promotion' ); ?></option>
 				</select>
 			</label>

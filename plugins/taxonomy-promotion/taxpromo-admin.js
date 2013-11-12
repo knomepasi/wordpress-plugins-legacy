@@ -1,13 +1,17 @@
 jQuery( window ).load( function( ) {
+	jQuery( '.taxpromo-tax' ).unbind( );
 	TaxonomyPromotion( );
 } );
 
 jQuery( document ).ajaxSuccess( function( ) {
+	jQuery( '.taxpromo-tax' ).unbind( );
 	TaxonomyPromotion( );
 } );
 
 function TaxonomyPromotion( ) {
 	var ourTax;
+
+	jQuery( '.taxpromo.hide-if-js' ).remove( );
 
 	jQuery( '.taxpromo-tax' ).change( function( e ) {
 		// a value in a taxonomy dropdown has changed!
@@ -30,7 +34,6 @@ function TaxonomyPromotion( ) {
 				PopulateTermDropdown( ourID + "_term", ourValue, data );
 			},
 			error: function( error ) {
-				alert( 'Error, see console' );
 				console.log( error );
 			}
 		} );
@@ -38,6 +41,8 @@ function TaxonomyPromotion( ) {
 }
 
 function PopulateTermDropdown( ID, value, data ) {
+	var selected_term = jQuery( ID + ' :selected' ).attr( 'value' );
+
 	jQuery( ID ).empty( );
 
 	if( value != 0 ) {
@@ -45,7 +50,11 @@ function PopulateTermDropdown( ID, value, data ) {
 
 		for( var i = 0, len = data.length; i < len; i++ ) {
 			var term = data[i];
-			jQuery( ID ).append( '<option value="' + term.term_id + '">' + term.name + '</option>' );
+			if( selected_term == term.term_id ) {
+				jQuery( ID ).append( '<option value="' + term.term_id + '" selected="selected">' + term.name + '</option>' );
+			} else {
+				jQuery( ID ).append( '<option value="' + term.term_id + '">' + term.name + '</option>' );
+			}
 		}
 	} else {
 		jQuery( ID ).append( '<option value="+">' + l10n.selecttax + '</option>' );
