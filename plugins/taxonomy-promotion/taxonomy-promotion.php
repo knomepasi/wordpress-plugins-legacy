@@ -203,7 +203,10 @@ class TaxonomyPromotionWidget extends WP_Widget {
 					}
 				?>
 			</select>
-			<br /><small class="no-js"><?php _e( "Since you don't have JS enabled, save the widget after selecting the taxonomy to show (new) terms for taxonomies.", 'taxonomy-promotion' ); ?></small>
+			<noscript>
+				<br /><small><?php _e( "Since you don't have JS enabled, save the widget after selecting the taxonomy to show (new) terms for taxonomies.", 'taxonomy-promotion' ); ?></small>
+				<!-- Alternatively we could simply show a list of all tax-term pairs. -->
+			</noscript>
 		</p>
 
 		<p><!-- What to display? -->
