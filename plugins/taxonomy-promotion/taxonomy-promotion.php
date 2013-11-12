@@ -144,6 +144,10 @@ class TaxonomyPromotionWidget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
+		if( $new_instance['taxonomy_and_term'] ) {
+			list( $new_instance['taxonomy'], $new_instance['taxonomy_term'] ) = explode( '.', $new_instance['taxonomy_and_term'] );
+		}
+
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['taxonomy'] = strip_tags( $new_instance['taxonomy'] );
 		$instance['taxonomy_term'] = strip_tags( $new_instance['taxonomy_term'] );
@@ -173,14 +177,16 @@ class TaxonomyPromotionWidget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 
-		<p><!-- Taxonomy and term -->
+		<!-- Taxonomy and term -->
+		<!-- JS is enabled -->
+		<p class="hide-if-no-js">
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy and term', 'taxonomy-promotion' ); ?><br />
 				<select class="widefat taxpromo-tax" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
 					<?php
 						$args = array( "public" => true, "show_ui" => true );
 						$taxs = get_taxonomies( $args, 'objects' );
 
-						print '<option value="0"' . selected( 0, $taxonomy ) . '>' . __( '-- Select a taxonomy --' ) . '</option>';
+						print '<option value="0"' . selected( 0, $taxonomy ) . '>' . __( '-- Select taxonomy --' ) . '</option>';
 
 						foreach( $taxs as $tax ) {
 							if( count( get_terms( $tax->name, array( 'number' => 1 ) ) ) > 0 ) {
@@ -193,7 +199,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 			<select class="widefat" id="<?php echo $this->get_field_id( 'taxonomy_term' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy_term' ); ?>" <?php echo $disabled; ?> style="margin-top: 0.2em;">
 				<?php
 					if( $disabled ) {
-						print '<option value="0">' . __( '-- Select a taxonomy first --', 'taxonomy-promotion' ) . '</option>';
+						print '<option value="0">' . __( '-- Select taxonomy first --', 'taxonomy-promotion' ) . '</option>';
 					} else {
 						$terms = get_terms( $taxonomy );
 
@@ -203,10 +209,24 @@ class TaxonomyPromotionWidget extends WP_Widget {
 					}
 				?>
 			</select>
-			<noscript>
-				<br /><small><?php _e( "Since you don't have JS enabled, save the widget after selecting the taxonomy to show (new) terms for taxonomies.", 'taxonomy-promotion' ); ?></small>
-				<!-- Alternatively we could simply show a list of all tax-term pairs. -->
-			</noscript>
+		</p>
+		<p class="hide-if-js">
+			<label for="<?php echo $this->get_field_id( 'taxonomy_and_term' ); ?>"><?php _e( 'Taxonomy and term', 'taxonomy-promotion' ); ?><br />
+				<select class="widefat" id="<?php echo $this->get_field_id( 'taxonomy_and_term' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy_and_term' ); ?>">
+					<?php
+						$args = array( "public" => true, "show_ui" => true );
+						$taxs = get_taxonomies( $args, 'objects' );
+
+						print '<option value="0"' . selected( 0, $taxonomy ) . '>' . __( '-- Select taxonomy and term --' ) . '</option>';
+
+						foreach( $taxs as $tax ) {
+							foreach( get_terms( $tax->name ) as $term ) {
+								print '<option value="' . $tax->name . '.' . $term->term_id . '"' . selected( $tax->name . '.' . $term->term_id, $taxonomy . '.' . $taxonomy_term ) . '>' . $tax->labels->singular_name . ': ' . $term->name . '</option>';
+							}
+						}
+					?>
+				</select>
+			</label>
 		</p>
 
 		<p><!-- What to display? -->
