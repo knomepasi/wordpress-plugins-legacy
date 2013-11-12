@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-12 10:45+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:42
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:196
+msgid "-- Select a taxonomy first --"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:81
+msgid "Shows titles or excerpts in the selected taxonomy and term."
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:83
+msgctxt "widget name"
+msgid "Taxonomy Promotion"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:123
+msgid "Read more &raquo;"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:172
+msgid "Title"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:177
+msgid "Taxonomy and term"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:183
+msgid "-- Select a taxonomy --"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:206
+msgid ""
+"Since you don't have JS enabled, save the widget after selecting the "
+"taxonomy to show (new) terms for taxonomies."
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:210
+msgid "Display"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:212
+msgid "Titles"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:213
+msgid "Excerpts"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:219
+msgid "Number of items"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:221
+msgid "0 for all items."
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:225
+msgid "Text for 'more items' link"
+msgstr ""
+
+#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:227
+msgid ""
+"<b>Only if number of items is more than 0.</b> If you leave this field "
+"empty, no link will be shown."
+msgstr ""

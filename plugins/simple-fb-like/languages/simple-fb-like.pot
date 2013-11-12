@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 22:31+0300\n"
+"POT-Creation-Date: 2013-11-12 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:32
+#: ../plugins/simple-fb-like/simple-fb-like.php:46
 msgid "Shows a Facebook Like button for a Facebook profile."
 msgstr ""
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:34
+#: ../plugins/simple-fb-like/simple-fb-like.php:48
 msgctxt "widget name"
 msgid "FB Like"
 msgstr ""
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:63
+#: ../plugins/simple-fb-like/simple-fb-like.php:77
 msgid "Title"
 msgstr ""
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:68
+#: ../plugins/simple-fb-like/simple-fb-like.php:82
 msgid "Profile name"
 msgstr ""

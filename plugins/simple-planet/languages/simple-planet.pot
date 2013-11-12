@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 22:31+0300\n"
+"POT-Creation-Date: 2013-11-12 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-planet/simple-planet.php:43
+#: ../plugins/simple-planet/simple-planet.php:46
 msgid "Show aggregated posts from multiple feeds sorted by date via a widget."
 msgstr ""
 
-#: ../plugins/simple-planet/simple-planet.php:46
+#: ../plugins/simple-planet/simple-planet.php:49
 msgctxt "widget name"
 msgid "Simple Planet"
 msgstr ""
 
-#: ../plugins/simple-planet/simple-planet.php:110
+#: ../plugins/simple-planet/simple-planet.php:113
 msgid "by"
 msgstr ""
 
-#: ../plugins/simple-planet/simple-planet.php:147
+#: ../plugins/simple-planet/simple-planet.php:150
 msgid "Title"
 msgstr ""
 
-#: ../plugins/simple-planet/simple-planet.php:150
+#: ../plugins/simple-planet/simple-planet.php:153
 msgid "Feeds (one per line)"
 msgstr ""
 
-#: ../plugins/simple-planet/simple-planet.php:153
+#: ../plugins/simple-planet/simple-planet.php:156
 msgid "Items to show"
 msgstr ""
 
-#: ../plugins/simple-planet/simple-planet.php:156
+#: ../plugins/simple-planet/simple-planet.php:159
 msgid "Minimum refresh interval (in minutes)"
 msgstr ""

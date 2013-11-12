@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 22:31+0300\n"
+"POT-Creation-Date: 2013-11-12 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,137 +17,137 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/photoslider/photoslider.php:59
+#: ../plugins/photoslider/photoslider.php:62
 msgid "Show a slideshow of user uploaded photos."
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:61
+#: ../plugins/photoslider/photoslider.php:64
 msgctxt "widget name"
 msgid "Photoslider"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:102
+#: ../plugins/photoslider/photoslider.php:105
 msgid "Title"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:107
+#: ../plugins/photoslider/photoslider.php:110
 msgid "Image size"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:129
+#: ../plugins/photoslider/photoslider.php:132
 msgid "Controls"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:133
+#: ../plugins/photoslider/photoslider.php:136
 msgctxt "controls"
 msgid "None"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:134
+#: ../plugins/photoslider/photoslider.php:137
 msgctxt "controls"
 msgid "Above"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:135
+#: ../plugins/photoslider/photoslider.php:138
 msgctxt "controls"
 msgid "On top"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:146
+#: ../plugins/photoslider/photoslider.php:149
 msgid "Transition type"
-msgstr ""
-
-#: ../plugins/photoslider/photoslider.php:150
-msgctxt "transition type"
-msgid "Fade"
-msgstr ""
-
-#: ../plugins/photoslider/photoslider.php:151
-msgctxt "transition type"
-msgid "Fade (fast)"
-msgstr ""
-
-#: ../plugins/photoslider/photoslider.php:152
-msgctxt "transition type"
-msgid "Slide (towards left)"
 msgstr ""
 
 #: ../plugins/photoslider/photoslider.php:153
 msgctxt "transition type"
+msgid "Fade"
+msgstr ""
+
+#: ../plugins/photoslider/photoslider.php:154
+msgctxt "transition type"
+msgid "Fade (fast)"
+msgstr ""
+
+#: ../plugins/photoslider/photoslider.php:155
+msgctxt "transition type"
+msgid "Slide (towards left)"
+msgstr ""
+
+#: ../plugins/photoslider/photoslider.php:156
+msgctxt "transition type"
 msgid "Slide (towards right)"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:164
+#: ../plugins/photoslider/photoslider.php:167
 msgid "Time between transitions"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:168
+#: ../plugins/photoslider/photoslider.php:171
 msgid "Don't advance automatically"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:169
+#: ../plugins/photoslider/photoslider.php:172
 msgctxt "transition speed"
 msgid "Fast"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:170
+#: ../plugins/photoslider/photoslider.php:173
 msgctxt "transition speed"
 msgid "Default"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:171
+#: ../plugins/photoslider/photoslider.php:174
 msgctxt "transition speed"
 msgid "Slow"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:182
+#: ../plugins/photoslider/photoslider.php:185
 msgid "Show captions?"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:185
+#: ../plugins/photoslider/photoslider.php:188
 msgid "Yes"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:187
+#: ../plugins/photoslider/photoslider.php:190
 msgid "No"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:190
+#: ../plugins/photoslider/photoslider.php:193
 msgid "Order by"
-msgstr ""
-
-#: ../plugins/photoslider/photoslider.php:194
-msgctxt "order by option"
-msgid "Title"
-msgstr ""
-
-#: ../plugins/photoslider/photoslider.php:195
-msgctxt "order by option"
-msgid "Date"
-msgstr ""
-
-#: ../plugins/photoslider/photoslider.php:196
-msgctxt "order by option"
-msgid "Filename"
 msgstr ""
 
 #: ../plugins/photoslider/photoslider.php:197
 msgctxt "order by option"
+msgid "Title"
+msgstr ""
+
+#: ../plugins/photoslider/photoslider.php:198
+msgctxt "order by option"
+msgid "Date"
+msgstr ""
+
+#: ../plugins/photoslider/photoslider.php:199
+msgctxt "order by option"
+msgid "Filename"
+msgstr ""
+
+#: ../plugins/photoslider/photoslider.php:200
+msgctxt "order by option"
 msgid "Random"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:208
+#: ../plugins/photoslider/photoslider.php:211
 msgid "Order"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:211
+#: ../plugins/photoslider/photoslider.php:214
 msgid "Ascending"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:213
+#: ../plugins/photoslider/photoslider.php:216
 msgid "Descending"
 msgstr ""
 
-#: ../plugins/photoslider/photoslider.php:216
+#: ../plugins/photoslider/photoslider.php:219
 msgid "Page or post ID (leave blank for current)"
 msgstr ""

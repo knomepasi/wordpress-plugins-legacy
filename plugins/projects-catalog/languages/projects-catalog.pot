@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 22:31+0300\n"
+"POT-Creation-Date: 2013-11-12 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,173 +17,173 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/projects-catalog/projects-catalog.php:60
+#: ../plugins/projects-catalog/projects-catalog.php:66
 msgctxt "Post type"
 msgid "Projects"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:61
+#: ../plugins/projects-catalog/projects-catalog.php:67
 msgctxt "Post type (singular)"
 msgid "Project"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:62
+#: ../plugins/projects-catalog/projects-catalog.php:68
 msgctxt "project"
 msgid "Add New"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:63
+#: ../plugins/projects-catalog/projects-catalog.php:69
 msgid "Add New Project"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:64
+#: ../plugins/projects-catalog/projects-catalog.php:70
 msgid "Edit Project"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:65
+#: ../plugins/projects-catalog/projects-catalog.php:71
 msgid "New Project"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:66
+#: ../plugins/projects-catalog/projects-catalog.php:72
 msgid "View Project"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:67
+#: ../plugins/projects-catalog/projects-catalog.php:73
 msgid "Search Projects"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:68
+#: ../plugins/projects-catalog/projects-catalog.php:74
 msgid "No projects found"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:69
+#: ../plugins/projects-catalog/projects-catalog.php:75
 msgid "No projects found in Trash"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:70
+#: ../plugins/projects-catalog/projects-catalog.php:76
 msgid "Main Project"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:71
+#: ../plugins/projects-catalog/projects-catalog.php:77
 msgid "Projects"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:101
+#: ../plugins/projects-catalog/projects-catalog.php:107
 msgctxt "Taxonomy name"
 msgid "Project Group"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:102
+#: ../plugins/projects-catalog/projects-catalog.php:108
 msgctxt "Taxonomy name (singular)"
 msgid "Project Group"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:103
+#: ../plugins/projects-catalog/projects-catalog.php:109
 msgid "Search Project Groups"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:104
+#: ../plugins/projects-catalog/projects-catalog.php:110
 msgid "All Project Groups"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:107
+#: ../plugins/projects-catalog/projects-catalog.php:113
 msgid "Edit Project Group"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:108
+#: ../plugins/projects-catalog/projects-catalog.php:114
 msgid "Update Project Group"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:109
+#: ../plugins/projects-catalog/projects-catalog.php:115
 msgid "Add New Project Group"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:110
+#: ../plugins/projects-catalog/projects-catalog.php:116
 msgid "New Project Group name"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:111
+#: ../plugins/projects-catalog/projects-catalog.php:117
 msgid "Groups"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:136
+#: ../plugins/projects-catalog/projects-catalog.php:142
 #: ../plugins/projects-catalog/widget_shortcode.php:69
 #: ../plugins/projects-catalog/widget_shortcode.php:70
 msgid "Showtype"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:141
+#: ../plugins/projects-catalog/projects-catalog.php:147
 msgid "This selection defines how the project group is presented by default."
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:145
+#: ../plugins/projects-catalog/projects-catalog.php:151
 msgid "Order"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:148
+#: ../plugins/projects-catalog/projects-catalog.php:154
 msgid "The sort order. Smaller integers go bottom."
-msgstr ""
-
-#: ../plugins/projects-catalog/projects-catalog.php:179
-#, php-format
-msgid "Project updated. <a href=\"%s\">View project</a>"
-msgstr ""
-
-#: ../plugins/projects-catalog/projects-catalog.php:180
-msgid "Custom field updated."
-msgstr ""
-
-#: ../plugins/projects-catalog/projects-catalog.php:181
-msgid "Custom field deleted."
-msgstr ""
-
-#: ../plugins/projects-catalog/projects-catalog.php:182
-msgid "Project updated."
-msgstr ""
-
-#: ../plugins/projects-catalog/projects-catalog.php:184
-#, php-format
-msgid "Project restored to revision from %s"
 msgstr ""
 
 #: ../plugins/projects-catalog/projects-catalog.php:185
 #, php-format
-msgid "Project published. <a href=\"%s\">View project</a>"
+msgid "Project updated. <a href=\"%s\">View project</a>"
 msgstr ""
 
 #: ../plugins/projects-catalog/projects-catalog.php:186
-msgid "Project saved."
+msgid "Custom field updated."
 msgstr ""
 
 #: ../plugins/projects-catalog/projects-catalog.php:187
+msgid "Custom field deleted."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:188
+msgid "Project updated."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:190
+#, php-format
+msgid "Project restored to revision from %s"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:191
+#, php-format
+msgid "Project published. <a href=\"%s\">View project</a>"
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:192
+msgid "Project saved."
+msgstr ""
+
+#: ../plugins/projects-catalog/projects-catalog.php:193
 #, php-format
 msgid "Project submitted. <a target=\"_blank\" href=\"%s\">Preview project</a>"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:188
+#: ../plugins/projects-catalog/projects-catalog.php:194
 #, php-format
 msgid ""
 "Project scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
 "\"%2$s\">Preview project</a>"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:190
+#: ../plugins/projects-catalog/projects-catalog.php:196
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:191
+#: ../plugins/projects-catalog/projects-catalog.php:197
 #, php-format
 msgid ""
 "Project draft updated. <a target=\"_blank\" href=\"%s\">Preview project</a>"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:218
+#: ../plugins/projects-catalog/projects-catalog.php:224
 #: ../plugins/projects-catalog/widget_shortcode.php:55
 #: ../plugins/projects-catalog/widget_shortcode.php:56
 msgid "Project Group"
 msgstr ""
 
-#: ../plugins/projects-catalog/projects-catalog.php:238
+#: ../plugins/projects-catalog/projects-catalog.php:244
 msgid "Not in any group."
 msgstr ""
 
