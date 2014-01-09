@@ -280,7 +280,7 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 	/* start wrapping div */
 	$output = '<div class="ps_wrap" ' . $first_dimensions . '>';
 	if( $opts['url'] ) {
-		$output .= '<a href="' . $opts['url'] . '" title="' . $opts['url_title'] . '">';
+		$output .= '<a class="ps_link" href="' . $opts['url'] . '" title="' . $opts['url_title'] . '">';
 	}
 	$output .= '<div class="photoslider ctrl-' . $opts['controls'] . '" id="' . $opts['instance_id'] . '">';
 
