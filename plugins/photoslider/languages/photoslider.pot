@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 23:35+0200\n"
+"POT-Creation-Date: 2014-01-09 23:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,9 +161,9 @@ msgid "URL title text"
 msgstr ""
 
 #: ../plugins/photoslider/photoslider.php:319
-msgid "Previous slide"
+msgid "Previous"
 msgstr ""
 
 #: ../plugins/photoslider/photoslider.php:320
-msgid "Next slide"
+msgid "Next"
 msgstr ""

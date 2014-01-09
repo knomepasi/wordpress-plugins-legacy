@@ -3,7 +3,7 @@
  *  Plugin Name: Photoslider
  *  Description: Show a slideshow of user uploaded photos.
  *  Author: Pasi Lallinaho
- *  Version: 1.5
+ *  Version: 1.6
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -316,8 +316,8 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 
 		$output .= '<div class="controls">';
 		if( $opts['controls'] != "none" ) {
-			$output .= '<a href="#" class="c-prev" title="' . __( 'Previous slide', 'photoslider' ) . '">' . get_option( 'photoslider_previous_slide_string', 'photoslider' ) . '</a>';
-			$output .= '<a href="#" class="c-next" title="' . __( 'Next slide', 'photoslider' ) . '">' . get_option( 'photoslider_next_slide_string', 'photoslider' ) . '</a>';
+			$output .= '<a href="#" class="c-prev" title="' . __( 'Previous', 'photoslider' ) . '">' . get_option( 'photoslider_previous_slide_string', 'photoslider' ) . '</a>';
+			$output .= '<a href="#" class="c-next" title="' . __( 'Next', 'photoslider' ) . '">' . get_option( 'photoslider_next_slide_string', 'photoslider' ) . '</a>';
 		}
 		$output .= '</div>';
 
