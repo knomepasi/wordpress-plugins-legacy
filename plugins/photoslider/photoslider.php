@@ -20,6 +20,8 @@ register_activation_hook( __FILE__, 'PhotosliderActivate' );
 
 function PhotosliderActivate( ) {
 	add_option( 'photoslider_default_size', 'medium' );
+	add_option( 'photoslider_previous_slide_string', '&laquo;' );
+	add_option( 'photoslider_next_slide_string', '&raquo;' );
 }
 
 /*  Init plugin
@@ -89,6 +91,8 @@ class PhotosliderWidget extends WP_Widget {
 		$instance['orderby'] = $new_instance['orderby'];
 		$instance['order'] = $new_instance['order'];
 		$instance['custom_id'] = (int) $new_instance['custom_id'];
+		$instance['url'] = $new_instance['url'];
+		$instance['url_title'] = $new_instance['url_title'];
 		return $instance;
 	}
 
@@ -97,13 +101,15 @@ class PhotosliderWidget extends WP_Widget {
 		$title = esc_attr( $instance['title'] );
 		$size = esc_attr( $instance['size'] );
 		$custom_id = esc_attr( $instance['custom_id'] );
+		$url = esc_attr( $instance['url'] );
+		$url_title = esc_attr( $instance['url_title'] );
 
 		if( !$size ) { $size = get_option( 'photoslider_default_size' ); }
 		?>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'photoslider' ); ?><br />
-				<input style="width: 220px;" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 			</label>
 		</p>
 		<p>
@@ -127,8 +133,7 @@ class PhotosliderWidget extends WP_Widget {
 				?>
 				</select>
 			</label>
-		</p>
-		<p>
+
 			<label for="<?php echo $this->get_field_id( 'controls' ); ?>"><?php _e( 'Controls', 'photoslider' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'controls' ); ?>" name="<?php echo $this->get_field_name( 'controls' ); ?>">
 					<?php
@@ -144,8 +149,7 @@ class PhotosliderWidget extends WP_Widget {
 					?>
 				</select>
 			</label>
-		</p>
-		<p>
+
 			<label for="<?php echo $this->get_field_id( 'transition' ); ?>"><?php _e( 'Transition type', 'photoslider' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'transition' ); ?>" name="<?php echo $this->get_field_name( 'transition' ); ?>">
 					<?php
@@ -162,8 +166,7 @@ class PhotosliderWidget extends WP_Widget {
 					?>
 				</select>
 			</label>
-		</p>
-		<p>
+
 			<label for="<?php echo $this->get_field_id( 'timeout' ); ?>"><?php _e( 'Time between transitions', 'photoslider' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'timeout' ); ?>" name="<?php echo $this->get_field_name( 'timeout' ); ?>">
 					<?php
@@ -180,8 +183,7 @@ class PhotosliderWidget extends WP_Widget {
 					?>
 				</select>
 			</label>
-		</p>
-		<p>
+
 			<?php _e( 'Show captions?', 'photoslider' ); ?><br />
 			<?php if( $instance['captions'] < 1 ) { $capt_no = ' checked="checked" '; } else { $capt_yes = ' checked="checked" '; } ?>
 			<input type="radio" id="<?php echo $this->get_field_id( 'captions_yes' ); ?>" name="<?php echo $this->get_field_name( 'captions' ); ?>" value="1" <?php echo $capt_yes; ?> />
@@ -206,8 +208,7 @@ class PhotosliderWidget extends WP_Widget {
 					?>
 				</select>
 			</label>
-		</p>
-		<p>
+
 			<?php _e( 'Order', 'photoslider' ); ?><br />
 			<?php if( $instance['order'] == "ASC" ) { $order_asc = ' checked="checked" '; } else { $order_desc = ' checked="checked" '; } ?>
 			<input type="radio" id="<?php echo $this->get_field_id( 'order_asc' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" value="ASC" <?php echo $order_asc; ?> />
@@ -217,7 +218,15 @@ class PhotosliderWidget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'custom_id' ); ?>"><?php _e( 'Page or post ID (leave blank for current)', 'photoslider' ); ?><br />
-				<input style="width: 220px;" id="<?php echo $this->get_field_id( 'custom_id' ); ?>" name="<?php echo $this->get_field_name( 'custom_id' ); ?>" type="text" value="<?php echo $custom_id; ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'custom_id' ); ?>" name="<?php echo $this->get_field_name( 'custom_id' ); ?>" type="text" value="<?php echo $custom_id; ?>" />
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'url' ); ?>"><?php _e( 'URL to redirect to when clicking outside the controls', 'photoslider' ); ?><br />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'url' ); ?>" name="<?php echo $this->get_field_name( 'url' ); ?>" type="text" value="<?php echo $url; ?>" />
+			</label>
+			<label for="<?php echo $this->get_field_id( 'url_title' ); ?>"><?php _e( 'URL title text', 'photoslider' ); ?><br />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'url_title' ); ?>" name="<?php echo $this->get_field_name( 'url_title' ); ?>" type="text" value="<?php echo $url_title; ?>" />
 			</label>
 		</p>
 
@@ -243,7 +252,8 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 		'captions' => 'no',
 		'orderby' => 'menu_order',
 		'orderdir' => 'ASC',
-		'post' => 0
+		'post' => 0,
+		'url' => null
 	), $atts );
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
@@ -269,6 +279,9 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 
 	/* start wrapping div */
 	$output = '<div class="ps_wrap" ' . $first_dimensions . '>';
+	if( $opts['url'] ) {
+		$output .= '<a href="' . $opts['url'] . '" title="' . $opts['url_title'] . '">';
+	}
 	$output .= '<div class="photoslider ctrl-' . $opts['controls'] . '" id="' . $opts['instance_id'] . '">';
 
 		$output .= '<div class="title">' . $title . '</div>';
@@ -303,12 +316,15 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 
 		$output .= '<div class="controls">';
 		if( $opts['controls'] != "none" ) {
-			$output .= '<a href="#" class="c-prev">&laquo;</a>';
-			$output .= '<a href="#" class="c-next">&raquo;</a>';
+			$output .= '<a href="#" class="c-prev" title="' . __( 'Previous slide', 'photoslider' ) . '">' . get_option( 'photoslider_previous_slide_string', 'photoslider' ) . '</a>';
+			$output .= '<a href="#" class="c-next" title="' . __( 'Next slide', 'photoslider' ) . '">' . get_option( 'photoslider_next_slide_string', 'photoslider' ) . '</a>';
 		}
 		$output .= '</div>';
 
 	$output .= '</div>';
+	if( $opts['url'] ) {
+		$output .= '</a>';
+	}
 	$output .= '</div>';
 
 	$output .= PhotosliderScriptsDynamic( $opts );
