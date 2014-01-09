@@ -139,6 +139,8 @@ class TaxonomyPromotionWidget extends WP_Widget {
 
 		echo $after_widget;
 		echo '</div>';
+
+		wp_reset_postdata( );
 	}
 
 	/** @see WP_Widget::update */
