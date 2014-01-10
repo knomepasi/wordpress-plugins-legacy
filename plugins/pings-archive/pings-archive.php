@@ -9,6 +9,12 @@
  *
  */
 
+/*  TODO:
+ *  Allow using codewords for targets:
+ *    'current', 'parent', 'children', 'siblings'
+ *
+ */
+
 add_shortcode( 'pings', 'PingsShortcode' );
 
 function PingsShortcode( $atts, $content, $code ) {
