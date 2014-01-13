@@ -11,8 +11,9 @@ function runPhotoslider( opt ) {
 		photoslider_timeouts[opt.id] = opt.timeout;
 	}
 
-	/* if the user wants to force max image size, make sure all the images match that size */
- 	if( opt.forcemaxsize = true ) {
+	/* check if we want to use a special mode */
+ 	if( opt.mode = 'forcemaxsize' ) {
+		/* make all images at most as big as the defined size */
 		forceImageDimensions( i_id, opt.size );
 	}
 

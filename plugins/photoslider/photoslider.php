@@ -254,7 +254,7 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 		'orderdir' => 'ASC',
 		'post' => 0,
 		'url' => null,
-		'forcemaxsize' => false
+		'mode' => false
 	), $atts );
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
@@ -338,13 +338,25 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
  */
 
 function PhotosliderScriptsDynamic( $args ) {
-	/* TODO: convert literal sizes to pixels */
+	$dimensions = explode( 'x', $args['size'] );
+	if( !is_int( $dimensions[0] ) || !is_int( $dimensions[1] ) ) {
+		if( in_array( $args['size'], array( 'thumbnail', 'medium', 'large' ) ) ) {
+			$args['size'] = get_option( $args['size'] . '_size_w' ) . 'x' . get_option( $args['size'] . '_size_h' );
+		} else {
+			global $_wp_additional_image_sizes;
+			$args['size'] = $_wp_additional_image_sizes[ $args['size'] ]['width'] . 'x' . $_wp_additional_image_sizes[ $args['size'] ]['height'];
+		}
+	}
+
+	if( strlen( $args['size'] ) == 1 ) {
+		$args['size'] = get_option( 'medium_size_w' ) . 'x' . get_option( 'medium_size_h' );
+	}
 
 	$out  = '<script type="text/javascript">';
 	$out .= 'jQuery( window ).load( function( ) {';
 
 	$out .= 'var ' . $args['instance_id'] . ' = ' . "\n";
-	$out .= '{ "id": "' . $args['instance_id'] . '", "controls": "' . $args['controls'] . '", "timeout": "' . $args['timeout'] . '", "transition": "' . $args['transition'] . '", "size": "' . $args['size'] . '", "forcemaxsize": "' . $args['forcemaxsize'] . '" } ' . "\n";
+	$out .= '{ "id": "' . $args['instance_id'] . '", "controls": "' . $args['controls'] . '", "timeout": "' . $args['timeout'] . '", "transition": "' . $args['transition'] . '", "size": "' . $args['size'] . '", "mode": "' . $args['mode'] . '" } ' . "\n";
 	$out .= '; ';
 
 	$out .= 'runPhotoslider( ' . $args['instance_id'] . ' );';

@@ -7,9 +7,9 @@ You can use Photoslider with the shortcode ```photoslider```. The shortcode acce
     - The size for the images
     - Default: *medium*
     - Accepted values:
-      - Any specified WordPress image size; by default, WordPress supports: *thumb*, *thumbnail*, *medium*, *large*, *post-thumbnail*
+      - Any specified WordPress image size; by default, *thumbnail*, *medium*, *large*
       - Dimensions in pixels (speifies maximum dimensions for the image); for example; *600x600*
-    - See also *forcemaxsize*
+    - See also the **mode** *forcemaxsize*
   - **controls**
     - What kind of controls to show
     - Default: *none*
@@ -47,7 +47,8 @@ You can use Photoslider with the shortcode ```photoslider```. The shortcode acce
   - **url_title**
     - Title attribute for the **url** link
     - Default: *null*
-  - **forcemaxsize**
-    - Whether to force the slider to fit in the specified **size**
-    - Default: *false*
-    - Accepted values: *true*, *false*
+  - **mode**
+    - Sets a special mode for the slider
+    - Default: *none*
+    - Accepted values:
+      - *forcemaxsize*: forces all images to be at most the size specified (useful with custom sizes)
