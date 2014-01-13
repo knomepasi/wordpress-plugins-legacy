@@ -11,6 +11,11 @@ function runPhotoslider( opt ) {
 		photoslider_timeouts[opt.id] = opt.timeout;
 	}
 
+	/* if the user wants to force max image size, make sure all the images match that size */
+	if( opt.forcemaxsize == "true" ) {
+		forceImageDimensions( i_id, opt.size );
+	}
+
 	photoslider_transitions[opt.id] = opt.transition;
 }
 
@@ -20,7 +25,7 @@ function changeImage( direction, instance_id, timeout ) {
 		var transition = photoslider_transitions[instance_id];
 
 		if( direction == 'prev' ) {
-			/* prev */
+			/* previous */
 			hasPrevChildren = jQuery( i_id + ' .active' ).prev( 'li' ).length;
 			if( hasPrevChildren == 0 ) {
 				nextItem = jQuery( i_id + ' .last' );
@@ -37,28 +42,9 @@ function changeImage( direction, instance_id, timeout ) {
 			}
 		}
 
-		nextImg = nextItem.children( '.image' ).children( 'img' );
+		nextImg = nextItem.children( '.image img' );
 
-		/* see if we need to tweak the height or width */
-		new_height =
-			parseInt( jQuery( instance_id + ' .controls a' ).outerHeight( ) ) +
-			parseInt( jQuery( instance_id + ' .title' ).height( ) ) +
-			parseInt( nextImg.attr( 'height' ) ) +
-			parseInt( jQuery( instance_id + ' .captions' ).height( ) );
-		new_width = parseInt( nextImg.attr( 'width' ) ) + parseInt( jQuery( i_id + ' .captions' ).width( ) );
-
-		if( new_height > jQuery( i_id ).height( ) ) {
-			jQuery( i_id ).css( 'height', new_height );
-			jQuery( i_id ).parent( '.ps_wrap' ).css( 'height', new_height );
-		}
-		if( new_width > jQuery( i_id ).width( ) ) {
-			jQuery( i_id ).css( 'width', new_width );
-		}
-
-		jQuery( i_id + ' .image' ).css( 'height', nextImg.attr( 'height' ) );
-		jQuery( i_id + ' .image' ).css( 'width', parseInt( nextImg.attr( 'width' ) ) + 10 );
-		jQuery( i_id ).css( 'width', parseInt( nextImg.attr( 'width' ) ) + 10 );
-
+		/* position the controls */
 		jQuery( i_id + ' .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) );
 		jQuery( i_id + '.ctrl-ontop .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) - 10 );
 
@@ -98,6 +84,53 @@ function changeImage( direction, instance_id, timeout ) {
 	}
 }
 
+function getDimensions( id ) {
+	var max_width = 0, max_height = 0, title_height = 0, cur_width, cur_height;
+
+	/* cycle through all the images to fetch the maximum dimensions needed */
+	jQuery( id + ' li' ).each( function( i, v ) {
+		cur_width = jQuery( id + ' li img' ).attr( 'width' );
+		cur_height = parseInt( jQuery( id + ' li img' ).attr( 'height' ) ) + parseInt( jQuery( id + ' li .captions' ).height( ) );
+
+		if( cur_width > max_width ) {
+			max_width = cur_width;
+		}
+		if( cur_height > max_height ) {
+			max_height = cur_height;
+		}
+	} );
+
+	/* get the title height and add it to the max height value */
+	title_height = jQuery( id + ' .title' ).height( );
+	max_height = max_height + parseInt( title_height );
+
+	/* get height for controls if set to "above" */
+	if( jQuery( id + ' .controls.above a' ).outerHeight( ) > 0 ) {
+		max_height = max_height + parseInt( jQuery( id + ' .controls.above a' ).outerHeight( ) );
+	}
+
+	/* set the dimensions for the wrapper */
+	jQuery( id ).parent( '.ps_wrap' ).css( 'width', max_width );
+	jQuery( id ).parent( '.ps_wrap' ).css( 'height', max_height );
+}
+
+function forceImageDimensions( id, size ) {
+	var dimensions = size.split( 'x' );
+
+	jQuery( id + ' li img' ).each( function( i, v ) {
+		if( jQuery( this ).width( ) > dimensions[0] ) {
+			/* too wide */
+			var new_height = jQuery( this ).height( ) * dimensions[0] / jQuery( this ).width( );
+
+			jQuery( this ).attr( 'width', dimensions[0] );
+			jQuery( this ).attr( 'height', new_height );
+
+			jQuery( this ).closest( 'li' ).attr( 'width', dimensions[0] );
+			jQuery( this ).closest( 'li' ).attr( 'height', new_height );
+		}
+	} );
+}
+
 jQuery( function( ) {
 	/* show captions and controls */
 	jQuery( ".photoslider .captions" ).show( );
@@ -113,25 +146,15 @@ jQuery( function( ) {
 	jQuery.each( sliders, function( i ) {
 		var cur_slider = '#' + jQuery( this ).attr( 'id' );
 
-		new_height =
-			parseInt( jQuery( cur_slider + ' .controls a' ).outerHeight( ) ) +
-			parseInt( jQuery( cur_slider + ' .title' ).height( ) ) +
-			parseInt( jQuery( cur_slider + ' li img' ).first( ).attr( 'height' ) ) +
-			parseInt( jQuery( cur_slider + ' .captions' ).height( ) );
-		new_width = jQuery( cur_slider + ' li img' ).first( ).attr( 'width' );
-
-		jQuery( cur_slider ).css( 'height', new_height );
-		jQuery( cur_slider ).css( 'width', new_width );
-
-		jQuery( cur_slider ).parent( '.ps_wrap' ).css( 'height', new_height );
-
-		jQuery( cur_slider + ' .image' ).css( 'height', jQuery( cur_slider + ' li img' ).first( ).attr( 'height' ) );
-		jQuery( cur_slider + ' .image' ).css( 'width', parseInt( jQuery( cur_slider + ' li img' ).first( ).attr( 'width' ) ) + 10 );
-
-		jQuery( cur_slider + '.ctrl-above .c-next' ).css( 'left', jQuery( cur_slider + ' .first img' ).attr( 'width' ) - jQuery( cur_slider + ' .c-next' ).outerWidth( ) );
-		jQuery( cur_slider + '.ctrl-ontop .c-next' ).css( 'left', jQuery( cur_slider + ' .first img' ).attr( 'width' ) - jQuery( cur_slider + ' .c-next' ).outerWidth( ) - 10 );
-
+		/* add class for the last li */
 		jQuery( cur_slider + ' li' ).last( ).addClass( 'last' );
+
+		/* get the max dimensions needed for the wrapper */
+ 		getDimensions( cur_slider );
+
+		/* position controls */
+		jQuery( cur_slider + '.ctrl-above .c-next' ).css( 'left', jQuery( cur_slider + ' .active img' ).attr( 'width' ) - jQuery( cur_slider + ' .c-next' ).outerWidth( ) );
+		jQuery( cur_slider + '.ctrl-ontop .c-next' ).css( 'left', jQuery( cur_slider + ' .active img' ).attr( 'width' ) - jQuery( cur_slider + ' .c-next' ).outerWidth( ) );
 	} );
 
 	/* bind next+prev buttons to click events */

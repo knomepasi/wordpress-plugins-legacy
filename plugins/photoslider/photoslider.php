@@ -250,10 +250,11 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 		'transition' => 'fade',
 		'timeout' => 8000,
 		'captions' => 'no',
-		'orderby' => 'menu_order',
+		'orderby' => 'date',
 		'orderdir' => 'ASC',
 		'post' => 0,
-		'url' => null
+		'url' => null,
+		'forcemaxsize' => false
 	), $atts );
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
@@ -300,26 +301,26 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 			$output .= wp_get_attachment_image( $a->ID, $opts['size'] );
 			$output .= '</div>';
 
-			$output .= '<div class="captions">';
-			if( $opts['captions'] == 1 ) {
+			if( $opts['captions'] == true ) {
+				$output .= '<div class="captions">';
 				$output .= '<p>' . $a->post_title . '</p>';
 				if( $a->post_content ) {
 					$output .= '<p>' . $a->post_content  . '</p>';
 				}
+				$output .= '</div>';
 			}
-			$output .= '</div>';
 
 			$output .= '</li>';
 		}
 
 		$output .= '</ul>';
 
-		$output .= '<div class="controls">';
 		if( $opts['controls'] != "none" ) {
+			$output .= '<div class="controls ' . $opts['controls'] . '">';
 			$output .= '<a href="#" class="c-prev" title="' . __( 'Previous', 'photoslider' ) . '">' . get_option( 'photoslider_previous_slide_string', 'photoslider' ) . '</a>';
 			$output .= '<a href="#" class="c-next" title="' . __( 'Next', 'photoslider' ) . '">' . get_option( 'photoslider_next_slide_string', 'photoslider' ) . '</a>';
-		}
 		$output .= '</div>';
+		}
 
 	$output .= '</div>';
 	if( $opts['url'] ) {
@@ -337,11 +338,13 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
  */
 
 function PhotosliderScriptsDynamic( $args ) {
+	/* TODO: convert literal sizes to pixels */
+
 	$out  = '<script type="text/javascript">';
 	$out .= 'jQuery( window ).load( function( ) {';
 
 	$out .= 'var ' . $args['instance_id'] . ' = ' . "\n";
-	$out .= '{ "id": "' . $args['instance_id'] . '", "controls": "' . $args['controls'] . '", "timeout": "' . $args['timeout'] . '", "transition": "' . $args['transition'] . '" } ' . "\n";
+	$out .= '{ "id": "' . $args['instance_id'] . '", "controls": "' . $args['controls'] . '", "timeout": "' . $args['timeout'] . '", "transition": "' . $args['transition'] . '", "size": "' . $args['size'] . '", "forcemaxsize": "' . $args['forcemaxsize'] . '" } ' . "\n";
 	$out .= '; ';
 
 	$out .= 'runPhotoslider( ' . $args['instance_id'] . ' );';

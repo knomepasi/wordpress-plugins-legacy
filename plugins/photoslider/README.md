@@ -1,0 +1,53 @@
+Shortcode usage
+---------------
+
+You can use Photoslider with the shortcode ```photoslider```. The shortcode accepts parameters that match the widget settings. The parameters are:
+
+  - **size**
+    - The size for the images
+    - Default: *medium*
+    - Accepted values:
+      - Any specified WordPress image size; by default, WordPress supports: *thumb*, *thumbnail*, *medium*, *large*, *post-thumbnail*
+      - Dimensions in pixels (speifies maximum dimensions for the image); for example; *600x600*
+    - See also *forcemaxsize*
+  - **controls**
+    - What kind of controls to show
+    - Default: *none*
+    - Accepted values: *none*, *above*, *ontop*
+  - **transition**
+    - Transition effect for slider
+    - Default: *fade*
+    - Accepted values: *fade*, *fadefast*, *slideleft*, *slideright*
+  - **timeout**
+    - Transition timeout in milliseconds
+    - Default: *9000* (9 seconds)
+    - Set to *0* if you don't want the slider to advance automatically
+  - **captions**
+    - Show captions?
+    - Default: no
+    - Accepted values: *yes*, *no*
+  - **orderby**
+    - The order which images are shown
+    - Default: *date*
+    - Accepted values:
+      - *title* (title)
+      - *date* (date)
+      - *name* (filename)
+      - *rand* (random)
+  - **orderdir**
+    - Order direction for slides
+    - Default: *ASC*
+    - Accepted values: *ASC*, *DESC*
+  - **post**
+    - When specified, gets attachments for the post ID
+    - Default: *null*, shows current post
+  - **url**
+    - The URL to redirect when clicking the slider
+    - Default: *null*
+  - **url_title**
+    - Title attribute for the **url** link
+    - Default: *null*
+  - **forcemaxsize**
+    - Whether to force the slider to fit in the specified **size**
+    - Default: *false*
+    - Accepted values: *true*, *false*

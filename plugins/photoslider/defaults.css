@@ -12,8 +12,11 @@
 	display: none; 
 
 	position: absolute;
-	top: 1.5em;
+	top: 0;
 	left: 0;
+
+	margin-left: 0 !important;
+	padding-left: 0 !important;
 
 	list-style-type: none !important;
 }
@@ -80,9 +83,11 @@
 .photoslider.ctrl-ontop .c-prev,
 .photoslider.ctrl-ontop .c-next {
 	display: none;
-	top: 1.7em;
-	left: 10px;
+	top: 2em;
 }
+
+.photoslider.ctrl-ontop .c-prev { margin-left: 1em; }
+.photoslider.ctrl-ontop .c-next { margin-left: -1em; }
 
 .photoslider.ctrl-ontop:hover .c-prev,
 .photoslider.ctrl-ontop:hover .c-next {
