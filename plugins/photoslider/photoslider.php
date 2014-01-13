@@ -339,7 +339,7 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 
 function PhotosliderScriptsDynamic( $args ) {
 	$dimensions = explode( 'x', $args['size'] );
-	if( !is_int( $dimensions[0] ) || !is_int( $dimensions[1] ) ) {
+	if( intval( $dimensions[0] ) == 0 || intval( $dimensions[1] ) == 0 ) {
 		if( in_array( $args['size'], array( 'thumbnail', 'medium', 'large' ) ) ) {
 			$args['size'] = get_option( $args['size'] . '_size_w' ) . 'x' . get_option( $args['size'] . '_size_h' );
 		} else {
