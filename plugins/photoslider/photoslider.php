@@ -303,9 +303,9 @@ Function GetPhotoslider( $opts, $attachments, $title ) {
 
 			if( $opts['captions'] == true ) {
 				$output .= '<div class="captions">';
-				$output .= '<p>' . $a->post_title . '</p>';
+				$output .= '<p class="caption-title">' . $a->post_title . '</p>';
 				if( $a->post_content ) {
-					$output .= '<p>' . $a->post_content  . '</p>';
+					$output .= '<p class="caption-content">' . $a->post_content  . '</p>';
 				}
 				$output .= '</div>';
 			}

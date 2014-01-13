@@ -12,7 +12,7 @@ function runPhotoslider( opt ) {
 	}
 
 	/* if the user wants to force max image size, make sure all the images match that size */
-	if( opt.forcemaxsize == "true" ) {
+ 	if( opt.forcemaxsize = true ) {
 		forceImageDimensions( i_id, opt.size );
 	}
 
@@ -42,11 +42,12 @@ function changeImage( direction, instance_id, timeout ) {
 			}
 		}
 
-		nextImg = nextItem.children( '.image img' );
+		nextImg = nextItem.children( '.image' ).children( 'img' );
 
-		/* position the controls */
+		/* position controls */
 		jQuery( i_id + ' .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) );
-		jQuery( i_id + '.ctrl-ontop .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) - 10 );
+		jQuery( i_id + '.ctrl-ontop .c-next' ).css( 'left', nextImg.attr( 'width' ) - jQuery( i_id + ' .c-next' ).outerWidth( ) );
+
 
 		/* hide the old element */
 		jQuery( i_id + ' .active p' ).fadeOut( 'slow' );
@@ -89,8 +90,8 @@ function getDimensions( id ) {
 
 	/* cycle through all the images to fetch the maximum dimensions needed */
 	jQuery( id + ' li' ).each( function( i, v ) {
-		cur_width = jQuery( id + ' li img' ).attr( 'width' );
-		cur_height = parseInt( jQuery( id + ' li img' ).attr( 'height' ) ) + parseInt( jQuery( id + ' li .captions' ).height( ) );
+		cur_width = jQuery( this ).children( 'div' ).children( 'img' ).attr( 'width' );
+		cur_height = parseInt( jQuery( this ).children( 'div' ).children( 'img' ).attr( 'height' ) ) + parseInt( jQuery( this ).children( '.captions' ).height( ) );
 
 		if( cur_width > max_width ) {
 			max_width = cur_width;
@@ -124,9 +125,6 @@ function forceImageDimensions( id, size ) {
 
 			jQuery( this ).attr( 'width', dimensions[0] );
 			jQuery( this ).attr( 'height', new_height );
-
-			jQuery( this ).closest( 'li' ).attr( 'width', dimensions[0] );
-			jQuery( this ).closest( 'li' ).attr( 'height', new_height );
 		}
 	} );
 }
