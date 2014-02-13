@@ -32,7 +32,7 @@ add_action( 'plugins_loaded', 'PhotosliderInit' );
 
 function PhotosliderInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'photoslider', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'photoslider', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*  Include scripts and default stylesheets
