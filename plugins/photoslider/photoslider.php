@@ -260,7 +260,7 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
 
 	$attachments = PhotosliderAttachments( $atts['post'], $atts['orderby'], $atts['orderdir'] );
-	if( $attachments ) { $out = GetPhotoslider( $slider_opts, $attachments ); }
+	if( $attachments ) { $out = GetPhotoslider( $slider_opts, $attachments, null ); }
 
 	return $out;
 }
