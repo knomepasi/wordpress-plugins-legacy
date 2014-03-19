@@ -237,7 +237,6 @@ class PhotosliderWidget extends WP_Widget {
 }
 
 /*  Add shortcode
- *  FIXME: Document
  *
  */
 
@@ -259,9 +258,9 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
 
-	if( !$atts['post'] ) { $atts['post'] = 0; }
-	if( !$atts['orderby'] ) { $atts['orderby'] = 'date'; }
-	if( !$atts['orderdir'] ) { $atts['orderdir'] = 'ASC'; }
+	if( !isset( $atts['post'] ) { $atts['post'] = 0; }
+	if( !isset( $atts['orderby'] ) ) { $atts['orderby'] = 'date'; }
+	if( !isset( $atts['orderdir'] ) ) { $atts['orderdir'] = 'ASC'; }
 
 	$attachments = PhotosliderAttachments( $atts['post'], $atts['orderby'], $atts['orderdir'] );
 	if( $attachments ) { $out = GetPhotoslider( $slider_opts, $attachments, null ); }
