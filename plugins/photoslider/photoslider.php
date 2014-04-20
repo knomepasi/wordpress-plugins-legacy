@@ -3,7 +3,7 @@
  *  Plugin Name: Photoslider
  *  Description: Show a slideshow of user uploaded photos.
  *  Author: Pasi Lallinaho
- *  Version: 1.7
+ *  Version: 1.7.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *

@@ -92,7 +92,14 @@ function getDimensions( id ) {
 	/* cycle through all the images to fetch the maximum dimensions needed */
 	jQuery( id + ' li' ).each( function( i, v ) {
 		cur_width = jQuery( this ).children( 'div' ).children( 'img' ).attr( 'width' );
-		cur_height = parseInt( jQuery( this ).children( 'div' ).children( 'img' ).attr( 'height' ) ) + parseInt( jQuery( this ).children( '.captions' ).height( ) );
+
+		image_height = parseInt( jQuery( this ).children( 'div' ).children( 'img' ).attr( 'height' ) );
+		caption_height = parseInt( jQuery( this ).children( '.captions' ).height( ) );
+		if( caption_height ) {
+			cur_height = image_height + caption_height;
+		} else {
+			cur_height = image_height;
+		}
 
 		if( cur_width > max_width ) {
 			max_width = cur_width;
