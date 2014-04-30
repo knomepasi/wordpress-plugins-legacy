@@ -18,7 +18,7 @@
 
 add_action( 'plugins_loaded', 'OneYearEarlierInit' );
 
-function SimpleFBLikeInit( ) {
+function OneYearEarlierInit( ) {
 	/* Load text domain for i18n */
 	load_plugin_textdomain( 'one-year-earlier', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
