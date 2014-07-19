@@ -258,7 +258,7 @@ function PhotosliderShortcode( $atts, $content, $code ) {
 
 	$slider_opts['instance_id'] = uniqid( 'photoslider_' );
 
-	if( !isset( $atts['post'] ) { $atts['post'] = 0; }
+	if( !isset( $atts['post'] ) ) { $atts['post'] = 0; }
 	if( !isset( $atts['orderby'] ) ) { $atts['orderby'] = 'date'; }
 	if( !isset( $atts['orderdir'] ) ) { $atts['orderdir'] = 'ASC'; }
 
