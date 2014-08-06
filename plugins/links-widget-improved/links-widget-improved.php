@@ -1,6 +1,6 @@
 <?php
 /*
- *  Plugin Name: Better Links
+ *  Plugin Name: Link Widget Improved
  *  Description: Add a widget to show easy-clickable links with inline descriptions.
  *  Author: Pasi Lallinaho
  *  Version: 1.0

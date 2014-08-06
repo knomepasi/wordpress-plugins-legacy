@@ -375,10 +375,10 @@ function PhotosliderScriptsDynamic( $args ) {
  */
 
 function PhotosliderAttachments( $id, $order_by = 'date', $order_direction = 'DESC' ) {
-	if( is_front_page( ) && ( !$id || $id < 1 ) ) {
+	if( !$id || $id < 1 ) {
 		$post_id = get_option( 'page_on_front' );
-	} elseif( $input > 0 ) {
-		$post_id = $input;
+	} elseif( $id > 0 ) {
+		$post_id = $id;
 	} else {
 		global $post;
 		$post_id = $post->ID;
