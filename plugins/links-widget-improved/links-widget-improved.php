@@ -1,6 +1,6 @@
 <?php
 /*
- *  Plugin Name: Link Widget Improved
+ *  Plugin Name: Links Widget Improved
  *  Description: Add a widget to show easy-clickable links with inline descriptions.
  *  Author: Pasi Lallinaho
  *  Version: 1.0
@@ -16,25 +16,25 @@
  *
  */
 
-add_action( 'plugins_loaded', 'BetterLinksInit' );
+add_action( 'plugins_loaded', 'LinksWImprovedInit' );
 
-function BetterLinksInit( ) {
+function LinksWImprovedInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'better-links', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'links-widget-improved', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
 }
 
 /*  Widget
  *
  */
 
-add_action( 'widgets_init', function( ) { register_widget( 'BetterLinksWidget' ); } );
+add_action( 'widgets_init', function( ) { register_widget( 'LinksImprovedWidget' ); } );
 
-class BetterLinksWidget extends WP_Widget {
+class LinksImprovedWidget extends WP_Widget {
 	/** constructor */
 	function __construct( ) {
-		$widget_ops = array( 'description' => __( 'Show easy-clickable links with inline descriptions.', 'better-links' ) );
+		$widget_ops = array( 'description' => __( 'Show easy-clickable links with inline descriptions.', 'links-widget-improved' ) );
 
-		parent::__construct( 'better-links', _x( 'Better links', 'widget name', 'better-links' ), $widget_ops );
+		parent::__construct( 'links-widget-improved', _x( 'Links (Improved)', 'widget name', 'links-widget-improved' ), $widget_ops );
 	}
 
 	/** @see WP_Widget::widget */
@@ -43,7 +43,7 @@ class BetterLinksWidget extends WP_Widget {
 		$links = get_bookmarks( array( 'category' => $instance['category'] ) );
 
 		if( is_array( $links ) ) {
-			print '<div class="better-links">';
+			print '<div class="better-links links-improved">';
 			print $before_widget;
 			$cat_info = get_term( $instance['category'], 'link_category' );
 			print $before_title . $cat_info->name . $after_title;
@@ -72,9 +72,9 @@ class BetterLinksWidget extends WP_Widget {
 		$title = esc_attr( $instance['title'] );
 		?>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e( 'Link category:', 'better-links' ); ?></label>
+				<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e( 'Link category:', 'links-widget-improved' ); ?></label>
 				<select class="widefat" id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>">
-				<option value=""><?php _ex( 'All link categories', 'widget option', 'better-links' ); ?></option>
+				<option value=""><?php _ex( 'All link categories', 'widget option', 'links-widget-improved' ); ?></option>
 				<?php
 				foreach( $link_cats as $link_cat ) {
 					echo '<option value="' . $link_cat->term_id . '" '	. selected( $instance['category'], $link_cat->term_id, false )	. '>' . $link_cat->name . "</option>\n";
