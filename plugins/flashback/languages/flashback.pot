@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
+"POT-Creation-Date: 2014-08-08 03:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/one-year-earlier/one-year-earlier.php:35
-msgid "Show one article from one year earlier."
+#: flashback.php:35
+msgid "Promote articles from the past."
 msgstr ""
 
-#: ../plugins/one-year-earlier/one-year-earlier.php:37
+#: flashback.php:37
 msgctxt "widget name"
-msgid "One Year Earlier"
+msgid "Flashback"
 msgstr ""
 
-#: ../plugins/one-year-earlier/one-year-earlier.php:84
+#: flashback.php:98
 msgid "Title"
+msgstr ""
+
+#: flashback.php:101
+msgid "Minimum age of post"
+msgstr ""
+
+#: flashback.php:105
+msgid "Year"
+msgstr ""
+
+#: flashback.php:106
+msgid "Month"
+msgstr ""
+
+#: flashback.php:107
+msgid "Week"
 msgstr ""
