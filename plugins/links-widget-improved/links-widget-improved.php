@@ -43,7 +43,7 @@ class LinksImprovedWidget extends WP_Widget {
 		$links = get_bookmarks( array( 'category' => $instance['category'] ) );
 
 		if( is_array( $links ) ) {
-			print '<div class="better-links links-improved">';
+			print '<div class="links-improved">';
 			print $before_widget;
 			$cat_info = get_term( $instance['category'], 'link_category' );
 			print $before_title . $cat_info->name . $after_title;
