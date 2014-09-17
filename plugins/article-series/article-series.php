@@ -20,7 +20,7 @@ add_action( 'plugins_loaded', 'ArticleSeriesInit' );
 
 function ArticleSeriesInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*  
