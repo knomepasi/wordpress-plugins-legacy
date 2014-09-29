@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
+"POT-Creation-Date: 2014-09-29 14:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,32 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:46
+#: facebook.php:26
 msgid "Shows a Facebook Like button for a Facebook profile."
 msgstr ""
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:48
+#: facebook.php:28
 msgctxt "widget name"
-msgid "FB Like"
+msgid "Facebook Like button"
 msgstr ""
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:77
+#: facebook.php:57 googleplus.php:57
 msgid "Title"
 msgstr ""
 
-#: ../plugins/simple-fb-like/simple-fb-like.php:82
+#: facebook.php:62
 msgid "Profile name"
+msgstr ""
+
+#: googleplus.php:26
+msgid "Shows a Google +1 button for the current or a specified URL."
+msgstr ""
+
+#: googleplus.php:28
+msgctxt "widget name"
+msgid "Google +1 button"
+msgstr ""
+
+#: googleplus.php:62
+msgid "URL (or blank for current)"
 msgstr ""
