@@ -1,6 +1,5 @@
-<?php
-/*
- *  Plugin Name: Article Series
+<?
+/*  Plugin Name: Article Series
  *  Description: Adds a new taxonomy 'series' for posts.
  *  Author: Pasi Lallinaho
  *  Version: 1.0
@@ -12,16 +11,12 @@
  *
  */
 
-/*  Init plugin
+/*
+ *  Load textdomain for translations
  *
  */
 
-add_action( 'plugins_loaded', 'ArticleSeriesInit' );
-
-function ArticleSeriesInit( ) {
-	/* Load text domain for i18n */
-	load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
+load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 /*  
  *  Add the 'serie' taxonomy
@@ -107,6 +102,7 @@ function ArticleSeriesColumnShow( $column ) {
 			if( is_string( $terms ) ) {
 				echo $terms;
 			} else {
+//				_e( "Not in any serie.", "article-series" );
 				echo "—";
 			}
 			break;
@@ -136,18 +132,23 @@ function ArticleSeriesRewriteFlush( ) {
 
 register_activation_hook( __FILE__, 'ArticleSeriesRewriteFlush' );
 
-/*  Add a widget to promote article series
+/*
+ *  Add a widget to promote article series
  *
  */
 
-add_action( 'widgets_init', function( ) { register_widget( 'ArticleSeriesWidget' ); } );
+add_action( 'widgets_init', create_function( '', 'return register_widget("ArticleSeriesWidget");' ) );
 
 class ArticleSeriesWidget extends WP_Widget {
 	/** constructor */
-	function __construct( ) {
-		$widget_ops = array( 'description' => __( 'Promote article series.', 'article-series' ) );
-
-		parent::__construct( 'article-series', _x( 'Article series', 'widget name', 'article-series' ), $widget_ops );
+	function ArticleSeriesWidget( ) {
+		parent::WP_Widget(
+			'article_series',
+			_x( 'Article series', 'widget name', 'article-series' ),
+			array(
+				'description' => __( 'Promote article series.', 'article-series' ),
+			)
+		);
 	}
 
 	/** @see WP_Widget::widget */
