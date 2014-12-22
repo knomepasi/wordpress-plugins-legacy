@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
+"POT-Creation-Date: 2014-12-22 04:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,26 +16,28 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../plugins/compact-chronological/compact-chronological.php:48
+#: compact-chronological.php:45
 msgid "Show month archive links in a compact view."
 msgstr ""
 
-#: ../plugins/compact-chronological/compact-chronological.php:50
+#: compact-chronological.php:47
 msgctxt "widget name"
 msgid "Compact & Chronological"
 msgstr ""
 
-#: ../plugins/compact-chronological/compact-chronological.php:85
-#: ../plugins/compact-chronological/compact-chronological.php:102
+#: compact-chronological.php:82 compact-chronological.php:99
 #, php-format
-msgid "%d posts"
-msgstr ""
+msgid "%d topic"
+msgid_plural "%d topics"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../plugins/compact-chronological/compact-chronological.php:137
+#: compact-chronological.php:134
 msgid "Title"
 msgstr ""
 
-#: ../plugins/compact-chronological/compact-chronological.php:142
+#: compact-chronological.php:139
 msgid "Split to two rows?"
 msgstr ""

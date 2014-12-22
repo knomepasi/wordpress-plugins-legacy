@@ -7,9 +7,6 @@
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
- *  License: GNU General Public License v2 or later
- *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
- *
  */
 
 /*  Init plugin
@@ -20,7 +17,7 @@ add_action( 'plugins_loaded', 'CompactChronoInit' );
 
 function CompactChronoInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'compact-chronological', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'compact-chronological', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*
@@ -82,7 +79,7 @@ class CompactChronoWidget extends WP_Widget {
 					print '<ul>';
 				}
 				print '<li class="year">';
-				print '<a href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( __( '%d posts', 'compact-chronological' ), $ycounts[$y] ) . '">';
+				print '<a href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( _n( '%d topic', '%d topics', $ycounts[$y], 'compact-chronological' ), $ycounts[$y] ) . '">';
 				print '<span class="name">' . $y . '</span>';
 				print '</a>';
 				print '</li>'; // intended space!
@@ -99,7 +96,7 @@ class CompactChronoWidget extends WP_Widget {
 					if( $arch[$y][$m] < 1 ) {
 						print substr( $month_abbr, 0, 3 );
 					} else {
-						print '<a href="' . get_month_link( $y, $m ) . '" title="' . $month_name . ": " . sprintf( __( '%d posts', 'compact-chronological' ), $arch[$y][$m] ) . '">';
+						print '<a href="' . get_month_link( $y, $m ) . '" title="' . $month_name . ": " . sprintf( _n( '%d topic', '%d topics', $arch[$y][$m], 'compact-chronological' ), $arch[$y][$m] ) . '">';
 						print '<span class="name">' . substr( $month_abbr, 0, 3 ) . '</span>';
 						if( $instance['article_counts'] == 1 ) {
 							print '<span class="count">' . $arch[$y][$m] . '</span>';
