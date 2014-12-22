@@ -17,4 +17,5 @@ now=$(date +%Y)
 sed -i "s/SOME DESCRIPTIVE TITLE./This is the translation template file for $plugin_name./g" languages/$plugin_slug.pot
 sed -i "s/(C) YEAR/(C) $now/g" languages/$plugin_slug.pot
 sed -i "s/the PACKAGE package./the plugin./g" languages/$plugin_slug.pot
-
+# current plural forms for english
+sed 's/^"Plural-Forms:.*/"Plural-Forms: nplurals=2; plural=(n != 1);\\n"/' $plugin_slug.pot > $plugin_slug.pot
