@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
+"POT-Creation-Date: 2014-12-22 03:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,90 +17,89 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/article-series/article-series.php:35
+#: article-series.php:30
 msgctxt "Taxonomy name"
 msgid "Article series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:36
+#: article-series.php:31
 msgctxt "Taxonomy name (singular)"
 msgid "Article serie"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:37
+#: article-series.php:32
 msgid "Search Series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:38
+#: article-series.php:33
 msgid "All Series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:39
+#: article-series.php:34
 msgid "Parent Serie"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:40
+#: article-series.php:35
 msgid "Parent Serie:"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:41
+#: article-series.php:36
 msgid "Edit Serie"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:42
+#: article-series.php:37
 msgid "Update Serie"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:43
+#: article-series.php:38
 msgid "Add New Serie"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:44
+#: article-series.php:39
 msgid "New Serie name"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:46
+#: article-series.php:41
 msgid "Separate series by commas"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:47
+#: article-series.php:42
 msgid "Add or remove series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:48
+#: article-series.php:43
 msgid "Choose from the most used series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:49
+#: article-series.php:44
 msgid "No Series found"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:50
+#: article-series.php:45
 msgid "No Series found in trash"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:51
+#: article-series.php:46
 msgid "Series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:90
-#: ../plugins/article-series/article-series.php:190
+#: article-series.php:85 article-series.php:191
 msgid "Serie"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:148
-msgid "Promote article series."
-msgstr ""
-
-#: ../plugins/article-series/article-series.php:150
+#: article-series.php:147
 msgctxt "widget name"
 msgid "Article series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:170
+#: article-series.php:149
+msgid "Promote article series."
+msgstr ""
+
+#: article-series.php:171
 msgid "Read the article series"
 msgstr ""
 
-#: ../plugins/article-series/article-series.php:196
+#: article-series.php:197
 msgid "-- Random serie --"
 msgstr ""
