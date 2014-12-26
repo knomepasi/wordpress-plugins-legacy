@@ -7,6 +7,9 @@
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: https://wordpress.knome.fi/
  *
+ *  License: GNU General Public License v2 or later
+ *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *
  */
 
 /*  TODO:
