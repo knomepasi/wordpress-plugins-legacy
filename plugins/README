@@ -3,6 +3,7 @@ The repository contains the following plugins:
 Article Series:  Adds a new taxonomy "series" for posts.
 Clean Head:  Remove unnecessary information from <head>.
 Compact & Chronological:  Show month archive links in a compact view.
+Dashboard Drafts:  Adds a Dashboard widget showing all drafts for all post types.
 Flashback:  Promote articles from the past.
 Interactive Images:  Create interactive images by adding notes on top of images.
 Links Widget Improved:  Add a widget to show easy-clickable links with inline descriptions.

@@ -1,0 +1,33 @@
+#dashboard_drafts .inside {
+	margin: 0;
+	padding: 0;
+}
+
+.dashboard-drafts {
+	margin: 0;
+	padding: 12px 12px 4px;
+	border-bottom: 1px solid #eee;
+}
+	.dashboard-drafts:last-child {
+		border-bottom: none;
+	}
+	.dashboard-drafts:nth-child(even) {
+		background-color: #fafafa;
+	}
+
+.dashboard-drafts .view-all {
+	float: right;
+	margin: 0;
+}
+
+.dashboard-drafts li {
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.dashboard-drafts ul span {
+	color: #777;
+	float: left;
+	margin-right: 8px;
+	min-width: 150px;
+}
