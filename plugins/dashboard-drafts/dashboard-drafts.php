@@ -2,6 +2,7 @@
 /*
  *  Plugin Name: Dashboard Drafts
  *  Description: Adds a Dashboard widget showing all drafts for all post types.
+ *  Author: Pasi Lallinaho
  *  Version: 0.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
