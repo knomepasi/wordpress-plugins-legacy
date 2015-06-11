@@ -4,79 +4,81 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Category Excerpts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
-"PO-Revision-Date: 2013-11-12 12:54+0200\n"
-"Last-Translator: Pasi Lallinaho <pasi@digitoucan.fi>\n"
+"POT-Creation-Date: 2015-06-11 12:22+0300\n"
+"PO-Revision-Date: 2015-06-11 12:28+0200\n"
+"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
 "Language-Team: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.5\n"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:42
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:203
+#: taxonomy-promotion.php:42 taxonomy-promotion.php:216
 msgid "-- Select taxonomy first --"
 msgstr "-- Valitse taksonomia ensin--"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:82
+#: taxonomy-promotion.php:82
 msgid "Shows titles or excerpts in the selected taxonomy and term."
 msgstr "Näyttää otsikot tai otteet valitusta taksonomiasta ja termistä."
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:84
+#: taxonomy-promotion.php:84
 msgctxt "widget name"
 msgid "Taxonomy Promotion"
 msgstr "Taksonomioiden promootio"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:124
+#: taxonomy-promotion.php:125 taxonomy-promotion.php:134
 msgid "Read more &raquo;"
 msgstr "Lue lisää &raquo;"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:177
+#: taxonomy-promotion.php:190 taxonomy-promotion.php:249
 msgid "Title"
 msgstr "Otsikko"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:184
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:215
+#: taxonomy-promotion.php:197 taxonomy-promotion.php:228
 msgid "Taxonomy and term"
 msgstr "Taksonomi ja termi"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:190
+#: taxonomy-promotion.php:203
 msgid "-- Select taxonomy --"
 msgstr "-- Valitse taksonomia --"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:221
+#: taxonomy-promotion.php:234
 msgid "-- Select taxonomy and term --"
 msgstr "-- Valitse taksonomia ja termi --"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:234
+#: taxonomy-promotion.php:247
 msgid "Display"
 msgstr "Näytä"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:236
-msgid "Titles"
-msgstr "Otsikot"
+#: taxonomy-promotion.php:250
+msgid "Title, Excerpt"
+msgstr "Otsikko, Ote"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:237
-msgid "Excerpts"
-msgstr "Otteet"
+#: taxonomy-promotion.php:252
+msgid "Featured image, Title, Excerpt"
+msgstr "Artikkelikuva, Otsikko, Ote"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:243
+#: taxonomy-promotion.php:259
 msgid "Number of items"
 msgstr "Listauksen pituus"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:245
+#: taxonomy-promotion.php:261
 msgid "0 for all items."
 msgstr "0 listaa kaikki."
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:249
+#: taxonomy-promotion.php:265
 msgid "Text for 'more items' link"
 msgstr "Teksti 'lisää' -linkille"
 
-#: ../plugins/taxonomy-promotion/taxonomy-promotion.php:251
+#: taxonomy-promotion.php:267
 msgid ""
-"<b>Only if number of items is more than 0.</b> If you leave this field "
-"empty, no link will be shown."
+"<b>Only if number of items is more than 0.</b> If you leave this field empty, no "
+"link will be shown."
 msgstr ""
 "<b>Vain jos listauksen pituus on yli 0.</b> Jos jätät tämän kentän tyhjäksi, "
 "linkkiä ei näytetä."
+
+#~ msgid "Titles"
+#~ msgstr "Otsikot"

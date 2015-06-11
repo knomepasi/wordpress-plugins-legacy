@@ -3,7 +3,7 @@
  *  Plugin Name: Taxonomy Promotion
  *  Description: Shows titles or excerpts in the selected taxonomy and term.
  *  Author: Pasi Lallinaho
- *  Version: 2.0-beta
+ *  Version: 2.0
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -109,33 +109,44 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		) );
 		//
 
-		if( $instance['display'] == 'list' )
-			print '<ul>';
+		if( $instance['display'] == 'title' ) {
+			echo '<ul>';
+		}
 
 		while( $tp_query->have_posts( ) ) {
 			$tp_query->the_post( );
 			if( !$prev ) { $first = " first"; $prev = 1; } else { $first = ""; }
 
 			switch( $instance['display'] ) {
-				case 'excerpts':
-					print '<div class="item">';
-					print '<strong class="title' . $first . '">' . get_the_title( ) . '</strong>';
-					print '<p class="excerpt">' . get_the_excerpt( );
-					print '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
-					print '</p>';
-					print '</div>';
+				case 'title_excerpt':
+					echo '<div class="item">';
+					echo '<strong class="title' . $first . '">' . get_the_title( ) . '</strong>';
+					echo '<p class="excerpt">' . get_the_excerpt( );
+					echo '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
+					echo '</p>';
+					echo '</div>';
 				break;
-				case 'titles':
+				case 'featured_title_excerpt':
+					echo '<div class="item">';
+					echo '<div class="featured">' . get_the_post_thumbnail( ) . '</div>';
+					echo '<strong class="title' . $first . '">' . get_the_title( ) . '</strong>';
+					echo '<p class="excerpt">' . get_the_excerpt( );
+					echo '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
+					echo '</p>';
+					echo '</div>';
+				break;
+				case 'title':
 				default:
-					print '<li class="title"><a href="' . get_permalink( ) . '">' . get_the_title( ) . '</a></li>';
+					echo '<li class="title"><a href="' . get_permalink( ) . '">' . get_the_title( ) . '</a></li>';
 				break;
 			}
 		}
 
-		if( $instance['display'] == 'list' )
-			print '</ul>';
+		if( $instance['display'] == 'title' ) {
+			echo '</ul>';
+		}
 
-		print '<p class="more-link"><strong><a href="' . get_term_link( (int) $instance['taxonomy_term'], $instance['taxonomy'] ) . '">' . $instance['morelink'] . '</a></strong></p>';
+		echo '<p class="more-link"><strong><a href="' . get_term_link( (int) $instance['taxonomy_term'], $instance['taxonomy'] ) . '">' . $instance['morelink'] . '</a></strong></p>';
 
 		echo $after_widget;
 		echo '</div>';
@@ -235,8 +246,11 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		<p><!-- What to display? -->
 			<label for="<?php echo $this->get_field_id( 'display' ); ?>"><?php _e( 'Display', 'taxonomy-promotion' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'display' ); ?>" name="<?php echo $this->get_field_name( 'display' ); ?>">
-					<option value="titles" <?php selected( $display, 'list' ); ?>><?php _e( 'Titles', 'taxonomy-promotion' ); ?></option>
-					<option value="excerpts" <?php selected( $display, 'excerpts' ); ?>><?php _e( 'Excerpts', 'taxonomy-promotion' ); ?></option>
+					<option value="title" <?php selected( $display, 'title' ); ?>><?php _e( 'Title', 'taxonomy-promotion' ); ?></option>
+					<option value="title_excerpt" <?php selected( $display, 'title_excerpt' ); ?>><?php _e( 'Title, Excerpt', 'taxonomy-promotion' ); ?></option>
+					<?php if( current_theme_supports( 'post-thumbnails' ) ) { ?>
+						<option value="featured_title_excerpt" <?php selected( $display, 'featured_title_excerpt' ); ?>><?php _e( 'Featured image, Title, Excerpt', 'taxonomy-promotion' ); ?></option>
+					<?php } ?>
 				</select>
 			</label>
 		</p>
