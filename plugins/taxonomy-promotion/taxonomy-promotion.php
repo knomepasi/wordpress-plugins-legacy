@@ -3,7 +3,7 @@
  *  Plugin Name: Taxonomy Promotion
  *  Description: Shows titles or excerpts in the selected taxonomy and term.
  *  Author: Pasi Lallinaho
- *  Version: 2.1
+ *  Version: 2.1.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -42,8 +42,8 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
-		echo '<div class="taxpromo">';
 		echo $before_widget;
+		echo '<div class="taxpromo">';
 
 		if( !empty( $title ) ) {
 			echo $before_title . $title . $after_title;
@@ -67,7 +67,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 			'tax_query' => $tax_query
 		) );
 
-		if( $instance['display'] == 'title' ) {
+		if( $instance['display'] == 'title_list' ) {
 			echo '<ul>';
 		}
 
@@ -77,36 +77,36 @@ class TaxonomyPromotionWidget extends WP_Widget {
 			switch( $instance['display'] ) {
 				case 'title_excerpt':
 					echo '<div class="item">';
-					echo '<strong class="title">' . get_the_title( ) . '</strong>';
-					echo '<p class="excerpt">' . get_the_excerpt( );
-					echo '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
+					echo '<div class="title">' . $before_title . get_the_title( ) . $after_title . '</div>';
+					echo '<p class="excerpt">' . get_the_excerpt( ) . ' ';
+					echo '<span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
 					echo '</p>';
 					echo '</div>';
 				break;
 				case 'featured_title_excerpt':
 					echo '<div class="item">';
 					echo '<div class="featured">' . get_the_post_thumbnail( ) . '</div>';
-					echo '<strong class="title">' . get_the_title( ) . '</strong>';
-					echo '<p class="excerpt">' . get_the_excerpt( );
-					echo '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
+					echo '<div class="title">' . $before_title . get_the_title( ) . $after_title . '</div>';
+					echo '<p class="excerpt">' . get_the_excerpt( ) . ' ';
+					echo '<span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
 					echo '</p>';
 					echo '</div>';
 				break;
-				case 'title':
+				case 'title_list':
 				default:
 					echo '<li class="title"><a href="' . get_permalink( ) . '">' . get_the_title( ) . '</a></li>';
 				break;
 			}
 		}
 
-		if( $instance['display'] == 'title' ) {
+		if( $instance['display'] == 'title_list' ) {
 			echo '</ul>';
 		}
 
-		echo '<p class="more-link"><strong><a href="' . get_term_link( (int) $instance['taxonomy_term'], $instance['taxonomy'] ) . '">' . $instance['morelink'] . '</a></strong></p>';
+//		echo '<p class="more-link"><strong><a href="' . get_term_link( (int) $instance['taxonomy_term'], $instance['taxonomy'] ) . '">' . $instance['morelink'] . '</a></strong></p>';
 
-		echo $after_widget;
 		echo '</div>';
+		echo $after_widget;
 
 		wp_reset_postdata( );
 	}
@@ -171,7 +171,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		<p><!-- What to display? -->
 			<label for="<?php echo $this->get_field_id( 'display' ); ?>"><?php _e( 'Display', 'taxonomy-promotion' ); ?><br />
 				<select class="widefat" id="<?php echo $this->get_field_id( 'display' ); ?>" name="<?php echo $this->get_field_name( 'display' ); ?>">
-					<option value="title" <?php selected( $display, 'title' ); ?>><?php _e( 'Title', 'taxonomy-promotion' ); ?></option>
+					<option value="title_list" <?php selected( $display, 'title_list' ); ?>><?php _e( 'Title list', 'taxonomy-promotion' ); ?></option>
 					<option value="title_excerpt" <?php selected( $display, 'title_excerpt' ); ?>><?php _e( 'Title, Excerpt', 'taxonomy-promotion' ); ?></option>
 					<?php if( current_theme_supports( 'post-thumbnails' ) ) { ?>
 						<option value="featured_title_excerpt" <?php selected( $display, 'featured_title_excerpt' ); ?>><?php _e( 'Featured image, Title, Excerpt', 'taxonomy-promotion' ); ?></option>
