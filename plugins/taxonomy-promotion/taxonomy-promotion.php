@@ -73,12 +73,11 @@ class TaxonomyPromotionWidget extends WP_Widget {
 
 		while( $tp_query->have_posts( ) ) {
 			$tp_query->the_post( );
-			if( !$prev ) { $first = " first"; $prev = 1; } else { $first = ""; }
 
 			switch( $instance['display'] ) {
 				case 'title_excerpt':
 					echo '<div class="item">';
-					echo '<strong class="title' . $first . '">' . get_the_title( ) . '</strong>';
+					echo '<strong class="title">' . get_the_title( ) . '</strong>';
 					echo '<p class="excerpt">' . get_the_excerpt( );
 					echo '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
 					echo '</p>';
@@ -87,7 +86,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 				case 'featured_title_excerpt':
 					echo '<div class="item">';
 					echo '<div class="featured">' . get_the_post_thumbnail( ) . '</div>';
-					echo '<strong class="title' . $first . '">' . get_the_title( ) . '</strong>';
+					echo '<strong class="title">' . get_the_title( ) . '</strong>';
 					echo '<p class="excerpt">' . get_the_excerpt( );
 					echo '<br /><span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
 					echo '</p>';
