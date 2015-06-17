@@ -3,7 +3,7 @@
  *  Plugin Name: Taxonomy Promotion
  *  Description: Shows titles or excerpts in the selected taxonomy and term.
  *  Author: Pasi Lallinaho
- *  Version: 2.0
+ *  Version: 2.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -21,53 +21,6 @@ add_action( 'plugins_loaded', 'TaxonomyPromotionInit' );
 function TaxonomyPromotionInit( ) {
 	/* Load text domain for i18n */
 	load_plugin_textdomain( 'taxonomy-promotion', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
-
-/*  Enable some JS
- *
- */
-
-add_action( 'admin_enqueue_scripts', 'TaxonomyPromotionScripts' );
-
-function TaxonomyPromotionScripts( ) {
-	wp_enqueue_script( 'jquery' );
-
-	if( is_admin( ) ) {
-		wp_register_script( 'taxonomy-promotion-admin', plugins_url( 'taxpromo-admin.js', __FILE__ ), array( 'jquery' ), '1.1' );
-		# make the full url available for the script
-		wp_localize_script( 'taxonomy-promotion-admin', 'WP_AJAX', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
-
-		# translate the script
-		wp_localize_script( 'taxonomy-promotion-admin', 'l10n', array(
-			'selecttax' => __( '-- Select taxonomy first --', 'taxonomy-promotion' )
-		) );
-
-		wp_enqueue_script( 'taxonomy-promotion-admin' );
-	}
-}
-
-/*  AJAX function to get taxonomy terms
- *
- */
-
-add_action( 'wp_ajax_taxpromo_ajax', 'TaxonomyPromotionAJAX' );
-
-function TaxonomyPromotionAJAX( ) {
-	switch( $_REQUEST['fn'] ) {
-		case 'get_taxonomy_terms':
-			$out = get_terms( $_REQUEST['taxonomy'] );
-		break;
-	}
-
-	$out = json_encode( $out );
-
-	if( is_array( $out ) ) {
-		print_r( $out );
-	} else {
-		echo $out;
-	}
-
-	die;
 }
 
 /*  Widget
@@ -98,16 +51,21 @@ class TaxonomyPromotionWidget extends WP_Widget {
 
 		if( $amount < 1 ) { $amount = 0; }
 
-		//
+		$tax_query['relation'] = 'OR';
+		foreach( explode( ',', $instance['taxonomy_terms'] ) as $term ) {
+			$term = explode( ':', $term );
+			$tax_query[] = array(
+				'taxonomy' => $term[0],
+				'field' => 'id',
+				'terms' => $term[1]
+			);
+		}
+
 		$tp_query = new WP_Query( array(
 			'posts_per_page' => $instance['amount'],
-			'tax_query' => array( array(
-				'taxonomy' => $instance['taxonomy'],
-				'field' => 'id',
-				'terms' => $instance['taxonomy_term']
-			) )
+			'offset' => $instance['offset'],
+			'tax_query' => $tax_query
 		) );
-		//
 
 		if( $instance['display'] == 'title' ) {
 			echo '<ul>';
@@ -164,9 +122,10 @@ class TaxonomyPromotionWidget extends WP_Widget {
 
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['taxonomy'] = strip_tags( $new_instance['taxonomy'] );
-		$instance['taxonomy_term'] = strip_tags( $new_instance['taxonomy_term'] );
+		$instance['taxonomy_terms'] = implode( ',', $new_instance['taxonomy_terms'] );
 		$instance['display'] = strip_tags( $new_instance['display'] );
 		$instance['amount'] = strip_tags( $new_instance['amount'] );
+		$instance['offset'] = strip_tags( $new_instance['offset'] );
 		$instance['morelink'] = strip_tags( $new_instance['morelink'] );
 
 		return $instance;
@@ -176,14 +135,13 @@ class TaxonomyPromotionWidget extends WP_Widget {
 	function form( $instance ) {
 		$title = esc_attr( $instance['title'] );
 		$taxonomy = esc_attr( $instance['taxonomy'] );
-		$taxonomy_term = esc_attr( $instance['taxonomy_term'] );
+		$taxonomy_terms = explode( ',', $instance['taxonomy_terms'] );
 		$display = esc_attr( $instance['display'] );
 		$amount = esc_attr( $instance['amount'] );
+		$offset = esc_attr( $instance['offset'] );
 		$morelink = esc_attr( $instance['morelink'] );
 
 		if( $amount < 1 ) { $amount = 0; }
-
-		$disabled = disabled( $taxonomy, 0, false );
 
 		?>
 		<p><!-- Title -->
@@ -192,50 +150,18 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		</p>
 
 		<!-- Taxonomy and term -->
-		<!-- JS is enabled -->
-		<p class="taxpromo hide-if-no-js">
-			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy and term', 'taxonomy-promotion' ); ?><br />
-				<select class="widefat taxpromo-tax" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
+		<p class="taxpromo">
+			<label for="<?php echo $this->get_field_id( 'taxonomy_terms' ); ?>"><?php _e( 'Terms', 'taxonomy-promotion' ); ?><br />
+				<select class="widefat" multiple="multiple" id="<?php echo $this->get_field_id( 'taxonomy_terms' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy_terms' ); ?>[]" <?php echo $disabled; ?> style="margin-top: 0.2em; height: 10em;">
 					<?php
-						$args = array( "public" => true, "show_ui" => true );
+						$args = array( 'public' => true, 'show_ui' => true );
 						$taxs = get_taxonomies( $args, 'objects' );
-
-						print '<option value="0" ' . selected( 0, $taxonomy, false ) . '>' . __( '-- Select taxonomy --' ) . '</option>';
-
-						foreach( $taxs as $tax ) {
-							if( count( get_terms( $tax->name, array( 'number' => 1 ) ) ) > 0 ) {
-								print '<option value="' . $tax->name . '"' . selected( $tax->name, $taxonomy, false ) . '>' . $tax->labels->singular_name . '</option>';
-							}
-						}
-					?>
-				</select>
-			</label>
-			<select class="widefat" id="<?php echo $this->get_field_id( 'taxonomy_term' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy_term' ); ?>" <?php echo $disabled; ?> style="margin-top: 0.2em;">
-				<?php
-					if( $disabled ) {
-						print '<option value="0">' . __( '-- Select taxonomy first --', 'taxonomy-promotion' ) . '</option>';
-					} else {
-						$terms = get_terms( $taxonomy );
-
-						foreach( $terms as $term ) {
-							print '<option value="' . $term->term_id . '"' . selected( $term->term_id, $taxonomy_term, false ) . '>' . $term->name . '</option>';
-						}
-					}
-				?>
-			</select>
-		</p>
-		<p class="taxpromo hide-if-js">
-			<label for="<?php echo $this->get_field_id( 'taxonomy_and_term' ); ?>"><?php _e( 'Taxonomy and term', 'taxonomy-promotion' ); ?><br />
-				<select class="widefat" id="<?php echo $this->get_field_id( 'taxonomy_and_term' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy_and_term' ); ?>">
-					<?php
-						$args = array( "public" => true, "show_ui" => true );
-						$taxs = get_taxonomies( $args, 'objects' );
-
-						print '<option value="0" ' . selected( 0, $taxonomy, false ) . '>' . __( '-- Select taxonomy and term --' ) . '</option>';
-
 						foreach( $taxs as $tax ) {
 							foreach( get_terms( $tax->name ) as $term ) {
-								print '<option value="' . $tax->name . '.' . $term->term_id . '"' . selected( $tax->name . '.' . $term->term_id, $taxonomy . '.' . $taxonomy_term, false ) . '>' . $tax->labels->singular_name . ': ' . $term->name . '</option>';
+								$val = $tax->name . ':' . $term->term_id;
+								if( in_array( $val, $taxonomy_terms ) ) { $sel = true; } else { $sel = $false; }
+
+								print '<option value="' . $val . '"' . selected( $sel, true, false ) . '>' . $tax->labels->singular_name . ' – ' . $term->name . '</option>';
 							}
 						}
 					?>
@@ -256,9 +182,9 @@ class TaxonomyPromotionWidget extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'amount' ); ?>"><?php _e( 'Number of items', 'taxonomy-promotion' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'amount' ); ?>" name="<?php echo $this->get_field_name( 'amount' ); ?>" type="text" value="<?php echo $amount; ?>" size="3" />
-			<br /><small><?php _e( '0 for all items.', 'taxonomy-promotion' ); ?></small>
+			<label for="<?php echo $this->get_field_id( 'amount' ); ?>"><?php _e( 'Item count', 'taxonomy-promotion' ); ?></label> <input id="<?php echo $this->get_field_id( 'amount' ); ?>" name="<?php echo $this->get_field_name( 'amount' ); ?>" type="text" value="<?php echo $amount; ?>" size="3" />
+			<label for="<?php echo $this->get_field_id( 'offset' ); ?>"><?php _e( 'Offset', 'taxonomy-promotion' ); ?></label> <input id="<?php echo $this->get_field_id( 'offset' ); ?>" name="<?php echo $this->get_field_name( 'offset' ); ?>" type="text" value="<?php echo $offset; ?>" size="3" />
+			<br /><small><?php _e( 'Set count to 0 for all items.', 'taxonomy-promotion' ); ?></small>
 		</p>
 
 		<p>
