@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Category Excerpts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-18 01:57+0300\n"
-"PO-Revision-Date: 2015-06-18 02:00+0200\n"
+"POT-Creation-Date: 2015-06-18 02:12+0300\n"
+"PO-Revision-Date: 2015-06-18 02:12+0200\n"
 "Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -25,8 +25,8 @@ msgid "Taxonomy Promotion"
 msgstr "Taksonomioiden promootio"
 
 #: taxonomy-promotion.php:82 taxonomy-promotion.php:91
-msgid "Read more &raquo;"
-msgstr "Lue lisää &raquo;"
+msgid "Read more"
+msgstr "Lue lisää"
 
 #: taxonomy-promotion.php:147
 msgid "Title"

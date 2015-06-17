@@ -3,7 +3,7 @@
  *  Plugin Name: Taxonomy Promotion
  *  Description: Shows titles or excerpts in the selected taxonomy and term.
  *  Author: Pasi Lallinaho
- *  Version: 2.1.1
+ *  Version: 2.1.2
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -79,7 +79,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 					echo '<div class="item">';
 					echo '<div class="title">' . $before_title . get_the_title( ) . $after_title . '</div>';
 					echo '<p class="excerpt">' . get_the_excerpt( ) . ' ';
-					echo '<span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
+					echo '<span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more', 'taxonomy-promotion' ) . '</a></span>';
 					echo '</p>';
 					echo '</div>';
 				break;
@@ -88,7 +88,7 @@ class TaxonomyPromotionWidget extends WP_Widget {
 					echo '<div class="featured">' . get_the_post_thumbnail( ) . '</div>';
 					echo '<div class="title">' . $before_title . get_the_title( ) . $after_title . '</div>';
 					echo '<p class="excerpt">' . get_the_excerpt( ) . ' ';
-					echo '<span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more &raquo;', 'taxonomy-promotion' ) . '</a></span>';
+					echo '<span class="more"><a href="' . get_permalink( ) . '">' . __( 'Read more', 'taxonomy-promotion' ) . '</a></span>';
 					echo '</p>';
 					echo '</div>';
 				break;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-18 01:57+0300\n"
+"POT-Creation-Date: 2015-06-18 02:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid "Taxonomy Promotion"
 msgstr ""
 
 #: taxonomy-promotion.php:82 taxonomy-promotion.php:91
-msgid "Read more &raquo;"
+msgid "Read more"
 msgstr ""
 
 #: taxonomy-promotion.php:147
