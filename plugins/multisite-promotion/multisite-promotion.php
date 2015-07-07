@@ -3,7 +3,7 @@
  *  Plugin Name: Multisite Promotion
  *  Description: Enables adding widgets to link to other (multi)sites for promotion
  *  Author: Pasi Lallinaho
- *  Version: 1.1
+ *  Version: 1.2
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -50,7 +50,8 @@ class MultisitePromotionWidget extends WP_Widget {
 		print '<div class="promote-blog host-' . str_replace( '.', '-', $promote_domain['host'] ) . '">';
 		print '<a href="' . get_bloginfo( 'url' ) . '">';
 			print $before_title . get_bloginfo( 'name' ) . $after_title;
-			print "<p>" . str_replace( "//", "", get_bloginfo( 'description' ) ) . "</p>";
+			print '<p class="blog_description">' . get_bloginfo( 'description' ) . '</p>';
+			print '<p class="promotion_description">' . $instance['description'] . '</p>';
 		print '</a></div>';
 
 		restore_current_blog( );
@@ -61,6 +62,7 @@ class MultisitePromotionWidget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['promote_blog_id'] = strip_tags( $new_instance['promote_blog_id'] );
+		$instance['description'] = strip_tags( $new_instance['description'] );
 		return $instance;
 	}
 
@@ -83,6 +85,11 @@ class MultisitePromotionWidget extends WP_Widget {
 					?>
 				</select>
 			</label>
+
+			<label for="<?php echo $this->get_field_id( 'description' ); ?>"><?php _e( 'Description', 'multisite-promotion' ); ?>
+				<textarea class="widefat" id="<?php echo $this->get_field_id( 'description' ); ?>" name="<?php echo $this->get_field_name( 'description' ); ?>"><?php echo $instance['description']; ?></textarea>
+			</label>
+
 		</p>
 		<?php 
 	}

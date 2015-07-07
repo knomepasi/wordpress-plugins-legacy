@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
+"POT-Creation-Date: 2015-07-07 13:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/multisite-promotion/multisite-promotion.php:35
+#: multisite-promotion.php:35
 msgid "Enables adding widgets to link to other sites on multisites."
 msgstr ""
 
-#: ../plugins/multisite-promotion/multisite-promotion.php:37
+#: multisite-promotion.php:37
 msgctxt "widget name"
 msgid "Multisite Promotion"
 msgstr ""
 
-#: ../plugins/multisite-promotion/multisite-promotion.php:71
+#: multisite-promotion.php:73
 msgid "Blog to promote"
+msgstr ""
+
+#: multisite-promotion.php:89
+msgid "Description"
 msgstr ""
