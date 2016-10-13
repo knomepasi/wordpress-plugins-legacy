@@ -115,7 +115,7 @@ function article_series_column_show( $column ) {
 			if( is_string( $terms ) ) {
 				echo $terms;
 			} else {
-				echo "—";
+				echo '—';
 			}
 			break;
 	}
@@ -129,11 +129,11 @@ function article_series_column_show( $column ) {
 add_action( 'admin_head', 'article_series_admin_head' );
 
 function article_series_admin_head( ) {
-	print "<style> .column-article_serie { width: 20%; } </style>";
+	echo '<style> .column-article_serie { width: 20%; } </style>';
 }
 
 /*
- *  Create a widget to promote article series
+ *  Register a widget to promote article series
  *
  */
 
@@ -200,7 +200,7 @@ class article_series_Widget extends WP_Widget {
 
 						foreach( $series as $ser ) {
 							if( $ser->term_id == $serie ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
-							print '<option value="' . $ser->term_id . '"' . $is_selected . '>' . $ser->name . '</option>';
+							echo '<option value="' . $ser->term_id . '"' . $is_selected . '>' . $ser->name . '</option>';
 						}
 					?>
 				</select>
