@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 12:53+0200\n"
+"POT-Creation-Date: 2016-10-13 20:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../plugins/better-links/better-links.php:35
-msgid "Show easy-clickable links with inline descriptions."
-msgstr ""
-
-#: ../plugins/better-links/better-links.php:37
+#: links-inline-descriptions.php:37
 msgctxt "widget name"
-msgid "Better links"
+msgid "Links (Inline Descriptions)"
 msgstr ""
 
-#: ../plugins/better-links/better-links.php:75
+#: links-inline-descriptions.php:39
+msgid "Links with inline descriptions."
+msgstr ""
+
+#: links-inline-descriptions.php:74
 msgid "Link category:"
 msgstr ""
 
-#: ../plugins/better-links/better-links.php:77
+#: links-inline-descriptions.php:76
 msgctxt "widget option"
-msgid "All link categories"
+msgid "-- All link categories --"
 msgstr ""
