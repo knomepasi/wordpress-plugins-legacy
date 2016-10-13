@@ -5,38 +5,39 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 04:14+0200\n"
-"PO-Revision-Date: 2014-12-22 04:16+0200\n"
+"POT-Creation-Date: 2016-10-13 19:41+0300\n"
+"PO-Revision-Date: 2016-10-13 19:41+0300\n"
 "Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: compact-chronological.php:45
-msgid "Show month archive links in a compact view."
-msgstr "Näytä kuukausittaiset linkit tiiviissä muodossa."
 
 #: compact-chronological.php:47
 msgctxt "widget name"
 msgid "Compact & Chronological"
 msgstr "Kompakti & kronologinen"
 
-#: compact-chronological.php:82 compact-chronological.php:99
+#: compact-chronological.php:49
+msgid "Monthly archive links in a compact view."
+msgstr "Kuukausittaiset arkistolinkit tiiviissä muodossa."
+
+#: compact-chronological.php:85 compact-chronological.php:102
 #, php-format
 msgid "%d topic"
 msgid_plural "%d topics"
 msgstr[0] "%d aihe"
 msgstr[1] "%d aihetta"
 
-#: compact-chronological.php:134
+#: compact-chronological.php:133
 msgid "Title"
 msgstr "Otsikko"
 
-#: compact-chronological.php:139
+#: compact-chronological.php:138
 msgid "Split to two rows?"
 msgstr "Jaa kahdelle riville?"
