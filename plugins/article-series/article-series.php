@@ -2,7 +2,7 @@
 /*  Plugin Name: Article Series
  *  Description: Organize your articles in article series and promote the created series with a widget.
  *  Author: Pasi Lallinaho
- *  Version: 1.0.1
+ *  Version: 1.0.2
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -12,11 +12,15 @@
  */
 
 /*
- *  Load textdomain for translations
+ *  Load text domain for translations
  *
  */
 
-load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+add_action( 'plugins_loaded', 'article_series_init_i18n' );
+
+function article_series_init_i18n( ) {
+	load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
 
 /*  
  *  Flush rewrite rules on activation and deactivation to make sure all permalinks work
@@ -78,7 +82,7 @@ add_filter( 'the_content', 'article_series_the_content', 100 );
 function article_series_the_content( $content ) {
 	$series = get_the_term_list( get_the_ID( ), 'serie', null, ',', null );
 	if( strlen( $series ) > 0 ) {
-		$out = '<p class="post-serie">This article is part of the article series ' . $series . '.</p>';
+		$out = '<p class="post-serie">' sprintf( __( 'This article is part of the article series %1$s.', 'article-series' ), $series ) . '</p>';
 	}
 
 	return $content . $out;
