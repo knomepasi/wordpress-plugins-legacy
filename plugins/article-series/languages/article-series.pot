@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 03:17+0200\n"
+"POT-Creation-Date: 2016-10-13 19:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,94 +17,89 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: article-series.php:27
+#: article-series.php:43
 msgctxt "Taxonomy name"
 msgid "Article series"
 msgstr ""
 
-#: article-series.php:28
+#: article-series.php:44
 msgctxt "Taxonomy name (singular)"
-msgid "Article serie"
+msgid "Article series"
 msgstr ""
 
-#: article-series.php:29
+#: article-series.php:45
 msgid "Search Series"
 msgstr ""
 
-#: article-series.php:30
+#: article-series.php:46
 msgid "All Series"
 msgstr ""
 
-#: article-series.php:31
-msgid "Parent Serie"
+#: article-series.php:47
+msgid "Parent Series"
 msgstr ""
 
-#: article-series.php:32
-msgid "Parent Serie:"
+#: article-series.php:48
+msgid "Parent Series:"
 msgstr ""
 
-#: article-series.php:33
-msgid "Edit Serie"
+#: article-series.php:49
+msgid "Edit Series"
 msgstr ""
 
-#: article-series.php:34
-msgid "Update Serie"
+#: article-series.php:50
+msgid "Update Series"
 msgstr ""
 
-#: article-series.php:35
-msgid "Add New Serie"
+#: article-series.php:51
+msgid "Add New Series"
 msgstr ""
 
-#: article-series.php:36
-msgid "New Serie name"
+#: article-series.php:52
+msgid "New Series name"
 msgstr ""
 
-#: article-series.php:38
+#: article-series.php:54
 msgid "Separate series by commas"
 msgstr ""
 
-#: article-series.php:39
+#: article-series.php:55
 msgid "Add or remove series"
 msgstr ""
 
-#: article-series.php:40
+#: article-series.php:56
 msgid "Choose from the most used series"
 msgstr ""
 
-#: article-series.php:41
+#: article-series.php:57
 msgid "No Series found"
 msgstr ""
 
-#: article-series.php:42
+#: article-series.php:58
 msgid "No Series found in trash"
 msgstr ""
 
-#: article-series.php:43
+#: article-series.php:59
 msgid "Series"
 msgstr ""
 
-#: article-series.php:65
-#, php-format
-msgid "This article is part of the article series %s"
-msgstr ""
-
-#: article-series.php:82 article-series.php:188
+#: article-series.php:98 article-series.php:190
 msgid "Serie"
 msgstr ""
 
-#: article-series.php:144
+#: article-series.php:146
 msgctxt "widget name"
 msgid "Article series"
 msgstr ""
 
-#: article-series.php:146
+#: article-series.php:148
 msgid "Promote article series."
 msgstr ""
 
-#: article-series.php:168
+#: article-series.php:170
 msgid "Read the article series"
 msgstr ""
 
-#: article-series.php:194
-msgid "-- Random serie --"
+#: article-series.php:196
+msgid "-- Random series --"
 msgstr ""

@@ -1,6 +1,6 @@
 The repository contains the following plugins:
 
-Article Series:  Adds a new taxonomy "series" for posts.
+Article Series:  Organize your articles in article series and promote the created series with a widget.
 Clean Head:  Remove unnecessary information from <head>.
 Compact & Chronological:  Show month archive links in a compact view.
 Dashboard Drafts:  Adds a Dashboard widget showing all drafts for all post types.

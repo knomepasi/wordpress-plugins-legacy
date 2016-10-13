@@ -1,8 +1,8 @@
 <?
 /*  Plugin Name: Article Series
- *  Description: Adds a new taxonomy 'series' for posts.
+ *  Description: Organize your articles in article series and promote the created series with a widget.
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.0.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -19,24 +19,37 @@
 load_plugin_textdomain( 'article-series', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 /*  
+ *  Flush rewrite rules on activation and deactivation to make sure all permalinks work
+ *
+ */
+
+register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+register_activation_hook( __FILE__, 'article_series_flush_rewrites' );
+
+function article_series_flush_rewrites( ) {
+	article_series_init( );
+	flush_rewrite_rules( );
+}
+
+/*  
  *  Add the 'serie' taxonomy
  *
  */
 
-add_action( 'init', 'ArticleSeriesInit' );
+add_action( 'init', 'article_series_init' );
 
-function ArticleSeriesInit( ) {
+function article_series_init( ) {
 	$labels = array(
 		'name' => _x( 'Article series', 'Taxonomy name', 'article-series' ),
-		'singular_name' => _x( 'Article serie', 'Taxonomy name (singular)', 'article-series' ),
+		'singular_name' => _x( 'Article series', 'Taxonomy name (singular)', 'article-series' ),
 		'search_items' => __( 'Search Series', 'article-series' ),
 		'all_items' => __( 'All Series', 'article-series' ),
-		'parent_item' => __( 'Parent Serie', 'article-series' ),
-		'parent_item_colon' => __( 'Parent Serie:', 'article-series' ),
-		'edit_item' => __( 'Edit Serie', 'article-series' ),
-		'update_item' => __( 'Update Serie', 'article-series' ),
-		'add_new_item' => __( 'Add New Serie', 'article-series' ),
-		'new_item_name' => __( 'New Serie name', 'article-series' ),
+		'parent_item' => __( 'Parent Series', 'article-series' ),
+		'parent_item_colon' => __( 'Parent Series:', 'article-series' ),
+		'edit_item' => __( 'Edit Series', 'article-series' ),
+		'update_item' => __( 'Update Series', 'article-series' ),
+		'add_new_item' => __( 'Add New Series', 'article-series' ),
+		'new_item_name' => __( 'New Series name', 'article-series' ),
 //		'popular_items' => __( 'Popular Series', 'article-series' ),
 		'separate_items_with_commas' => __( 'Separate series by commas', 'article-series' ),
 		'add_or_remove_items' => __( 'Add or remove series', 'article-series' ),
@@ -56,13 +69,13 @@ function ArticleSeriesInit( ) {
 }
 
 /*
- *  Add a hook for the_content
+ *  Add a hook for the_content to promote the article series with each article included in one.
  *
  */
 
-add_filter( 'the_content', 'ArticleSeriesContentHook', 100 );
+add_filter( 'the_content', 'article_series_the_content', 100 );
 
-function ArticleSeriesContentHook( $content ) {
+function article_series_the_content( $content ) {
 	$series = get_the_term_list( get_the_ID( ), 'serie', null, ',', null );
 	if( strlen( $series ) > 0 ) {
 		$out = '<p class="post-serie">This article is part of the article series ' . $series . '.</p>';
@@ -72,13 +85,13 @@ function ArticleSeriesContentHook( $content ) {
 }
 
 /*
- *  Add a new option column to the posts listing
+ *  Add a column for series to the posts listing
  *
  */
 
-add_filter( 'manage_edit-post_columns', 'ArticleSeriesColumnRegister' );
+add_filter( 'manage_edit-post_columns', 'article_series_edit_post_columns' );
 
-function ArticleSeriesColumnRegister( $columns ) {
+function article_series_edit_post_columns( $columns ) {
 	foreach( $columns as $key => $value ) {
 		// We want to add our columns just before the "comments" column
 		if( $key == "comments" ) {
@@ -91,9 +104,9 @@ function ArticleSeriesColumnRegister( $columns ) {
 	return $new_columns;
 }
 
-add_action( 'manage_posts_custom_column', 'ArticleSeriesColumnShow' );
+add_action( 'manage_posts_custom_column', 'article_series_column_show' );
 
-function ArticleSeriesColumnShow( $column ) {
+function article_series_column_show( $column ) {
 	global $post;
 
 	switch( $column ) {
@@ -102,7 +115,6 @@ function ArticleSeriesColumnShow( $column ) {
 			if( is_string( $terms ) ) {
 				echo $terms;
 			} else {
-//				_e( "Not in any serie.", "article-series" );
 				echo "—";
 			}
 			break;
@@ -114,35 +126,22 @@ function ArticleSeriesColumnShow( $column ) {
  *
  */
 
-add_action( 'admin_head', 'ArticleSeriesAdminHead' );
+add_action( 'admin_head', 'article_series_admin_head' );
 
-function ArticleSeriesAdminHead( ) {
+function article_series_admin_head( ) {
 	print "<style> .column-article_serie { width: 20%; } </style>";
 }
 
-/*  
- *  Make sure permalinks work
- *
- */
-
-function ArticleSeriesRewriteFlush( ) {
-	ArticleSeriesInit( );
-	flush_rewrite_rules( );
-}
-
-register_activation_hook( __FILE__, 'ArticleSeriesRewriteFlush' );
-
 /*
- *  Add a widget to promote article series
+ *  Create a widget to promote article series
  *
  */
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("ArticleSeriesWidget");' ) );
+add_action( 'widgets_init', function( ) { register_widget( 'article_series_Widget' ); } );
 
-class ArticleSeriesWidget extends WP_Widget {
-	/** constructor */
-	function ArticleSeriesWidget( ) {
-		parent::WP_Widget(
+class article_series_Widget extends WP_Widget {
+	public function __construct( ) {
+		parent::__construct(
 			'article_series',
 			_x( 'Article series', 'widget name', 'article-series' ),
 			array(
@@ -152,10 +151,10 @@ class ArticleSeriesWidget extends WP_Widget {
 	}
 
 	/** @see WP_Widget::widget */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		extract( $args );
 
-		echo '<div class="article-series-promotion">';
+		echo '<div class="article-series article-series-promotion">';
 		echo $before_widget;
 
 		if( $instance['serie'] > 0 ) {
@@ -168,14 +167,14 @@ class ArticleSeriesWidget extends WP_Widget {
 
 		echo $before_title . $our_serie->name . $after_title;
 		echo wpautop( $our_serie->description );
-		echo '<p class="more-link"><a href="' . home_url( '/serie/' . $our_serie->slug ) . '/">' . __( 'Read the article series', 'article-series' ) . ' &raquo;</a></p>';
+		echo '<p class="more more-link"><a href="' . home_url( '/serie/' . $our_serie->slug ) . '/">' . __( 'Read the article series', 'article-series' ) . ' &raquo;</a></p>';
 
 		echo $after_widget;
 		echo '</div>';
 	}
 
 	/** @see WP_Widget::update */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
 		$instance['serie'] = strip_tags( $new_instance['serie'] );
@@ -184,7 +183,7 @@ class ArticleSeriesWidget extends WP_Widget {
 	}
 
 	/** @see WP_Widget::form */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$serie = esc_attr( $instance['serie'] );
 		?>
 		<p>
@@ -194,7 +193,7 @@ class ArticleSeriesWidget extends WP_Widget {
 						$series = get_terms( 'serie', array( 'hide_empty' => true ) );
 
 						$random = new stdClass( );
-						$random->name = __( '-- Random serie --', 'article-series' );
+						$random->name = __( '-- Random series --', 'article-series' );
 						$random->term_id = 0;
 
 						array_unshift( $series, $random );
@@ -209,7 +208,6 @@ class ArticleSeriesWidget extends WP_Widget {
 		</p>
 		<?php 
 	}
-
 }
 
 ?>
