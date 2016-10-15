@@ -78,7 +78,7 @@ class network_blog_promotion_Widget extends WP_Widget {
 
 						foreach( $blogs as $blog ) {
 							$blog_details = get_blog_details( $blog->blog_id );
-							echo '<option value="' . $blog->blog_id . '"' . selected( $instance['promote_blog_id'], $blog->blog_id ) . '>' . $blog_details->blogname . '</option>';
+							echo '<option value="' . $blog->blog_id . '" ' . selected( $instance['promote_blog_id'], $blog->blog_id, false ) . '>' . $blog_details->blogname . '</option>';
 						}
 					?>
 				</select>
