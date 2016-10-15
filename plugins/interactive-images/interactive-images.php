@@ -1,7 +1,7 @@
 <?php
 /*
  *  Plugin Name: Interactive Images
- *  Description: Create interactive images by adding notes on top of images.
+ *  Description: Create interactive images by adding notes on top of images. UNMAINTAINED.
  *  Author: Pasi Lallinaho
  *  Version: 1.4
  *  Author URI: http://open.knome.fi/
