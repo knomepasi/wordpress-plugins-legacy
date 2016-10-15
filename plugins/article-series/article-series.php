@@ -154,7 +154,6 @@ class article_series_Widget extends WP_Widget {
 		);
 	}
 
-	/** @see WP_Widget::widget */
 	public function widget( $args, $instance ) {
 		extract( $args );
 
@@ -177,7 +176,6 @@ class article_series_Widget extends WP_Widget {
 		echo '</div>';
 	}
 
-	/** @see WP_Widget::update */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
@@ -186,7 +184,6 @@ class article_series_Widget extends WP_Widget {
 		return $instance;
 	}
 
-	/** @see WP_Widget::form */
 	public function form( $instance ) {
 		$serie = esc_attr( $instance['serie'] );
 		?>
@@ -203,8 +200,7 @@ class article_series_Widget extends WP_Widget {
 						array_unshift( $series, $random );
 
 						foreach( $series as $ser ) {
-							if( $ser->term_id == $serie ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
-							echo '<option value="' . $ser->term_id . '"' . $is_selected . '>' . $ser->name . '</option>';
+							echo '<option value="' . $ser->term_id . '" ' . selected( $ser->term_id, $serie, false ) . '>' . $ser->name . '</option>';
 						}
 					?>
 				</select>
