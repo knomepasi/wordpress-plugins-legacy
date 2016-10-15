@@ -1,31 +1,31 @@
-#dashboard_drafts .inside {
+#dashboard_drafts_plus .inside {
 	margin: 0;
 	padding: 0;
 }
 
-.dashboard-drafts {
+.dashboard-drafts-plus {
 	margin: 0;
 	padding: 12px 12px 4px;
 	border-bottom: 1px solid #eee;
 }
-	.dashboard-drafts:last-child {
+	.dashboard-drafts-plus:last-child {
 		border-bottom: none;
 	}
-	.dashboard-drafts:nth-child(even) {
+	.dashboard-drafts-plus:nth-child(even) {
 		background-color: #fafafa;
 	}
 
-.dashboard-drafts .view-all {
+.dashboard-drafts-plus .view-all {
 	float: right;
 	margin: 0;
 }
 
-.dashboard-drafts li {
+.dashboard-drafts-plus li {
     overflow: hidden;
     margin-bottom: 8px;
 }
 
-.dashboard-drafts ul span {
+.dashboard-drafts-plus ul span {
 	color: #777;
 	float: left;
 	margin-right: 8px;
