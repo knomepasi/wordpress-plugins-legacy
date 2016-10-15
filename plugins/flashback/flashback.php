@@ -1,9 +1,9 @@
 <?php
 /*
  *  Plugin Name: Flashback
- *  Description: Promote articles from the past.
+ *  Description: A widget to promote articles from the past.
  *  Author: Pasi Lallinaho
- *  Version: 1.2
+ *  Version: 1.2.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -12,39 +12,40 @@
  *
  */
 
-/*  Init plugin
+/*
+ *  Load text domain for translations
  *
  */
 
-add_action( 'plugins_loaded', 'FlashbackInit' );
+add_action( 'plugins_loaded', 'flashback_init' );
 
-function FlashbackInit( ) {
-	/* Load text domain for i18n */
-	load_plugin_textdomain( 'flashback', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+function flashback_init( ) {
+	load_plugin_textdomain( 'flashback', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*  Widget
  *
  */
 
-add_action( 'widgets_init', function( ) { register_widget( 'FlashbackWidget' ); } );
+add_action( 'widgets_init', function( ) { register_widget( 'flashback_Widget' ); } );
 
-class FlashbackWidget extends WP_Widget {
-	/** constructor */
+class flashback_Widget extends WP_Widget {
 	function __construct() {
-		$widget_ops = array( 'description' => __( 'Promote articles from the past.', 'flashback' ) );
-
-		parent::__construct( 'flashback', _x( 'Flashback', 'widget name', 'flashback' ), $widget_ops );
+		parent::__construct(
+			'flashback',
+			_x( 'Flashback', 'widget name', 'flashback' ),
+			array(
+				'description' => __( 'Promote articles from the past.', 'flashback' ),
+			)
 	}
 
-	/** @see WP_Widget::widget */
 	function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $before_widget;
 		if( $title ) { echo $before_title . $title . $after_title; }
-		/* */
+
 		global $wpdb, $wp_locale;
 
 		if( !$instance['age_of_post'] ) { $instance['age_of_post'] == 365; }
@@ -68,21 +69,19 @@ class FlashbackWidget extends WP_Widget {
 			while( $flashback_query->have_posts( ) ) {
 				$flashback_query->the_post( );
 
-				print "<div class=\"flashback group\">";
-				print "<p>";
-				print "<strong><a href='" . get_permalink( ) . "'>" . get_the_title( ) . "</a></strong><br />";
-				print "<span class='excerpt'>" . get_the_excerpt( ) . "</span>";
-				print "</p>";
-				print "</div>\n";
+				echo '<div class="flashback group">';
+				echo '<p>';
+				echo '<strong><a href="' . get_permalink( ) . '">' . get_the_title( ) . '</a></strong><br />';
+				echo '<span class="excerpt">' . get_the_excerpt( ) . '</span>';
+				echo '</p>';
+				echo '</div>';
 			}
 		}
 		wp_reset_postdata( );
 
-		/* */
 		echo $after_widget;
 	}
 
-	/** @see WP_Widget::update */
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
@@ -90,7 +89,6 @@ class FlashbackWidget extends WP_Widget {
 		return $instance;
 	}
 
-	/** @see WP_Widget::form */
 	function form( $instance ) {
 		$title = esc_attr( $instance['title'] );
 		?>
@@ -108,7 +106,7 @@ class FlashbackWidget extends WP_Widget {
 						);
 						foreach( $opts as $days => $name ) {
 							if( $days == $instance['age_of_post'] ) { $is_selected = ' selected="selected " '; } else { unset( $is_selected ); }
-							print '<option value="' . $days . '"' . $is_selected . '>' . $name . '</option>';
+							echo '<option value="' . $days . '" ' . selected( $instance['age_of_posts'], $days, false ) . '>' . $name . '</option>';
 						}
 					?>
 				</select>
