@@ -3,7 +3,7 @@
  *  Plugin Name: Simple Social Likes
  *  Description: Shows Like/+1 buttons for Facebook/Google+.
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.0.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -48,7 +48,7 @@ include 'googleplus.php';
 function _SimpleSocialLikes_IFrame( $site, $id ) {
 	switch( $site ) {
 		case 'fb':
-			return '<iframe class="simplefb" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2F' . $id . '&width=292&height=62&colorscheme=light&show_faces=false&border_color&stream=false&header=false" width="292" height="24"></iframe>';
+			return '<iframe class="simplefb" src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2F' . $id . '&width=292&height=62&colorscheme=light&show_faces=false&border_color&stream=false&header=false" width="292" height="24"></iframe>';
 			break;
 		case 'google':
 			add_action( 'wp_footer', '_SimpleSocialLikesGoogleScript' );
