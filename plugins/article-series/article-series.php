@@ -1,8 +1,8 @@
-<?
+<?php
 /*  Plugin Name: Article Series
  *  Description: Organize your articles in article series and promote the created series with a widget.
  *  Author: Pasi Lallinaho
- *  Version: 1.0.2
+ *  Version: 1.0.3
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
