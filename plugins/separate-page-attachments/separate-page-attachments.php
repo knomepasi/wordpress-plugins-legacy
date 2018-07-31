@@ -1,6 +1,6 @@
 <?php
 /*
- *  Plugin Name: Separate Page Attachments
+ *  Plugin Name: Separate Page Attachment
  *  Description: Use a separate directory for page attachments.
  *  Author: Pasi Lallinaho
  *  Version: 0.1

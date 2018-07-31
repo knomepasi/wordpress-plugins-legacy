@@ -76,7 +76,7 @@ function InteractiveImagesInit( ) {
 	$wpdb->interactive_captions = $wpdb->prefix . "interactive_captions";
 }
 
-/*  Include some CSS
+/*  Include some CSS to support IE
  *
  */
 
@@ -84,14 +84,16 @@ add_action( 'wp_head', 'InteractiveImagesHead' );
 add_action( 'admin_head', 'InteractiveImagesHead' );
 
 function InteractiveImagesHead( ) {
-	print "<!--[if IE]><style type=\"text/css\">";
-	print ".iimage_caption span.c_main { filter: alpha(opacity = 0); zoom: 1; }";
-	print ".iimage_caption:hover span.c_main { filter: alpha(opacity = 100); }";
-	print "</style><![endif]-->\n";
+echo <<<STYLE
+<!--[if IE]><style type="text/css">
+.iimage_caption span.c_main { filter: alpha(opacity = 0); zoom: 1; }
+.iimage_caption:hover span.c_main { filter: alpha(opacity = 100); }
+</style><![endif]-->
 
-	print "<!--[if lt IE 8]><style type=\"text/css\">";
-	print ".iimage_caption span.c_main { background-color: #222; color: #fff; }";
-	print "</style><![endif]-->\n";
+<!--[if lt IE 8]><style type="text/css">
+.iimage_caption span.c_main { background-color: #222; color: #fff; }
+</style><![endif]-->
+STYLE;
 }
 
 /*  Include scripts and stylesheets
@@ -242,6 +244,7 @@ function InteractiveImagesMenuImages( ) {
 function InteractiveImagesMenuForm( ) {
 	print '<div class="wrap">';
 
+	// TODO: Use nonce
 	/* is the user uploading an image? */
 	if( $_FILES['iimage_upload']['size'] > 0 && !$_POST['icid'] ) {
 		$uppath = wp_upload_dir( );

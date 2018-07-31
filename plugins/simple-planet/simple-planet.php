@@ -31,7 +31,7 @@ add_action( 'plugins_loaded', 'SimplePlanetInit' );
 
 function SimplePlanetInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'simple-planet', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'simple-planet', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*  Widget class
@@ -60,13 +60,13 @@ class SimplePlanetWidget extends WP_Widget {
 		}
 
 		$time_diff = $instance['refresh_in'] * 60;
-		if( ( get_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', 0 ) + $time_diff ) < time( ) ) {
+		if( ( get_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', 0 ) + ( $time_diff * 60 ) ) < time( ) ) {
 			# we need to update.
 			$count = 0;
 			$planet = array( );
 
 			# include simplepie
-			#include_once( ABSPATH . WPINC . '/class-simplepie.php' );
+			include_once( ABSPATH . WPINC . '/class-simplepie.php' );
 
 			foreach( explode( "\n", $instance['feeds'] ) as $feed ) { 
 				$feeds[] = rtrim( ltrim( $feed ) );
