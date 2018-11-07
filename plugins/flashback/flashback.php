@@ -37,6 +37,7 @@ class flashback_Widget extends WP_Widget {
 			array(
 				'description' => __( 'Promote articles from the past.', 'flashback' ),
 			)
+		);
 	}
 
 	function widget( $args, $instance ) {
