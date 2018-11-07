@@ -20,7 +20,7 @@
 add_action( 'plugins_loaded', 'links_inline_descriptions_init' );
 
 function links_inline_descriptions_init( ) {
-	load_plugin_textdomain( 'links-inline-descriptions', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'links-inline-descriptions', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*
