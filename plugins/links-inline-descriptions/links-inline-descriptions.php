@@ -38,6 +38,7 @@ class links_inline_descriptions_Widget extends WP_Widget {
 			array(
 				'description' => __( 'Links with inline descriptions.', 'links-inline-descriptions' ),
 			)
+		);
 	}
 
 	public function widget( $args, $instance ) {
