@@ -20,7 +20,7 @@ add_action( 'plugins_loaded', 'SimpleSocialLikesInit' );
 
 function SimpleSocialLikesInit( ) {
 	/* Load text domain for i18n */
-	load_plugin_textdomain( 'simple-social-likes', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'simple-social-likes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*  Include scripts and default stylesheets
