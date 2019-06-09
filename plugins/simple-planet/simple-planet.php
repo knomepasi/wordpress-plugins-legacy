@@ -3,7 +3,7 @@
  *  Plugin Name: Simple Planet
  *  Description: Show posts from multiple feeds sorted by date via a widget.
  *  Author: Pasi Lallinaho
- *  Version: 1.0
+ *  Version: 1.1
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -59,6 +59,10 @@ class SimplePlanetWidget extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 
+		if( !empty( $instance['description'] ) ) {
+			echo wpautop( $instance['description'] );
+		}
+
 		$time_diff = $instance['refresh_in'] * 60;
 		if( ( get_option( 'simple_planet_' . $args['widget_id'] . '_lastupdate', 0 ) + ( $time_diff * 60 ) ) < time( ) ) {
 			# we need to update.
@@ -86,6 +90,7 @@ class SimplePlanetWidget extends WP_Widget {
 					$item_id = $item->get_local_date( '%s' ) . "-" . $count;
 					$planet[$item_id] = array(
 						"title" => $item->get_title( ),
+						"site" => $item->get_feed( )->get_title( ),
 						"link" => $item->get_permalink( ),
 						"author" => $item->get_author( )->get_name( )
 					);
@@ -109,8 +114,14 @@ class SimplePlanetWidget extends WP_Widget {
 			<ul class="simple_planet">
 				<?php foreach( $widget_posts as $post ) { ?>
 					<li>
-						<a href="<?php echo $post['link']; ?>"><?php echo $post['title']; ?></a><br />
-						<span><?php _e( 'by', 'simple-planet' ); ?> <?php echo $post['author']; ?></span>
+						<a href="<?php echo $post['link']; ?>">
+							<span class="title"><?php echo $post['title']; ?></span>
+							<?php if( isset( $post['site'] ) && $post['author'] != $post['site'] ) { ?>
+								<span class="author"><strong><?php echo $post['site']; ?></strong>, <?php echo $post['author']; ?></span>
+							<?php } else { ?>
+								<span class="author"><?php echo $post['author']; ?></span>
+							<?php } ?>
+						</a>
 					</li>
 				<?php } ?>
 			</ul>
@@ -124,13 +135,14 @@ class SimplePlanetWidget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['feeds'] = strip_tags( $new_instance['feeds'] );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+		$instance['description'] = wp_kses( $new_instance['description'], array( 'a' => array( 'href' => array( ) ) ) );
+		$instance['feeds'] = sanitize_textarea_field( $new_instance['feeds'] );
 		if( is_numeric( $new_instance['items'] ) ) {
-			$instance['items'] = floor( strip_tags( $new_instance['items'] ) );
+			$instance['items'] = intval( $new_instance['items'] );
 		}
 		if( is_numeric( $new_instance['refresh_in'] ) ) {
-			$instance['refresh_in'] = floor( strip_tags( $new_instance['refresh_in'] ) );
+			$instance['refresh_in'] = intval( $new_instance['refresh_in'] );
 		}
 
 		return $instance;
@@ -139,6 +151,7 @@ class SimplePlanetWidget extends WP_Widget {
 	/** @see WP_Widget::form */
 	function form( $instance ) {
 		$title = esc_attr( $instance['title'] );
+		$description = esc_attr( $instance['description'] );
 		$feeds = esc_attr( $instance['feeds'] );
 		$items = esc_attr( $instance['items'] );
 		$refresh_in = esc_attr( $instance['refresh_in'] );
@@ -149,6 +162,9 @@ class SimplePlanetWidget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'simple-planet' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
+
+			<label for="<?php echo $this->get_field_id( 'description' ); ?>"><?php _e( 'Description', 'simple-planet' ); ?></label>
+			<textarea class="widefat" id="<?php echo $this->get_field_id( 'description' ); ?>" name="<?php echo $this->get_field_name( 'description' ); ?>"><?php echo $description; ?></textarea>
 
 			<label for="<?php echo $this->get_field_id( 'feeds' ); ?>"><?php _e( 'Feeds (one per line)', 'simple-planet' ); ?></label>
 			<textarea class="widefat" id="<?php echo $this->get_field_id( 'feeds' ); ?>" name="<?php echo $this->get_field_name( 'feeds' ); ?>"><?php echo $feeds; ?></textarea>
