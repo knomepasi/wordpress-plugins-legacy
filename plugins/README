@@ -1,7 +1,6 @@
 The repository contains the following plugins:
 
 Article Series:  Organize your articles in article series and promote the created series with a widget.
-Block Guest Access:  Allow access to the site for registered users only.
 Clean Head:  Remove unnecessary information from <head>.
 Compact & Chronological:  Show month archive links in a compact view.
 Dashboard Drafts:  Adds a Dashboard widget showing all drafts for all post types.
