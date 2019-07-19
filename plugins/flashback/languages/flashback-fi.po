@@ -4,61 +4,63 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Flashback 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flashback\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-07-19T23:26:38+03:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.2.0\n"
+"PO-Revision-Date: 2019-07-19 23:28+0300\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Domain: flashback\n"
+"Last-Translator: Pasi LAllinaho <pasi@shimmerproject.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fi\n"
 
 #. Plugin Name of the plugin
 msgid "Flashback"
-msgstr ""
+msgstr "Takaumat"
 
 #. Plugin URI of the plugin
 msgid "https://wordpress.knome.fi/"
-msgstr ""
+msgstr "https://wordpress.knome.fi/"
 
 #. Description of the plugin
 msgid "A widget to promote articles from the past."
-msgstr ""
+msgstr "Vimpain joka näyttää artikkeleita menneisyydestä."
 
 #. Author of the plugin
 msgid "Pasi Lallinaho"
-msgstr ""
+msgstr "Pasi Lallinaho"
 
 #. Author URI of the plugin
 msgid "https://open.knome.fi/"
-msgstr ""
+msgstr "https://open.knome.fi/"
 
 #: flashback.php:36
 msgctxt "widget name"
 msgid "Flashback"
-msgstr ""
+msgstr "Takaumat"
 
 #: flashback.php:38
 msgid "Promote articles from the past."
-msgstr ""
+msgstr "Näytä artikkeleita menneisyydestä"
 
 #: flashback.php:97
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: flashback.php:100
 msgid "Minimum age of post"
-msgstr ""
+msgstr "Artikkelin vähimmäisikä"
 
 #: flashback.php:104
 msgid "Year"
-msgstr ""
+msgstr "Vuosi"
 
 #: flashback.php:105
 msgid "Month"
-msgstr ""
+msgstr "Kuukausi"
 
 #: flashback.php:106
 msgid "Week"
-msgstr ""
+msgstr "Viikko"
