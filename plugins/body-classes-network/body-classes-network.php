@@ -1,7 +1,7 @@
 <?php
 /*
  *  Plugin Name: Body Classes for Network
- *  Description: Add network-related body classes.
+ *  Description: Add network-related &lt;body&gt; classes.
  *  Author: Pasi Lallinaho
  *  Version: 1.0.1
  *  Author URI: https://open.knome.fi/

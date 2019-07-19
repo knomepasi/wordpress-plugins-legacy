@@ -1,0 +1,53 @@
+# Copyright (C) 2019 Pasi Lallinaho
+# This file is distributed under the same license as the Links with Descriptions plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Links with Descriptions 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/links-with-descriptions\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-07-19T23:23:21+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: links-with-descriptions\n"
+
+#. Plugin Name of the plugin
+msgid "Links with Descriptions"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.knome.fi/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A links widget with inline descriptions."
+msgstr ""
+
+#. Author of the plugin
+msgid "Pasi Lallinaho"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://open.knome.fi/"
+msgstr ""
+
+#: links-with-descriptions.php:39
+msgctxt "widget name"
+msgid "Links with Descriptions"
+msgstr ""
+
+#: links-with-descriptions.php:41
+msgid "Links with inline descriptions."
+msgstr ""
+
+#: links-with-descriptions.php:77
+msgid "Link category:"
+msgstr ""
+
+#: links-with-descriptions.php:79
+msgctxt "widget option"
+msgid "-- All link categories --"
+msgstr ""
