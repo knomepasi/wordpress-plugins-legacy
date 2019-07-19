@@ -1,60 +1,19 @@
-.compact_chrono ul {
-	width: 100% !important;
-	margin-bottom: 0.5em;
+.compact-chrono .year {
+	display: grid;
+	grid-template-columns: 1fr 6fr;
 }
-
-.compact_chrono li {
-	display: inline-block;
-	list-style-type: none;
-	width: 7.69%; /* 100/13 */
-}
-
-.compact_chrono li.year {
-	font-weight: bold;
-}
-
-.compact_chrono a {
- 	display: block;
-}
-
-.compact_chrono a span.count {
-	display: block;
-	float: right;
-	margin: -2px 15% 0 0;
-
-	font-size: 75%;
-}
-
-/* when split to two rows */
-
-.compact_chrono .split {
-	width: 100%;
-}
-
-.compact_chrono .split .year {
-	display: block;
-}
-
-.compact_chrono .split .month {
-	display: block;
-	float: left;
-	width: 16%;
-}
-
-.compact_chrono .split .month a {
-	display: block;
-	width: 100%;
-}
-
-
-/* self-clearing float */
-
-.compact_chrono:after,
-.compact_chrono ul:after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-
+	.compact-chrono ul {
+		display: grid;
+		grid-template-columns: repeat( 6, 1fr );
+		grid-gap: 0 1em;
+	}
+		.compact-chrono li {
+			list-style-type: none;
+		}
+			.compact-chrono li a {
+				display: block;
+			}
+		.compact-chrono .count {
+			float: right;
+			font-size: 80%;
+		}

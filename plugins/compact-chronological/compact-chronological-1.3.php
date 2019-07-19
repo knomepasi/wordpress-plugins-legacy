@@ -3,7 +3,7 @@
  *  Plugin Name: Compact & Chronological
  *  Description: Show your monthly archive links in a compact view.
  *  Author: Pasi Lallinaho
- *  Version: 1.1.1
+ *  Version: 1.3
  *  Author URI: http://open.knome.fi/
  *  Plugin URI: http://wordpress.knome.fi/
  *
@@ -59,13 +59,13 @@ class compact_chronological_Widget extends WP_Widget {
 		echo $before_widget;
 		if( $title ) { echo $before_title . $title . $after_title; }
 
-		global $wpdb, $wp_locale;
+		global $wpdb;
 
 		$query = 'SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, count(ID) as posts FROM ' . $wpdb->posts . ' WHERE post_type = "post" AND post_status = "publish" GROUP BY YEAR(post_date), MONTH(post_date) ORDER BY YEAR(post_date) DESC, MONTH(post_date) ASC';
 		$archives = $wpdb->get_results( $query );
 
 		if( is_array( $archives ) ) {
-			echo '<div class="compact_chrono group">';
+			echo '<div class="compact-chrono">';
 
 			foreach( $archives as $current ) {
 				$arch[$current->year][$current->month] = $current->posts;
@@ -76,16 +76,12 @@ class compact_chronological_Widget extends WP_Widget {
 			$first_year = end( $archives )->year;
 
 			for( $y = $last_year; $y >= $first_year; $y-- ) {
-				if( $instance['split_rows'] == 'on' ) {
-					echo '<ul class="split">';
-				} else {
-					echo '<ul>';
-				}
-				echo '<li class="year">';
-				echo '<a href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( _n( '%d topic', '%d topics', $ycounts[$y], 'compact-chronological' ), $ycounts[$y] ) . '">';
-				echo '<span class="name">' . $y . '</span>';
+				echo '<div class="year">';
+				echo '<a class="year_name" href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( _n( '%d topic', '%d topics', $ycounts[$y], 'compact-chronological' ), $ycounts[$y] ) . '">';
+					echo '<span class="name">' . $y . '</span>';
 				echo '</a>';
-				echo '</li>';
+
+				echo '<ul>';
 				for( $m = 1; $m <= 12; $m++ ) {
 					if( $m > date( 'n' ) && $y >= date( 'Y' ) ) { $class = 'month future'; }
 					elseif( $m == date( 'n' ) && $y == date( 'Y' ) ) { $class = 'month now'; }
@@ -109,6 +105,7 @@ class compact_chronological_Widget extends WP_Widget {
 					echo '</li>';
 				}
 				echo '</ul>';
+				echo '</div>';
 			}
 			echo '</div>';
 		}
@@ -133,13 +130,11 @@ class compact_chronological_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'compact-chronological' ); ?>
 				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 			</label>
-			<label for="<?php echo $this->get_field_id( 'split_rows' ); ?>">
-				<input id="<?php echo $this->get_field_id( 'split_rows' ); ?>" name="<?php echo $this->get_field_name( 'split_rows' ); ?>" type="checkbox" value="on" <?php checked( $instance['split_rows'], 'on' ); ?> />
-				<?php echo _e( 'Split to two rows?', 'compact-chronological' ); ?>
-			</label>
 		</p>
 		<?php 
 	}
 }
+
+// include 'cc-gutenberg.php';
 
 ?>
