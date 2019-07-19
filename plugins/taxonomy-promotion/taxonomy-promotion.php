@@ -4,11 +4,11 @@
  *  Description: Shows titles or excerpts in the selected taxonomy and term.
  *  Author: Pasi Lallinaho
  *  Version: 2.1.2
- *  Author URI: http://open.knome.fi/
- *  Plugin URI: http://wordpress.knome.fi/
+ *  Author URI: https://open.knome.fi/
+ *  Plugin URI: https://wordpress.knome.fi/
  *
  *  License: GNU General Public License v2 or later
- *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *  License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  */
 
