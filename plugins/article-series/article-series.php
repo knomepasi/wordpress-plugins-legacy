@@ -82,7 +82,8 @@ add_filter( 'the_content', 'article_series_the_content', 100 );
 function article_series_the_content( $content ) {
 	$series = get_the_term_list( get_the_ID( ), 'serie', null, ',', null );
 	if( strlen( $series ) > 0 ) {
-		$out = '<p class="post-serie">' . sprintf( __( 'This article is part of the article series %1$s.', 'article-series' ), $series ) . '</p>';
+		# translators: name of the article serie
+		$out = '<p class="post-serie">' . sprintf( __( 'This article is part of the article serie %1$s.', 'article-series' ), $series ) . '</p>';
 	}
 
 	return $content . $out;

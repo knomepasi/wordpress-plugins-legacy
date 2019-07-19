@@ -6,16 +6,40 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-13 21:27+0300\n"
-"PO-Revision-Date: 2016-10-13 21:27+0300\n"
-"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/article-series\n"
+"POT-Creation-Date: 2019-07-19T23:32:49+03:00\n"
+"PO-Revision-Date: 2019-07-19 23:33+0300\n"
+"Last-Translator: Pasi LAllinaho <pasi@shimmerproject.org>\n"
 "Language-Team: \n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. Plugin Name of the plugin
+msgid "Article Series"
+msgstr "Artikkelisarjat"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.knome.fi/"
+msgstr "https://wordpress.knome.fi/"
+
+#. Description of the plugin
+msgid ""
+"Organize your articles in article series and promote the created series with "
+"a widget."
+msgstr ""
+"Järjestä artikkelisi artikkelisarjoihin ja esittele luotuja sarjoja "
+"vimpaimella."
+
+#. Author of the plugin
+msgid "Pasi Lallinaho"
+msgstr "Pasi Lallinaho"
+
+#. Author URI of the plugin
+msgid "https://open.knome.fi/"
+msgstr "https://open.knome.fi/"
 
 #: article-series.php:47
 msgctxt "Taxonomy name"
@@ -83,21 +107,21 @@ msgstr "Artikkelisarjoja ei löytynyt roskakorista"
 msgid "Series"
 msgstr "Artikkelisarjat"
 
-#: article-series.php:85
-#, php-format
-msgid "This article is part of the article series %1$s."
+#. translators: name of the article serie
+#: article-series.php:86
+msgid "This article is part of the article serie %1$s."
 msgstr "Tämä artikkeli on osa artikkelisarjaa %1$s."
 
-#: article-series.php:102 article-series.php:194
+#: article-series.php:103 article-series.php:192
 msgid "Serie"
 msgstr "Artikkelisarja"
 
-#: article-series.php:150
+#: article-series.php:151
 msgctxt "widget name"
 msgid "Article series"
 msgstr "Artikkelisarjat"
 
-#: article-series.php:152
+#: article-series.php:153
 msgid "Promote article series."
 msgstr "Mainosta artikkelisarjoja."
 
@@ -105,7 +129,7 @@ msgstr "Mainosta artikkelisarjoja."
 msgid "Read the article series"
 msgstr "Lue artikkelisarjaa"
 
-#: article-series.php:200
+#: article-series.php:198
 msgid "-- Random series --"
 msgstr "-- Satunnainen artikkelisarja --"
 
