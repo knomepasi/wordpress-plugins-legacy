@@ -3,62 +3,70 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Simple Planet 1.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/simple-planet\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/simple-"
+"planet\n"
+"POT-Creation-Date: 2019-07-19T23:43:38+03:00\n"
+"PO-Revision-Date: 2019-07-19 23:44+0300\n"
+"Last-Translator: Pasi LAllinaho <pasi@shimmerproject.org>\n"
+"Language-Team: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-19T23:43:38+03:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.2.0\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Domain: simple-planet\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
 msgid "Simple Planet"
-msgstr ""
+msgstr "Yksinkertainen planeetta"
 
 #. Plugin URI of the plugin
 msgid "https://wordpress.knome.fi/"
-msgstr ""
+msgstr "https://wordpress.knome.fi/"
 
 #. Description of the plugin
-msgid "Widget that shows aggregated posts from one or more feeds sorted by date."
+msgid ""
+"Widget that shows aggregated posts from one or more feeds sorted by date."
 msgstr ""
+"Vimpain joka näyttää artikkeleita yhdeästä tai useammasta syötteestä "
+"päivämäärän mukaan järjestettynä."
 
 #. Author of the plugin
 msgid "Pasi Lallinaho"
-msgstr ""
+msgstr "Pasi Lallinaho"
 
 #. Author URI of the plugin
 msgid "https://open.knome.fi/"
-msgstr ""
+msgstr "https://open.knome.fi/"
 
 #: simple-planet.php:46
 msgid "Shows aggregated posts from one or more feeds sorted by date."
 msgstr ""
+"Näytä koostetut artikkelit yhdestä tai useammasta syötteestä päivämäärän "
+"mukaan järjestettynä."
 
 #: simple-planet.php:49
 msgctxt "widget name"
 msgid "Simple Planet"
-msgstr ""
+msgstr "Yksinkertainen planeetta"
 
 #: simple-planet.php:163
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: simple-planet.php:166
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: simple-planet.php:169
 msgid "Feeds (one per line)"
-msgstr ""
+msgstr "Syötteet (yksi per rivi)"
 
 #: simple-planet.php:172
 msgid "Items to show"
-msgstr ""
+msgstr "Kuinka monta kohdetta näytetään"
 
 #: simple-planet.php:175
 msgid "Minimum refresh interval (in minutes)"
-msgstr ""
+msgstr "Minimipäivitysaika (minuuteissa)"

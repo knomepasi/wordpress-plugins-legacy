@@ -1,7 +1,7 @@
 <?php
 /*
  *  Plugin Name: Simple Planet
- *  Description: Show posts from multiple feeds sorted by date via a widget.
+ *  Description: Widget that shows aggregated posts from one or more feeds sorted by date.
  *  Author: Pasi Lallinaho
  *  Version: 1.1
  *  Author URI: https://open.knome.fi/
@@ -43,7 +43,7 @@ add_action( 'widgets_init', function( ) { register_widget( 'SimplePlanetWidget' 
 class SimplePlanetWidget extends WP_Widget {
 	/** constructor */
 	function __construct( ) {
- 		$widget_ops = array( 'description' => __( 'Show aggregated posts from multiple feeds sorted by date via a widget.', 'simple-planet' ) );
+ 		$widget_ops = array( 'description' => __( 'Shows aggregated posts from one or more feeds sorted by date.', 'simple-planet' ) );
 		$control_ops = array( 'width' => 500, 'height' => 400 );
 
 		parent::__construct( 'simple-planet', _x( 'Simple Planet', 'widget name', 'simple-planet' ), $widget_ops, $control_ops );
