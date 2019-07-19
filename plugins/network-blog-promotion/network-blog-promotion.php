@@ -20,7 +20,7 @@
 add_action( 'plugins_loaded', 'network_blog_promotion_init' );
 
 function network_blog_promotion_init( ) {
-	load_plugin_textdomain( 'network-blog-promotion', false, dirname( plugin_basename( FILE ) ) . '/languages/' );
+	load_plugin_textdomain( 'network-blog-promotion', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /*
