@@ -1,24 +1,41 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Copyright (C) 2019 Pasi Lallinaho
+# This file is distributed under the same license as the Taxonomy Promotion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-18 02:12+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: Taxonomy Promotion 2.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/taxonomy-promotion\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-07-19T23:49:48+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: taxonomy-promotion\n"
+
+#. Plugin Name of the plugin
+msgid "Taxonomy Promotion"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.knome.fi/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Widget that shows posts from the selected taxonomy and term."
+msgstr ""
+
+#. Author of the plugin
+msgid "Pasi Lallinaho"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://open.knome.fi/"
+msgstr ""
 
 #: taxonomy-promotion.php:35
-msgid "Shows titles or excerpts in the selected taxonomy and term."
+msgid "Shows posts from the selected taxonomy and term."
 msgstr ""
 
 #: taxonomy-promotion.php:37
@@ -26,7 +43,8 @@ msgctxt "widget name"
 msgid "Taxonomy Promotion"
 msgstr ""
 
-#: taxonomy-promotion.php:82 taxonomy-promotion.php:91
+#: taxonomy-promotion.php:82
+#: taxonomy-promotion.php:91
 msgid "Read more"
 msgstr ""
 
@@ -71,7 +89,5 @@ msgid "Text for 'more items' link"
 msgstr ""
 
 #: taxonomy-promotion.php:192
-msgid ""
-"<b>Only if number of items is more than 0.</b> If you leave this field "
-"empty, no link will be shown."
+msgid "<b>Only if number of items is more than 0.</b> If you leave this field empty, no link will be shown."
 msgstr ""

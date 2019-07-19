@@ -3,21 +3,42 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Category Excerpts\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-18 02:12+0300\n"
-"PO-Revision-Date: 2015-06-18 02:12+0200\n"
-"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/taxonomy-"
+"promotion\n"
+"POT-Creation-Date: 2019-07-19T23:49:48+03:00\n"
+"PO-Revision-Date: 2019-07-19 23:50+0300\n"
+"Last-Translator: Pasi LAllinaho <pasi@shimmerproject.org>\n"
 "Language-Team: \n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. Plugin Name of the plugin
+msgid "Taxonomy Promotion"
+msgstr "Taksonomioiden promootio"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.knome.fi/"
+msgstr "https://wordpress.knome.fi/"
+
+#. Description of the plugin
+msgid "Widget that shows posts from the selected taxonomy and term."
+msgstr "Vimpain joka näyttää artikkeleita valitusta taksonomiasta ja termistä."
+
+#. Author of the plugin
+msgid "Pasi Lallinaho"
+msgstr "Pasi Lallinaho"
+
+#. Author URI of the plugin
+msgid "https://open.knome.fi/"
+msgstr "https://open.knome.fi/"
 
 #: taxonomy-promotion.php:35
-msgid "Shows titles or excerpts in the selected taxonomy and term."
-msgstr "Näyttää otsikot tai otteet valitusta taksonomiasta ja termistä."
+msgid "Shows posts from the selected taxonomy and term."
+msgstr "Näyttää artikkeleita valitusta taksonomiasta ja termistä."
 
 #: taxonomy-promotion.php:37
 msgctxt "widget name"
@@ -66,12 +87,12 @@ msgstr "Määrän arvolla 0 kaikki artikkelit listataan."
 
 #: taxonomy-promotion.php:190
 msgid "Text for 'more items' link"
-msgstr "Teksti 'lisää' -linkille"
+msgstr "Teksti 'lisää kohteita' -linkille"
 
 #: taxonomy-promotion.php:192
 msgid ""
-"<b>Only if number of items is more than 0.</b> If you leave this field empty, no "
-"link will be shown."
+"<b>Only if number of items is more than 0.</b> If you leave this field "
+"empty, no link will be shown."
 msgstr ""
 "<b>Vain jos listauksen pituus on yli 0.</b> Jos jätät tämän kentän tyhjäksi, "
 "linkkiä ei näytetä."

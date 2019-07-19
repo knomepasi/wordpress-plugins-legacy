@@ -1,7 +1,7 @@
 <?php
 /*
  *  Plugin Name: Taxonomy Promotion
- *  Description: Shows titles or excerpts in the selected taxonomy and term.
+ *  Description: Widget that shows posts from the selected taxonomy and term.
  *  Author: Pasi Lallinaho
  *  Version: 2.1.2
  *  Author URI: https://open.knome.fi/
@@ -32,7 +32,7 @@ add_action( 'widgets_init', function( ) { register_widget( 'TaxonomyPromotionWid
 class TaxonomyPromotionWidget extends WP_Widget {
 	/** constructor */
 	function __construct( ) {
-		$widget_ops = array( 'description' => __( 'Shows titles or excerpts in the selected taxonomy and term.', 'taxonomy-promotion' ) );
+		$widget_ops = array( 'description' => __( 'Shows posts from the selected taxonomy and term.', 'taxonomy-promotion' ) );
 
 		parent::__construct( 'taxonomy_promotion', _x( 'Taxonomy Promotion', 'widget name', 'taxonomy-promotion' ), $widget_ops );
 	}
