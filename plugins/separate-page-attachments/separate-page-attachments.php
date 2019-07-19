@@ -1,7 +1,7 @@
 <?php
 /*
- *  Plugin Name: Separate Page Attachment
- *  Description: Use a separate directory for page attachments.
+ *  Plugin Name: Separate Page Attachments
+ *  Description: Use a separate directory for attachments uploaded for pages.
  *  Author: Pasi Lallinaho
  *  Version: 0.1
  *  Author URI: https://open.knome.fi/
