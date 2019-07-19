@@ -6,38 +6,58 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-13 19:41+0300\n"
-"PO-Revision-Date: 2016-10-13 19:41+0300\n"
-"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/compact-"
+"chronological\n"
+"POT-Creation-Date: 2019-07-19T23:30:50+03:00\n"
+"PO-Revision-Date: 2019-07-19 23:31+0300\n"
+"Last-Translator: Pasi LAllinaho <pasi@shimmerproject.org>\n"
 "Language-Team: \n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: compact-chronological.php:47
+#. Plugin Name of the plugin
+msgid "Compact & Chronological"
+msgstr "Kompakti & kronologinen"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.knome.fi/"
+msgstr "https://wordpress.knome.fi/"
+
+#. Description of the plugin
+msgid "Show your monthly archive links in a compact view."
+msgstr "Näyttää kuukausittaiset arkistolinkit tiiviissä muodossa."
+
+#. Author of the plugin
+msgid "Pasi Lallinaho"
+msgstr "Pasi Lallinaho"
+
+#. Author URI of the plugin
+msgid "https://open.knome.fi/"
+msgstr "https://open.knome.fi/"
+
+#: compact-chronological.php:50
 msgctxt "widget name"
 msgid "Compact & Chronological"
 msgstr "Kompakti & kronologinen"
 
-#: compact-chronological.php:49
+#: compact-chronological.php:52
 msgid "Monthly archive links in a compact view."
 msgstr "Kuukausittaiset arkistolinkit tiiviissä muodossa."
 
-#: compact-chronological.php:85 compact-chronological.php:102
-#, php-format
+#. translators: amount of topics
+#: compact-chronological.php:84 compact-chronological.php:102
 msgid "%d topic"
 msgid_plural "%d topics"
 msgstr[0] "%d aihe"
 msgstr[1] "%d aihetta"
 
-#: compact-chronological.php:133
+#: compact-chronological.php:134
 msgid "Title"
 msgstr "Otsikko"
 
-#: compact-chronological.php:138
-msgid "Split to two rows?"
-msgstr "Jaa kahdelle riville?"
+#~ msgid "Split to two rows?"
+#~ msgstr "Jaa kahdelle riville?"

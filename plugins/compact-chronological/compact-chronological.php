@@ -80,6 +80,7 @@ class compact_chronological_Widget extends WP_Widget {
 
 			for( $y = $last_year; $y >= $first_year; $y-- ) {
 				echo '<div class="year">';
+				# translators: amount of topics
 				echo '<a class="year_name" href="' . get_year_link( $y ) . '" title="' . $y . ": " . sprintf( _n( '%d topic', '%d topics', $ycounts[$y], 'compact-chronological' ), $ycounts[$y] ) . '">';
 					echo '<span class="name">' . $y . '</span>';
 				echo '</a>';
