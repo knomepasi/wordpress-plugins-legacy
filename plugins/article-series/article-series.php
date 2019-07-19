@@ -1,5 +1,6 @@
 <?php
-/*  Plugin Name: Article Series
+/**
+ *  Plugin Name: Article Series
  *  Description: Organize your articles in article series and promote the created series with a widget.
  *  Author: Pasi Lallinaho
  *  Version: 1.0.3
@@ -8,7 +9,6 @@
  *
  *  License: GNU General Public License v2 or later
  *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
- *
  */
 
 /*
