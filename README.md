@@ -1,5 +1,7 @@
 # WordPress plugins by Pasi Lallinaho
 
+> These plugins are mostly considered in an unmaintained state since most of them do not support Gutenberg. Use at your own risk.
+
 This repository contains WordPress plugins by Pasi Lallinaho.
 
 The plugins are mostly written to satisfy a need in a personal or an open source website and are released under GPL v2 or later. 
