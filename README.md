@@ -23,9 +23,9 @@ Pull requests are also welcome, but unless the changes are trivial, please expla
 | Links with Descriptions           | A links widget with inline descriptions.
 | Network Blog Promotion            | A widget to promote other blogs on a network installation.
 | Photoslider                       | Show a slideshow of user uploaded photos.
-| Rationale for Email               | Adds custom email headers for comment-related emails.
 | Separate Page Attachments         | Use a separate directory for page attachments.
 | Simple Planet                     | Widget that shows aggregated posts from one or more feeds sorted by date.
 | Taxonomy Promotion                | Widget that shows posts from the selected taxonomy and term.
 | Years Since... (with formatting)  | A shortcode to retrieve the number of years since a specified date with formatting.
+| X-WordPress-Rationale             | Adds custom email header X-WordPress-Rationale for WordPress emails.
 
