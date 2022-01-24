@@ -57,6 +57,6 @@ class X_WordPress_Rationale {
 	}
 }
 
-// new X_WordPress_Rationale( );
+new X_WordPress_Rationale( );
 
 ?>
